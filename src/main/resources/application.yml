@@ -1,5 +1,5 @@
 server:
-  port: 9091
+  port: 9002
 
 spring:
   application:
@@ -10,7 +10,6 @@ spring:
     #  格式化返回时间 yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
@@ -25,13 +24,13 @@ jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: mall-admin-secret #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
-  tokenHead: 'Bearer '  #JWT负载中拿到开头
+  tokenHead: "Bearer " #JWT负载中拿到开头
 
 redis:
   database: bigdata
   key:
-    admin: 'ums:admin'
-    resourceList: 'ums:resourceList'
+    admin: "ums:admin"
+    resourceList: "ums:resourceList"
   expire:
     common: 86400 # 24小时
 
@@ -55,5 +54,3 @@ secure:
       # 测试开放
       - /dw/**
       - /ass/**
-
-
