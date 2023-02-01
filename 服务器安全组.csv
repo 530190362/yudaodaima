@@ -1,0 +1,25 @@
+﻿网络类型,授权方向,授权策略,IP协议,端口范围,优先级,源IP地址段,源IPv6地址段,源安全组,源端安全组名称,源安全组所属阿里云账户ID,源端端口范围,目标IP地址段,目的IPv6地址段,目标安全组,目的端安全组名称,目标安全组所属阿里云账户ID,描述信息
+intranet,ingress,Accept,ICMP,1,100,0.0.0.0/0,,,,,1,,,,,,ping
+intranet,ingress,Accept,TCP,1/65535,1,47.92.98.79,,,,,,,,,,,数据组服务器IP，开放所有的端口，自己访问自己使用公网方式
+intranet,ingress,Accept,TCP,22/22,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI ,远程登录"
+intranet,ingress,Accept,TCP,22/22,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,远程登录"
+intranet,ingress,Accept,TCP,80/80,1,220.191.233.0/24,,,,,,,,,,,区政府WIFI
+intranet,ingress,Accept,TCP,80/80,1,39.170.57.0/24,,,,,,,,,,,杭州办公点WIFI
+intranet,ingress,Accept,TCP,443/443,1,220.191.233.0/24,,,,,,,,,,,区政府WIFI
+intranet,ingress,Accept,TCP,443/443,1,39.170.57.0/24,,,,,,,,,,,杭州办公点WIFI
+intranet,ingress,Accept,TCP,9001/9001,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,前端服务"
+intranet,ingress,Accept,TCP,9001/9001,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,前端服务"
+intranet,ingress,Accept,TCP,9002/9002,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,后端服务"
+intranet,ingress,Accept,TCP,9002/9002,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,后端服务"
+intranet,ingress,Accept,TCP,9003/9003,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,mysql"
+intranet,ingress,Accept,TCP,9003/9003,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,mysql"
+intranet,ingress,Accept,TCP,9004/9004,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,redis"
+intranet,ingress,Accept,TCP,9004/9004,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,redis"
+intranet,ingress,Accept,TCP,9005/9005,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,MongoDB "
+intranet,ingress,Accept,TCP,9005/9005,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,MongoDB "
+intranet,ingress,Accept,TCP,9006/9006,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,neo4j "
+intranet,ingress,Accept,TCP,9006/9006,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,neo4j "
+intranet,ingress,Accept,TCP,9000/9000,1,220.191.233.0/24,,,,,,,,,,,区政府WIFI，Portainer 运维可视化
+intranet,ingress,Accept,TCP,9000/9000,1,39.170.57.0/24,,,,,,,,,,,杭州办公点WIFI，Portainer 运维可视化
+intranet,ingress,Accept,TCP,8999/8999,1,220.191.233.0/24,,,,,,,,,,,"区政府WIFI,IDEA连接docker"
+intranet,ingress,Accept,TCP,8999/8999,1,39.170.57.0/24,,,,,,,,,,,"杭州办公点WIFI,IDEA连接docker"

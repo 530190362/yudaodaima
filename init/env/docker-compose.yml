@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+  mysql:
+    container_name: mymysql
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - /data/mysql/mysql.cnf:/etc/mysql/conf.d
+      - /data/mysql/data:/var/lib/mysql
+      - /data/mysql/log:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      TZ: 'Asia/Shanghai'
+
+
+  mongo:
+    container_name: mymongo
+    image: mongo:4.4.8
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: '123456'
+
+
+  redis:
+    container_name: myredis
+    image: redis:6.0.8
+    ports:
+      - "6379:6379"
+    volumes:
+      - /data/redis/redis.conf:/etc/redis/redis.conf
+      - /data/redis:/data
+
+
+  neo4j:
+    container_name: myneo4j
+    image: neo4j:3.5
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - /data/neo4j/data:/data
+      - /data/neo4j/logs:/logs
+      - /data/neo4j/import:/var/lib/neo4j/import
+      - /data/neo4j/plugins:/plugins
+    environment:
+      NEO4J_AUTH: "neo4j/123456"
+
