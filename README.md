@@ -206,6 +206,7 @@ docker run -d -p 8000:8000 -p ${PORTAINER_PORT}:9000 --name ${PORTAINER_NAME} --
 1、普通
  
 java -jar bigdata-backstage-backend-1.0.0.jar
+nohup java -jar bigdata-backstage-backend-1.0.0.jar &
 
 2、容器化部署
 
