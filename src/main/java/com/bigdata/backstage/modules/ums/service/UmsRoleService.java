@@ -55,4 +55,9 @@ public interface UmsRoleService extends IService<UmsRole> {
      */
     @Transactional
     int allocResource(Long roleId, List<Long> resourceIds);
+
+    /**
+     * 更新角色数量
+     */
+    void updateRoleCount();
 }

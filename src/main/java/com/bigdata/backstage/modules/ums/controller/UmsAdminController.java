@@ -191,6 +191,7 @@ public class UmsAdminController {
                                    @RequestParam("roleIds") List<Long> roleIds) {
         int count = adminService.updateRole(adminId, roleIds);
         if (count >= 0) {
+            roleService.updateRoleCount();
             return CommonResult.success(count);
         }
         return CommonResult.failed();

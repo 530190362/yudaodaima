@@ -9,33 +9,35 @@ import com.bigdata.backstage.modules.ums.mapper.UmsMenuMapper;
 import com.bigdata.backstage.modules.ums.mapper.UmsResourceMapper;
 import com.bigdata.backstage.modules.ums.mapper.UmsRoleMapper;
 import com.bigdata.backstage.modules.ums.model.*;
-import com.bigdata.backstage.modules.ums.service.UmsAdminCacheService;
-import com.bigdata.backstage.modules.ums.service.UmsRoleMenuRelationService;
-import com.bigdata.backstage.modules.ums.service.UmsRoleResourceRelationService;
-import com.bigdata.backstage.modules.ums.service.UmsRoleService;
+import com.bigdata.backstage.modules.ums.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台角色管理Service实现类
  * Created by macro on 2018/9/30.
  */
 @Service
-public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole>implements UmsRoleService {
+public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> implements UmsRoleService {
     @Autowired
     private UmsAdminCacheService adminCacheService;
     @Autowired
     private UmsRoleMenuRelationService roleMenuRelationService;
     @Autowired
     private UmsRoleResourceRelationService roleResourceRelationService;
+
+    @Autowired
+    private UmsAdminRoleRelationService adminRoleRelationService;
     @Autowired
     private UmsMenuMapper menuMapper;
     @Autowired
     private UmsResourceMapper resourceMapper;
+
     @Override
     public boolean create(UmsRole role) {
         role.setCreateTime(new Date());
@@ -53,13 +55,13 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole>imple
 
     @Override
     public Page<UmsRole> list(String keyword, Integer pageSize, Integer pageNum) {
-        Page<UmsRole> page = new Page<>(pageNum,pageSize);
+        Page<UmsRole> page = new Page<>(pageNum, pageSize);
         QueryWrapper<UmsRole> wrapper = new QueryWrapper<>();
         LambdaQueryWrapper<UmsRole> lambda = wrapper.lambda();
-        if(StrUtil.isNotEmpty(keyword)){
-            lambda.like(UmsRole::getName,keyword);
+        if (StrUtil.isNotEmpty(keyword)) {
+            lambda.like(UmsRole::getName, keyword);
         }
-        return page(page,wrapper);
+        return page(page, wrapper);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole>imple
     public int allocMenu(Long roleId, List<Long> menuIds) {
         //先删除原有关系
         QueryWrapper<UmsRoleMenuRelation> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UmsRoleMenuRelation::getRoleId,roleId);
+        wrapper.lambda().eq(UmsRoleMenuRelation::getRoleId, roleId);
         roleMenuRelationService.remove(wrapper);
         //批量插入新关系
         List<UmsRoleMenuRelation> relationList = new ArrayList<>();
@@ -99,7 +101,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole>imple
     public int allocResource(Long roleId, List<Long> resourceIds) {
         //先删除原有关系
         QueryWrapper<UmsRoleResourceRelation> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UmsRoleResourceRelation::getRoleId,roleId);
+        wrapper.lambda().eq(UmsRoleResourceRelation::getRoleId, roleId);
         roleResourceRelationService.remove(wrapper);
         //批量插入新关系
         List<UmsRoleResourceRelation> relationList = new ArrayList<>();
@@ -112,5 +114,27 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole>imple
         roleResourceRelationService.saveBatch(relationList);
         adminCacheService.delResourceListByRole(roleId);
         return resourceIds.size();
+    }
+
+    /**
+     * 更新角色数量
+     */
+    @Override
+    public void updateRoleCount() {
+        QueryWrapper<UmsAdminRoleRelation> wrapper = new QueryWrapper<UmsAdminRoleRelation>()
+                .select("role_id,count(admin_id) as field_count")
+                .groupBy("role_id");
+        List<Map<String, Object>> maps = adminRoleRelationService.listMaps(wrapper);
+        for (Map<String, Object> map : maps) {
+            System.out.println("------------------");
+            Long roleId = Long.valueOf(map.get("role_id").toString());
+            Integer count = Integer.valueOf(map.get("field_count").toString());
+            UmsRole role = new UmsRole();
+            role.setId(roleId);
+            role.setAdminCount(count);
+            updateById(role);
+            System.out.println(role);
+            System.out.println("------------------");
+        }
     }
 }
