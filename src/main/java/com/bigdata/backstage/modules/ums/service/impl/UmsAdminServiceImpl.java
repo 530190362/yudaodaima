@@ -272,4 +272,18 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     public UmsAdminCacheService getCacheService() {
         return SpringUtil.getBean(UmsAdminCacheService.class);
     }
+
+
+    /**
+     * 通过 id ， 更新用户的登录时间
+     * @param id 用户id
+     */
+    @Override
+    public void updateLoginTimeById(Long id) {
+        UmsAdmin record = new UmsAdmin();
+        record.setLoginTime(new Date());
+        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UmsAdmin::getId,id);
+        update(record,wrapper);
+    }
 }

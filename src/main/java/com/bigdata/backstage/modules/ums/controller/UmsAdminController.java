@@ -103,6 +103,7 @@ public class UmsAdminController {
             List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
             data.put("roles",roles);
         }
+        adminService.updateLoginTimeById(umsAdmin.getId());
         return CommonResult.success(data);
     }
 

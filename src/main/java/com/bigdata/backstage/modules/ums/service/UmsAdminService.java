@@ -86,4 +86,10 @@ public interface UmsAdminService extends IService<UmsAdmin> {
      * 获取缓存服务
      */
     UmsAdminCacheService getCacheService();
+
+    /**
+     * 通过 id ， 更新用户的登录时间
+     * @param id 用户id
+     */
+    void updateLoginTimeById(Long id);
 }
