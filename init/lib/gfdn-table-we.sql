@@ -1,4 +1,4 @@
-CREATE TABLE `dim_e_data_gov_meta_quality` (
+CREATE TABLE `dim_gfdn_meta_quality` (
   `table_name` varchar(255) DEFAULT NULL COMMENT '表名',
   `table_comment` varchar(255) DEFAULT NULL COMMENT '表备注',
   `col_name` varchar(255) DEFAULT NULL COMMENT '字段名',
@@ -14,10 +14,10 @@ CREATE TABLE `dim_e_data_gov_meta_quality` (
   `spend_time` varchar(255) DEFAULT NULL COMMENT '读取记录数花费的时间单位:秒',
   `etl_tm` varchar(255) DEFAULT NULL COMMENT 'ETL时间',
   `dt` varchar(255) DEFAULT NULL COMMENT '分区'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='元数据质量表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='odps元数据质量表';
 
 
-CREATE TABLE `dim_e_data_gov_meta_detail_outline` (
+CREATE TABLE `dim_gfdn_meta_detail_outline` (
   `pro_name` varchar(255) DEFAULT NULL COMMENT '项目名称',
   `tbl_level` varchar(255) DEFAULT NULL COMMENT '表层级',
   `tbl_name` varchar(255) DEFAULT NULL COMMENT '表英文名',
@@ -38,9 +38,9 @@ CREATE TABLE `dim_e_data_gov_meta_detail_outline` (
   `tbl_size` varchar(255) DEFAULT NULL COMMENT '表大小 单位:MB',
   `etl_tm` varchar(255) DEFAULT NULL COMMENT 'ETL时间',
   `dt` varchar(255) DEFAULT NULL COMMENT '分区'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='元数据宽表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='odps元数据宽表';
 
-CREATE TABLE `dim_e_data_gov_meta_blood_relation_detail` (
+CREATE TABLE `dim_gfdn_meta_blood_relation_detail` (
   `ins_name` varchar(255) DEFAULT NULL COMMENT '调度节点名称',
   `tbl_out_en` varchar(255) DEFAULT NULL COMMENT '输出表英文名',
   `tbl_out_zh` varchar(255) DEFAULT NULL COMMENT '输出表中文名',
@@ -48,4 +48,5 @@ CREATE TABLE `dim_e_data_gov_meta_blood_relation_detail` (
   `tbl_in_zh` varchar(255) DEFAULT NULL COMMENT '输入表中文名',
   `etl_tm` varchar(255) DEFAULT NULL COMMENT 'ETL时间',
   `dt` varchar(255) DEFAULT NULL COMMENT '分区'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据血缘明细表';
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='odps数据血缘明细表';
