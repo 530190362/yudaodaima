@@ -1,23 +1,32 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # mysql 配置
   datasource:
-    url: jdbc:mysql://hadoop103:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://124.221.163.103:9003/backstage?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
+  # redis 配置
   redis:
-    host: hadoop103 # Redis服务器地址
+    host: 124.221.163.103 # Redis服务器地址
     database: 0 # Redis数据库索引（默认为0）
-    port: 6379 # Redis服务器连接端口
+    port: 9004 # Redis服务器连接端口
     password: 123456 # Redis服务器连接密码（默认为空）
     timeout: 3000ms # 连接超时时间（毫秒）
 
 logging:
   file:
-    path: /var/logs
+    path: /home/bigdata/logs
   level:
     root: info
     com.bigdata.com.bigdata.backstage: info
 
+# 集群信息
 cluster:
   hadoop: http://124.221.162.229:9870/
   neo4j: http://124.221.163.103:9006/browser/
   docker: http://124.221.163.103:9000/
+
+# 数仓编号  0(互联网环境)  1、共富大脑(政务网)  2、青燕归巢(政务网) 3、e家富(政务网)
+dw: 1

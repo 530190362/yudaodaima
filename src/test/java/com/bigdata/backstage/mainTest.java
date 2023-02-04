@@ -4,16 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bigdata.backstage.modules.ums.model.UmsAdminRoleRelation;
 import com.bigdata.backstage.modules.ums.model.UmsRole;
 import com.bigdata.backstage.modules.ums.service.UmsAdminRoleRelationService;
-import com.bigdata.backstage.modules.ums.service.UmsAdminService;
 import com.bigdata.backstage.modules.ums.service.UmsRoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-
 
 
 @SpringBootTest
 public class mainTest {
+
+
+    @Value("${dw}")
+    private String name;
 
     @Autowired
     private UmsRoleService umsRoleService;
@@ -34,10 +38,14 @@ public class mainTest {
         umsRole.setAdminCount((int) roleCount);
         System.out.println(umsRole);
         umsRoleService.updateById(umsRole);
-
 //        long count = umsAdminService.count();
+    }
 
-
+    @Test
+    public void  test2(){
+//        System.out.println(id);
+        System.out.println(name);
 
     }
+
 }

@@ -1,5 +1,4 @@
 spring:
-  # swagger 是否显示
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -17,11 +16,17 @@ spring:
     timeout: 3000ms # 连接超时时间（毫秒）
 
 logging:
+  file:
+    path: /home/bigdata/logs
   level:
     root: info
-    com.bigdata.backstage: debug
+    com.bigdata.com.bigdata.backstage: debug
 
+# 集群信息
 cluster:
   hadoop: http://124.221.162.229:9870/
   neo4j: http://124.221.163.103:9006/browser/
   docker: http://124.221.163.103:9000/
+
+# 数仓编号  0(互联网环境)  1、共富大脑(政务网)  2、青燕归巢(政务网) 3、e家富(政务网)
+dw: 1
