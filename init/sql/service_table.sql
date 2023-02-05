@@ -16,7 +16,7 @@ use backstage;
 # SET @dwID = 1;
 # select @dwID;
 
--- (共富大脑仓)表的总数
+-- (共富大脑仓)拉链表(缓慢变化维度表)
 create or replace view `view_gfdn_met_record_zip`
 as
 select '表总张数' as name, count(*) as value
@@ -92,16 +92,19 @@ from (select distinct tbl_name
 drop table if exists `met_dw_info`;
 CREATE TABLE if not exists `met_dw_info`
 (
-    `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-    `dw_name_en`       varchar(50)  DEFAULT NULL COMMENT '数仓名称(英文)',
-    `dw_name_zn`       varchar(50)  DEFAULT NULL COMMENT '数仓名称(中文)',
-    `dw_desc`       varchar(255)  DEFAULT NULL COMMENT '数仓描述',
-    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `is_deleted` tinyint(1) DEFAULT 0 COMMENT '是否删除 1-是 0-否',
+    `id`          int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `dw_name_en`  varchar(50)  DEFAULT NULL COMMENT '数仓名称(英文)',
+    `dw_name_zn`  varchar(50)  DEFAULT NULL COMMENT '数仓名称(中文)',
+    `dw_desc`     varchar(255) DEFAULT NULL COMMENT '数仓描述',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted`  tinyint(1)   DEFAULT 0 COMMENT '是否删除 1-是 0-否',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='数仓主表';
+
+
+
 
 
 
@@ -120,19 +123,18 @@ CREATE TABLE if not exists `met_record_zip`
 
 
 -- 列转行
-select
-1 as dw_id,
-SUM(IF(name ='表总张数',value,0)) AS '表总张数',
-SUM(IF(name ='占磁盘大小',value,0)) AS '占磁盘大小',
-SUM(IF(name ='总字段个数',value,0)) AS '总字段个数',
-SUM(IF(name ='总数据记录数据',value,0)) AS '总数据记录数据',
-SUM(IF(name ='ODS层表的总数',value,0)) AS 'ODS层表的总数',
-SUM(IF(name ='DWD层表的总数',value,0)) AS 'DWD层表的总数',
-SUM(IF(name ='DIM层表的总数',value,0)) AS 'DIM层表的总数',
-SUM(IF(name ='DWS层表的总数',value,0)) AS 'DWS层表的总数',
-SUM(IF(name ='DWT层表的总数',value,0)) AS 'DWT层表的总数',
-SUM(IF(name ='DWM层表的总数',value,0)) AS 'DWM层表的总数',
-SUM(IF(name ='ADS层表的总数',value,0)) AS 'ADS层表的总数',
-current_date as update_date
+select 1                                          as dw_id,
+       SUM(IF(name = '表总张数', value, 0))       AS '表总张数',
+       SUM(IF(name = '占磁盘大小', value, 0))     AS '占磁盘大小',
+       SUM(IF(name = '总字段个数', value, 0))     AS '总字段个数',
+       SUM(IF(name = '总数据记录数据', value, 0)) AS '总数据记录数据',
+       SUM(IF(name = 'ODS层表的总数', value, 0))  AS 'ODS层表的总数',
+       SUM(IF(name = 'DWD层表的总数', value, 0))  AS 'DWD层表的总数',
+       SUM(IF(name = 'DIM层表的总数', value, 0))  AS 'DIM层表的总数',
+       SUM(IF(name = 'DWS层表的总数', value, 0))  AS 'DWS层表的总数',
+       SUM(IF(name = 'DWT层表的总数', value, 0))  AS 'DWT层表的总数',
+       SUM(IF(name = 'DWM层表的总数', value, 0))  AS 'DWM层表的总数',
+       SUM(IF(name = 'ADS层表的总数', value, 0))  AS 'ADS层表的总数',
+       current_date                               as update_date
 from view_gfdn_met_record_zip;
 
