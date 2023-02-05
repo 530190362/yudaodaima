@@ -1,0 +1,3970 @@
+{
+  "paper": {
+    "name": "A0",
+    "leftMargin": 0.5,
+    "rightMargin": 0.5,
+    "topMargin": 0.5,
+    "bottomMargin": 0.5,
+    "isPortriat": false
+  },
+  "modelVersion": 2.01,
+  "defaultSchema": "default",
+  "server": {
+    "objectType": "Server_LOGICAL",
+    "name": "Default",
+    "schemas": [
+      {
+        "objectType": "Schema_LOGICAL",
+        "name": "default",
+        "tables": [
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.view_gfdn_met_record_zip",
+            "comment": "",
+            "oldName": "view_gfdn_met_record_zip",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "name",
+                "type": "",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "value",
+                "type": "",
+                "length": 0,
+                "decimals": 0,
+                "isNullable": true,
+                "defaultType": "None",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "value"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.view_gfdn_met_record_zip_backstage.met_record_zip_1",
+                "fields": [
+                  "name"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.met_record_zip",
+                "referencedFields": [
+                  "table_count"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "gfdn_odps_export.dim_gfdn_meta_quality",
+            "comment": "水印库导出(共富大脑)数据质量表",
+            "oldName": "dim_gfdn_meta_quality",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "table_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "table_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "table_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "table_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "distinct_count",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "distinct_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "total_count",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "total_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "max_len",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "max_len"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "min_len",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "min_len"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "max_value",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "max_value"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_id",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "min_value",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "min_value"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "spend_name",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "spend_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "null_count",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "null_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "null_rate",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "null_rate"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "spend_time",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "spend_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "etl_tm",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "etl_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "dt"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.met_blood_relation_detail",
+            "comment": "odps数据血缘明细表",
+            "oldName": "met_blood_relation_detail",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "自增主键",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_id",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓id",
+                "oldName": "dw_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ins_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "调度节点名称",
+                "oldName": "ins_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_out_en",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "输出表英文名",
+                "oldName": "tbl_out_en"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_out_zh",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "输出表中文名",
+                "oldName": "tbl_out_zh"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_in_en",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "输入表英文名",
+                "oldName": "tbl_in_en"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_in_zh",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "输入表中文名",
+                "oldName": "tbl_in_zh"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "etl_tm",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ETL时间",
+                "oldName": "etl_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "分区",
+                "oldName": "dt"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "更新时间",
+                "oldName": "update_time"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.met_detail_outline",
+            "comment": "ODPS元数据宽表",
+            "oldName": "met_detail_outline",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "自增主键",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_id",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓id",
+                "oldName": "dw_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_level",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表层级",
+                "oldName": "tbl_level"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表英文名",
+                "oldName": "tbl_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表中文名",
+                "oldName": "tbl_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "字段名",
+                "oldName": "col_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_type",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "字段类型",
+                "oldName": "col_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "字段备注",
+                "oldName": "col_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_col_num",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "字段数",
+                "oldName": "tbl_col_num"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "row_num",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "行数",
+                "oldName": "row_num"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "index1_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表一级明细",
+                "oldName": "index1_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "index2_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表二级明细",
+                "oldName": "index2_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "index3_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表三级明细",
+                "oldName": "index3_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "is_pt",
+                "type": "BIT",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "是否是分区表 1-是 0-否",
+                "oldName": "is_pt"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pt_last",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最新分区",
+                "oldName": "pt_last"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表创建时间",
+                "oldName": "tbl_create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表更新时间",
+                "oldName": "tbl_update_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_lifecycle",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表生命周期",
+                "oldName": "tbl_lifecycle"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_type",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表类型 内部表/外部表",
+                "oldName": "tbl_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_size",
+                "type": "DECIMAL",
+                "length": 16,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表大小 单位:MB",
+                "oldName": "tbl_size"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "etl_tm",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ETL时间",
+                "oldName": "etl_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "分区",
+                "oldName": "dt"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "更新时间",
+                "oldName": "update_time"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.met_detail_outline_backstage.view_gfdn_met_record_zip_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.view_gfdn_met_record_zip",
+                "referencedFields": [
+                  "name"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.met_quality",
+            "comment": "odps元数据质量表",
+            "oldName": "met_quality",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "自增主键",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_id",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓id",
+                "oldName": "dw_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "table_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表名",
+                "oldName": "table_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "table_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表备注",
+                "oldName": "table_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "字段名",
+                "oldName": "col_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "字段备注",
+                "oldName": "col_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "distinct_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "去重记录数",
+                "oldName": "distinct_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "total_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "总记录数(最近的分区)",
+                "oldName": "total_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "max_len",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最大长度",
+                "oldName": "max_len"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "min_len",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最小长度",
+                "oldName": "min_len"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "max_value",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最大值",
+                "oldName": "max_value"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "min_value",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最小值",
+                "oldName": "min_value"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "null_count",
+                "type": "DECIMAL",
+                "length": 16,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "空值数",
+                "oldName": "null_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "null_rate",
+                "type": "DECIMAL",
+                "length": 16,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "空值率",
+                "oldName": "null_rate"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "spend_time",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "读取记录数花费的时间单位:秒",
+                "oldName": "spend_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "etl_tm",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ETL时间",
+                "oldName": "etl_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "分区",
+                "oldName": "dt"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "更新时间",
+                "oldName": "update_time"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.met_quality_gfdn_odps_export.dim_gfdn_meta_quality_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "gfdn_odps_export.dim_gfdn_meta_quality",
+                "referencedFields": [
+                  "table_name"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.met_record_zip",
+            "comment": "ODPS元数据记录拉链表",
+            "oldName": "met_record_zip",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "自增主键",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_id",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓id",
+                "oldName": "dw_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表总张数",
+                "oldName": "table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "disk_size",
+                "type": "DECIMAL",
+                "length": 16,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓id",
+                "oldName": "disk_size"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "总字段个数",
+                "oldName": "col_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "row_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "总数据记录数据",
+                "oldName": "row_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ods_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ODS层表的总数",
+                "oldName": "ods_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dwd_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWD层表的总数",
+                "oldName": "dwd_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dim_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DIM层表的总数",
+                "oldName": "dim_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dws_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWS层表的总数",
+                "oldName": "dws_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dwt_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWT层表的总数",
+                "oldName": "dwt_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dwm_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWM层表的总数",
+                "oldName": "dwm_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ads_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ADS层表的总数",
+                "oldName": "ads_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_date",
+                "type": "DATE",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "更新日期",
+                "oldName": "update_date"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "更新时间",
+                "oldName": "update_time"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "gfdn_odps_export.dim_gfdn_meta_blood_relation_detail",
+            "comment": "水印库导出(共富大脑)数据血缘表",
+            "oldName": "dim_gfdn_meta_blood_relation_detail",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ins_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "ins_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ins_id",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "ins_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "group_tm",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "group_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_out_en",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_out_en"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_out_zh",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_out_zh"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "group_en",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "group_en"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_in_en",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_in_en"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_in_zh",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_in_zh"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "etl_tm",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "etl_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "dt"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_gfdn_odps_export.dim_gfdn_meta_blood_relation_detail_gfdn_odps_export.dim_gfdn_meta_blood_relation_detail_1",
+                "fields": [
+                  "ins_name"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.met_blood_relation_detail",
+                "referencedFields": [],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "gfdn_odps_export.dim_gfdn_meta_detail_outline",
+            "comment": "水印库导出(共富大脑)元数据宽表",
+            "oldName": "dim_gfdn_meta_detail_outline",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "is_size",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "is_size"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pro_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "pro_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_level",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_level"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_type",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_comment",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_comment"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "is_time",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "is_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_col_num",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_col_num"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pt_num",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "pt_num"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_size",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "col_size"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "index1_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "index1_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "index2_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "index2_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "index3_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "index3_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "is_pt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "is_pt"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "pt_last",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "pt_last"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_create_time",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_update_time",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_update_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_lifecycle",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_lifecycle"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_type",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_type"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "tbl_size",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "tbl_size"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "etl_tm",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "etl_tm"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dt",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "dt"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_gfdn_odps_export.dim_gfdn_meta_detail_outline_gfdn_odps_export.dim_gfdn_meta_detail_outline_1",
+                "fields": [
+                  "is_size"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.met_detail_outline",
+                "referencedFields": [],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": []
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.met_dw_info",
+            "comment": "数仓主表",
+            "oldName": "met_dw_info",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "INTEGER",
+                "length": 5,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "自增主键",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_name_en",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓名称(英文)",
+                "oldName": "dw_name_en"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_name_zn",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 50,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓名称(中文)",
+                "oldName": "dw_name_zn"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_desc",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 255,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓描述",
+                "oldName": "dw_desc"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "更新时间",
+                "oldName": "update_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "is_deleted",
+                "type": "BIT",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "是否删除 1-是 0-否",
+                "oldName": "is_deleted"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.met_dw_info_backstage.met_blood_relation_detail_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.met_blood_relation_detail",
+                "referencedFields": [
+                  "dw_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "外键",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.met_dw_info_backstage.met_detail_outline_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.met_detail_outline",
+                "referencedFields": [
+                  "dw_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.met_dw_info_backstage.met_quality_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.met_quality",
+                "referencedFields": [
+                  "dw_id"
+                ],
+                "sourceCardinality": "OneAndOnlyOneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_admin",
+            "comment": "后台用户表",
+            "oldName": "ums_admin",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "username",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "username"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "password",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "password"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "icon",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "头像",
+                "oldName": "icon"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "email",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "邮箱",
+                "oldName": "email"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "nick_name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "昵称",
+                "oldName": "nick_name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "note",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "备注信息",
+                "oldName": "note"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "login_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "最后登录时间",
+                "oldName": "login_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "1",
+                "comment": "帐号启用状态：0->禁用；1->启用",
+                "oldName": "status"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_admin_backstage.ums_admin_role_relation_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_admin_role_relation",
+                "referencedFields": [
+                  "admin_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_admin_login_log",
+            "comment": "后台用户登录日志表",
+            "oldName": "ums_admin_login_log",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "admin_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "admin_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ip",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 64,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "ip"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "address",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "address"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "user_agent",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "浏览器登录类型",
+                "oldName": "user_agent"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_admin_login_log_backstage.ums_admin_1",
+                "fields": [
+                  "admin_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_admin",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_admin_role_relation",
+            "comment": "后台用户和角色关系表",
+            "oldName": "ums_admin_role_relation",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "admin_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "admin_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "role_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "role_id"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_admin_role_relation_backstage.ums_role_1",
+                "fields": [
+                  "role_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_role",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_menu",
+            "comment": "后台菜单表",
+            "oldName": "ums_menu",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "parent_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "父级ID",
+                "oldName": "parent_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "title",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "菜单名称",
+                "oldName": "title"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "level",
+                "type": "INTEGER",
+                "length": 4,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "菜单级数",
+                "oldName": "level"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sort",
+                "type": "INTEGER",
+                "length": 4,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "菜单排序",
+                "oldName": "sort"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "前端名称",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "icon",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "前端图标",
+                "oldName": "icon"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "hidden",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "前端隐藏",
+                "oldName": "hidden"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_menu_backstage.ums_role_menu_relation_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_role_menu_relation",
+                "referencedFields": [
+                  "menu_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_resource",
+            "comment": "后台资源表",
+            "oldName": "ums_resource",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "资源名称",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "url",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "资源URL",
+                "oldName": "url"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "description",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "描述",
+                "oldName": "description"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "category_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "资源分类ID",
+                "oldName": "category_id"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_resource_backstage.ums_resource_category_1",
+                "fields": [
+                  "category_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_resource_category",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_resource_category",
+            "comment": "资源分类表",
+            "oldName": "ums_resource_category",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 200,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "分类名称",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sort",
+                "type": "INTEGER",
+                "length": 4,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "排序",
+                "oldName": "sort"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_role",
+            "comment": "后台用户角色表",
+            "oldName": "ums_role",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "name",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 100,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "名称",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "description",
+                "type": "NATIONAL CHARACTER VARYING",
+                "length": 500,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "描述",
+                "oldName": "description"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "admin_count",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "后台用户数量",
+                "oldName": "admin_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "create_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "创建时间",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "status",
+                "type": "INTEGER",
+                "length": 1,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "1",
+                "comment": "启用状态：0->禁用；1->启用",
+                "oldName": "status"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "sort",
+                "type": "INTEGER",
+                "length": 11,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "comment": "",
+                "oldName": "sort"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_role_backstage.ums_role_menu_relation_1",
+                "fields": [
+                  "id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_role_menu_relation",
+                "referencedFields": [
+                  "role_id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_role_menu_relation",
+            "comment": "后台角色菜单关系表",
+            "oldName": "ums_role_menu_relation",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "role_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "角色ID",
+                "oldName": "role_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "menu_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "菜单ID",
+                "oldName": "menu_id"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.ums_role_resource_relation",
+            "comment": "后台角色资源关系表",
+            "oldName": "ums_role_resource_relation",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "role_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "角色ID",
+                "oldName": "role_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "resource_id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "资源ID",
+                "oldName": "resource_id"
+              }
+            ],
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_role_resource_relation_backstage.ums_role_1",
+                "fields": [
+                  "role_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_role",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_LOGICAL",
+                "name": "fk_backstage.ums_role_resource_relation_backstage.ums_resource_1",
+                "fields": [
+                  "resource_id"
+                ],
+                "referencedSchema": "default",
+                "referencedTable": "backstage.ums_resource",
+                "referencedFields": [
+                  "id"
+                ],
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "comment": "",
+                "oldName": ""
+              }
+            ],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "name": "数仓模块",
+      "paperWidth": 1,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "default",
+      "showFieldComment": true,
+      "showTableComment": true,
+      "shapes": [
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.view_gfdn_met_record_zip",
+          "x": 1860,
+          "y": 1340,
+          "width": 277,
+          "height": 90,
+          "isBold": false,
+          "titleColor": {
+            "r": 255,
+            "g": 214,
+            "b": 147,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "gfdn_odps_export.dim_gfdn_meta_blood_relation_detail",
+          "x": 1300,
+          "y": 520,
+          "width": 300,
+          "height": 120,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "gfdn_odps_export.dim_gfdn_meta_detail_outline",
+          "x": 1300,
+          "y": 990,
+          "width": 310,
+          "height": 130,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "gfdn_odps_export.dim_gfdn_meta_quality",
+          "x": 1300,
+          "y": 770,
+          "width": 309,
+          "height": 100,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.met_blood_relation_detail",
+          "x": 1830,
+          "y": 500,
+          "width": 274,
+          "height": 140,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.met_detail_outline",
+          "x": 1860,
+          "y": 950,
+          "width": 223,
+          "height": 180,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.met_dw_info",
+          "x": 2500,
+          "y": 720,
+          "width": 450,
+          "height": 300,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.met_quality",
+          "x": 1830,
+          "y": 750,
+          "width": 282,
+          "height": 150,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.met_record_zip",
+          "x": 1860,
+          "y": 1560,
+          "width": 250,
+          "height": 370,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "note",
+          "name": "Note 1",
+          "x": 740,
+          "y": 750,
+          "width": 460,
+          "height": 70,
+          "text": "存储过程+定时器 实现每日写入",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 30,
+          "isFontBold": true,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 1 Copy 2 Copy 1",
+          "x": 2030,
+          "y": 1210,
+          "width": 460,
+          "height": 70,
+          "text": "视图union all(共富大脑数仓)",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 30,
+          "isFontBold": true,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 1 Copy 2 Copy 1 Copy 1",
+          "x": 2140,
+          "y": 1400,
+          "width": 340,
+          "height": 190,
+          "text": "存储过程+定时器\r\n实现每日写入",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 232,
+            "b": 107,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 30,
+          "isFontBold": true,
+          "isFontItalic": false
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 1",
+          "opacity": 1.0,
+          "lineWidth": 3,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 1200,
+              "y": 770
+            },
+            {
+              "x": 1290,
+              "y": 580
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 1 Copy 1",
+          "opacity": 1.0,
+          "lineWidth": 3,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 1210,
+              "y": 790
+            },
+            {
+              "x": 1300,
+              "y": 830
+            }
+          ]
+        },
+        {
+          "type": "arrow",
+          "name": "Arrow 1 Copy 2",
+          "opacity": 1.0,
+          "lineWidth": 3,
+          "dashStyle": "solid",
+          "capStyle": "flat",
+          "joinStyle": "miter",
+          "beginStyle": "none",
+          "endStyle": "normal",
+          "vertices": [
+            {
+              "x": 1220,
+              "y": 810
+            },
+            {
+              "x": 1300,
+              "y": 1060
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "name": "Note 1 Copy 2 Copy 1 Copy 1 Copy 1",
+          "x": 2120,
+          "y": 1840,
+          "width": 340,
+          "height": 90,
+          "text": "列转行 (首页接口表)\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 157,
+            "b": 157,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 30,
+          "isFontBold": true,
+          "isFontItalic": false
+        },
+        {
+          "type": "note",
+          "name": "Note 1 Copy 2 Copy 1 Copy 1 Copy 1 Copy 1",
+          "x": 2780,
+          "y": 570,
+          "width": 340,
+          "height": 90,
+          "text": " (平台数仓信息接口表)\r\n",
+          "style": "note",
+          "noteColor": {
+            "r": 255,
+            "g": 157,
+            "b": 157,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 30,
+          "isFontBold": true,
+          "isFontItalic": false
+        },
+        {
+          "type": "rectangle",
+          "name": "Rectangle 1",
+          "x": 530,
+          "y": 210,
+          "width": 3140,
+          "height": 1860,
+          "opacity": 1.0,
+          "isBold": true,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 540,
+            "y": 320,
+            "width": 87,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "type": "rectangle",
+          "name": "Rectangle 1 Copy 1",
+          "x": 520,
+          "y": 2240,
+          "width": 3140,
+          "height": 1860,
+          "opacity": 1.0,
+          "isBold": true,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 530,
+            "y": 2350,
+            "width": 137,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "layers": [],
+      "relations": [
+        {
+          "name": "fk_gfdn_odps_export.dim_gfdn_meta_blood_relation_detail_gfdn_odps_export.dim_gfdn_meta_blood_relation_detail_1",
+          "sourceTableName": "gfdn_odps_export.dim_gfdn_meta_blood_relation_detail",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1615,
+              "y": 580
+            },
+            {
+              "x": 1640,
+              "y": 580
+            },
+            {
+              "x": 1640,
+              "y": 580
+            },
+            {
+              "x": 1815,
+              "y": 580
+            }
+          ],
+          "label": {
+            "x": 1605,
+            "y": 542,
+            "width": 796,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_gfdn_odps_export.dim_gfdn_meta_detail_outline_gfdn_odps_export.dim_gfdn_meta_detail_outline_1",
+          "sourceTableName": "gfdn_odps_export.dim_gfdn_meta_detail_outline",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1625,
+              "y": 1060
+            },
+            {
+              "x": 1660,
+              "y": 1060
+            },
+            {
+              "x": 1660,
+              "y": 1040
+            },
+            {
+              "x": 1845,
+              "y": 1040
+            }
+          ],
+          "label": {
+            "x": 1615,
+            "y": 1022,
+            "width": 696,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.met_quality_gfdn_odps_export.dim_gfdn_meta_quality_1",
+          "sourceTableName": "backstage.met_quality",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1815,
+              "y": 830
+            },
+            {
+              "x": 1630,
+              "y": 830
+            },
+            {
+              "x": 1630,
+              "y": 820
+            },
+            {
+              "x": 1624,
+              "y": 820
+            }
+          ],
+          "label": {
+            "x": 1470,
+            "y": 792,
+            "width": 473,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.met_dw_info_backstage.met_blood_relation_detail_1",
+          "sourceTableName": "backstage.met_dw_info",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2485,
+              "y": 780
+            },
+            {
+              "x": 2230,
+              "y": 780
+            },
+            {
+              "x": 2119,
+              "y": 580
+            }
+          ],
+          "label": {
+            "x": 2050,
+            "y": 742,
+            "width": 445,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.met_dw_info_backstage.met_detail_outline_1",
+          "sourceTableName": "backstage.met_dw_info",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2485,
+              "y": 790
+            },
+            {
+              "x": 2370,
+              "y": 790
+            },
+            {
+              "x": 2370,
+              "y": 1110
+            },
+            {
+              "x": 2098,
+              "y": 1110
+            }
+          ],
+          "label": {
+            "x": 2100,
+            "y": 752,
+            "width": 395,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.met_dw_info_backstage.met_quality_1",
+          "sourceTableName": "backstage.met_dw_info",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2485,
+              "y": 790
+            },
+            {
+              "x": 2360,
+              "y": 790
+            },
+            {
+              "x": 2127,
+              "y": 790
+            }
+          ],
+          "label": {
+            "x": 2146,
+            "y": 752,
+            "width": 349,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.met_detail_outline_backstage.view_gfdn_met_record_zip_1",
+          "sourceTableName": "backstage.met_detail_outline",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1970,
+              "y": 1145
+            },
+            {
+              "x": 1970,
+              "y": 1240
+            },
+            {
+              "x": 2000,
+              "y": 1240
+            },
+            {
+              "x": 2000,
+              "y": 1325
+            }
+          ],
+          "label": {
+            "x": 1978,
+            "y": 1135,
+            "width": 485,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.view_gfdn_met_record_zip_backstage.met_record_zip_1",
+          "sourceTableName": "backstage.view_gfdn_met_record_zip",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2000,
+              "y": 1445
+            },
+            {
+              "x": 2000,
+              "y": 1490
+            },
+            {
+              "x": 1990,
+              "y": 1490
+            },
+            {
+              "x": 1990,
+              "y": 1545
+            }
+          ],
+          "label": {
+            "x": 2008,
+            "y": 1435,
+            "width": 462,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "viewRelations": []
+    },
+    {
+      "name": "权限模块",
+      "paperWidth": 1,
+      "paperHeight": 1,
+      "tableFont": "Arial Unicode MS",
+      "tableFontSize": 14,
+      "isBalckWhite": false,
+      "showDBSchemaName": false,
+      "showViewRelations": true,
+      "notation": "default",
+      "showFieldComment": true,
+      "showTableComment": true,
+      "shapes": [
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_admin",
+          "x": 60,
+          "y": 630,
+          "width": 301,
+          "height": 250,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_admin_login_log",
+          "x": 60,
+          "y": 340,
+          "width": 303,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_admin_role_relation",
+          "x": 60,
+          "y": 960,
+          "width": 269,
+          "height": 130,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_menu",
+          "x": 420,
+          "y": 380,
+          "width": 274,
+          "height": 230,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_resource",
+          "x": 800,
+          "y": 640,
+          "width": 305,
+          "height": 200,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_resource_category",
+          "x": 820,
+          "y": 430,
+          "width": 274,
+          "height": 180,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_role",
+          "x": 410,
+          "y": 920,
+          "width": 305,
+          "height": 190,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_role_menu_relation",
+          "x": 430,
+          "y": 710,
+          "width": 265,
+          "height": 140,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "default",
+          "tableName": "backstage.ums_role_resource_relation",
+          "x": 810,
+          "y": 910,
+          "width": 286,
+          "height": 210,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        }
+      ],
+      "layers": [],
+      "relations": [
+        {
+          "name": "fk_backstage.ums_menu_backstage.ums_role_menu_relation_1",
+          "sourceTableName": "backstage.ums_menu",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 560,
+              "y": 625
+            },
+            {
+              "x": 560,
+              "y": 660
+            },
+            {
+              "x": 560,
+              "y": 660
+            },
+            {
+              "x": 560,
+              "y": 695
+            }
+          ],
+          "label": {
+            "x": 568,
+            "y": 615,
+            "width": 422,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_role_backstage.ums_role_menu_relation_1",
+          "sourceTableName": "backstage.ums_role",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 560,
+              "y": 905
+            },
+            {
+              "x": 560,
+              "y": 885
+            },
+            {
+              "x": 560,
+              "y": 885
+            },
+            {
+              "x": 560,
+              "y": 865
+            }
+          ],
+          "label": {
+            "x": 568,
+            "y": 885,
+            "width": 409,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_role_resource_relation_backstage.ums_role_1",
+          "sourceTableName": "backstage.ums_role_resource_relation",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 795,
+              "y": 1020
+            },
+            {
+              "x": 760,
+              "y": 1020
+            },
+            {
+              "x": 762,
+              "y": 1020
+            },
+            {
+              "x": 730,
+              "y": 1020
+            }
+          ],
+          "label": {
+            "x": 378,
+            "y": 982,
+            "width": 427,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_role_resource_relation_backstage.ums_resource_1",
+          "sourceTableName": "backstage.ums_role_resource_relation",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 950,
+              "y": 895
+            },
+            {
+              "x": 950,
+              "y": 875
+            },
+            {
+              "x": 950,
+              "y": 875
+            },
+            {
+              "x": 950,
+              "y": 855
+            }
+          ],
+          "label": {
+            "x": 958,
+            "y": 875,
+            "width": 458,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_resource_backstage.ums_resource_category_1",
+          "sourceTableName": "backstage.ums_resource",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 950,
+              "y": 625
+            },
+            {
+              "x": 950,
+              "y": 625
+            },
+            {
+              "x": 960,
+              "y": 625
+            },
+            {
+              "x": 960,
+              "y": 625
+            }
+          ],
+          "label": {
+            "x": 958,
+            "y": 605,
+            "width": 432,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_admin_role_relation_backstage.ums_role_1",
+          "sourceTableName": "backstage.ums_admin_role_relation",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 344,
+              "y": 1030
+            },
+            {
+              "x": 369,
+              "y": 1030
+            },
+            {
+              "x": 369,
+              "y": 1020
+            },
+            {
+              "x": 395,
+              "y": 1020
+            }
+          ],
+          "label": {
+            "x": 334,
+            "y": 992,
+            "width": 413,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_admin_backstage.ums_admin_role_relation_1",
+          "sourceTableName": "backstage.ums_admin",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 210,
+              "y": 895
+            },
+            {
+              "x": 210,
+              "y": 920
+            },
+            {
+              "x": 190,
+              "y": 920
+            },
+            {
+              "x": 190,
+              "y": 945
+            }
+          ],
+          "label": {
+            "x": 218,
+            "y": 885,
+            "width": 430,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "fk_backstage.ums_admin_login_log_backstage.ums_admin_1",
+          "sourceTableName": "backstage.ums_admin_login_log",
+          "sourceSchemaName": "default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 210,
+              "y": 555
+            },
+            {
+              "x": 210,
+              "y": 585
+            },
+            {
+              "x": 210,
+              "y": 585
+            },
+            {
+              "x": 210,
+              "y": 615
+            }
+          ],
+          "label": {
+            "x": 218,
+            "y": 545,
+            "width": 409,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        }
+      ],
+      "viewRelations": []
+    }
+  ]
+}

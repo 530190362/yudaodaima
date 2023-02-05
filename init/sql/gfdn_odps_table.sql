@@ -86,6 +86,78 @@ CREATE TABLE if not exists `met_quality`
   DEFAULT CHARSET = utf8mb4 COMMENT ='odps元数据质量表';
 
 
+-- (共富大脑仓)拉链表(缓慢变化维度表)
+create or replace view `view_gfdn_met_record_zip`
+as
+select '表总张数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1) t
+union all
+select '占磁盘大小' as name, sum(tbl_size) / 1024 as value
+from (select max(tbl_size) as tbl_size
+      from (select tbl_name, tbl_size
+            from met_detail_outline
+            where dw_id = 1) t1
+      group by tbl_name) t2
+union all
+select '总字段个数' as name, sum(tbl_col_num) as value
+from (select max(tbl_col_num) as tbl_col_num
+      from (select tbl_name, tbl_col_num
+            from met_detail_outline
+            where dw_id = 1) t1
+      group by tbl_name) t2
+union all
+select '总数据记录数据' as name, sum(row_num) as value
+from (select max(row_num) as row_num
+      from (select tbl_name, row_num
+            from met_detail_outline
+            where dw_id = 1) t1
+      group by tbl_name) t2
+union all
+select 'ODS层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'ODS') t
+union all
+select 'DWD层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'DWD') t
+union all
+select 'DIM层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'DIM') t
+union all
+select 'DWS层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'DWS') t
+union all
+select 'DWT层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'DWT') t
+union all
+select 'DWM层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'DWM') t
+union all
+select 'ADS层表的总数' as name, count(*) as value
+from (select distinct tbl_name
+      from met_detail_outline
+      where dw_id = 1
+        and upper(tbl_level) = 'ADS') t;
+
+
 
 -- 自定义函数 脱水印
 -- 后续需要处理特殊字符 拉丁语 [PDF] [LRO] unicode
@@ -105,24 +177,26 @@ create function UPDATE_WATERMARKING(sourceData varchar(255)) returns varchar(255
 
 -- 删除存储过程
 DROP PROCEDURE IF EXISTS `pro_update_gfdn`;
-DROP PROCEDURE IF EXISTS `pro_update_met_detail_outline`;
-DROP PROCEDURE IF EXISTS `pro_update_met_blood_relation_detail`;
-DROP PROCEDURE IF EXISTS `pro_update_met_quality`;
+DROP PROCEDURE IF EXISTS `pro_update_gfdn_met_detail_outline`;
+DROP PROCEDURE IF EXISTS `pro_update_gfdn_met_blood_relation_detail`;
+DROP PROCEDURE IF EXISTS `pro_update_gfdn_met_quality`;
+DROP PROCEDURE IF EXISTS `pro_update_gfdn_met_record_zip`;
+
 
 -- 封装每日存储过程(共富大脑仓)
 delimiter $$
 CREATE PROCEDURE pro_update_gfdn()
 BEGIN
-    SET @dwID = 1;
-    call pro_update_met_detail_outline(@dwID);
-    call pro_update_met_blood_relation_detail(@dwID);
-    call pro_update_met_quality(@dwID);
+    call pro_update_gfdn_met_detail_outline();
+    call pro_update_gfdn_met_blood_relation_detail();
+    call pro_update_gfdn_met_quality();
+    call pro_update_gfdn_met_record_zip();
 END $$
 
 -- 存储过程更新元数据宽表
-CREATE PROCEDURE pro_update_met_detail_outline(IN dw_id INTEGER)
+CREATE PROCEDURE pro_update_gfdn_met_detail_outline()
 BEGIN
-    SET @dwID = dw_id;
+    SET @dwID = 1;
     DELETE
     FROM backstage.met_detail_outline
     WHERE dw_id = @dwID;
@@ -130,7 +204,7 @@ BEGIN
     (DW_ID, TBL_LEVEL, TBL_NAME, TBL_COMMENT, COL_NAME, COL_TYPE, COL_COMMENT, TBL_COL_NUM, ROW_NUM, INDEX1_NAME,
      INDEX2_NAME,
      INDEX3_NAME, IS_PT, PT_LAST, TBL_CREATE_TIME, TBL_UPDATE_TIME, TBL_LIFECYCLE, TBL_TYPE, TBL_SIZE, ETL_TM, DT)
-    SELECT @dwID,
+    SELECT @dwID as DW_ID,
            UPDATE_WATERMARKING(TBL_LEVEL),
            UPDATE_WATERMARKING(TBL_NAME),
            UPDATE_WATERMARKING(TBL_COMMENT),
@@ -156,15 +230,15 @@ BEGIN
 END $$
 
 -- 存储过程更新数据血缘
-CREATE PROCEDURE pro_update_met_blood_relation_detail(IN dw_id INTEGER)
+CREATE PROCEDURE pro_update_gfdn_met_blood_relation_detail()
 BEGIN
-    SET @dwID = dw_id;
+    SET @dwID = 1;
     DELETE
     FROM backstage.met_blood_relation_detail
     WHERE dw_id = @dwID;
     INSERT INTO backstage.met_blood_relation_detail
     (dw_id, ins_name, tbl_out_en, tbl_out_zh, tbl_in_en, tbl_in_zh, etl_tm, dt)
-    SELECT @dwID,
+    SELECT @dwID as dw_id,
            UPDATE_WATERMARKING(ins_name),
            UPDATE_WATERMARKING(tbl_out_en),
            UPDATE_WATERMARKING(tbl_out_zh),
@@ -176,9 +250,9 @@ BEGIN
 END $$
 
 -- 存储过程更新数据质量
-CREATE PROCEDURE pro_update_met_quality(IN dw_id INTEGER)
+CREATE PROCEDURE pro_update_gfdn_met_quality()
 BEGIN
-    SET @dwID = dw_id;
+    SET @dwID = 1;
     DELETE
     FROM backstage.met_quality
     WHERE dw_id = @dwID;
@@ -204,6 +278,27 @@ BEGIN
     from gfdn_odps_export.dim_gfdn_meta_quality;
 END $$
 
+-- 存储过程(共富大脑仓)写入到拉链表
+CREATE PROCEDURE pro_update_gfdn_met_record_zip()
+BEGIN
+    insert into met_record_zip(dw_id, table_count, disk_size, col_count, row_count, ods_table_count, dwd_table_count,
+                               dim_table_count, dws_table_count, dwt_table_count, dwm_table_count, ads_table_count,
+                               update_date)
+    select 1                                          as dw_id,
+           SUM(IF(name = '表总张数', value, 0))       AS 'table_count',
+           SUM(IF(name = '占磁盘大小', value, 0))     AS 'disk_size',
+           SUM(IF(name = '总字段个数', value, 0))     AS 'col_count',
+           SUM(IF(name = '总数据记录数据', value, 0)) AS 'row_count',
+           SUM(IF(name = 'ODS层表的总数', value, 0))  AS 'ods_table_count',
+           SUM(IF(name = 'DWD层表的总数', value, 0))  AS 'dwd_table_count',
+           SUM(IF(name = 'DIM层表的总数', value, 0))  AS 'dim_table_count',
+           SUM(IF(name = 'DWS层表的总数', value, 0))  AS 'dws_table_count',
+           SUM(IF(name = 'DWT层表的总数', value, 0))  AS 'dwt_table_count',
+           SUM(IF(name = 'DWM层表的总数', value, 0))  AS 'dwm_table_count',
+           SUM(IF(name = 'ADS层表的总数', value, 0))  AS 'ads_table_count',
+           current_date                               as update_date
+    from view_gfdn_met_record_zip;
+END $$
 
 delimiter ;
 
@@ -211,9 +306,9 @@ delimiter ;
 CALL pro_update_gfdn();
 
 -- 查看定时器是否开启
-show variables like '%event_sche%';
+# show variables like '%event_sche%';
 -- 当OFF,需要开启定时器
-set global event_scheduler=1;
+# set global event_scheduler=1;
 -- 查看现有的定时器
 show events;
 
