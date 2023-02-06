@@ -1,47 +1,42 @@
-package com.bigdata.backstage.modules.common.mapper;
+package com.bigdata.backstage.modules.homepage.service;
 
-import com.bigdata.backstage.modules.common.model.ViewMetDetailOutline;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
 import com.bigdata.backstage.modules.homepage.vo.DataCountTop;
-import com.bigdata.backstage.modules.homepage.vo.DataOverviewVo;
 import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
-import org.apache.ibatis.annotations.Param;
-import org.aspectj.weaver.ast.Var;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
- * VIEW Mapper 接口
+ * ODPS元数据记录拉链表 服务类
  * </p>
  *
  * @author macro
  * @since 2023-02-06
  */
-@Repository
-public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutline> {
+public interface HomePageService {
 
     /**
      * 首页概览-数据统计
      * @return
      */
-    DataOverviewVo getOverview();
+    Map<String, Object> getDataOverview();
 
     /**
      * 数据资产（记录数）变化
      * @param days
      * @return
      */
-    List<DataChangeVo> getDataChangeNum(@Param("days") Integer days);
+    List<DataChangeVo> queryDataChangeCount(Integer days);
 
     /**
      * 数据资产（占用空间）变化
      * @param days
      * @return
      */
-    List<DataChangeVo> getDataChangeSize(@Param("days") Integer days);
+    List<DataChangeVo> queryDataChangeSize(Integer days);
 
     /**
      * 数据榜单-占用空间

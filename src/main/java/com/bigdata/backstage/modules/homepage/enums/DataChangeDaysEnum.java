@@ -15,17 +15,17 @@ public enum DataChangeDaysEnum {
     /**
      * 0:7天
      */
-    SEVEN_DAYS(0, "7"),
+    SEVEN_DAYS(0, 7),
     /**
      * 1:15天
      */
-    FIFTEEN_DAYS(1, "15");
+    FIFTEEN_DAYS(1, 15);
 
     private Integer key;
 
-    private String value;
+    private Integer value;
 
-    public static String getValue(Integer key) {
+    public static Integer getValue(Integer key) {
         for (DataChangeDaysEnum value : values()) {
             if (Objects.equals(value.getKey(), key)) {
                 return value.getValue();
