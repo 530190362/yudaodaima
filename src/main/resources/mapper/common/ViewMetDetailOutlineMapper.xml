@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.common.mapper.ViewMetDetailOutlineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.ViewMetDetailOutline">
+        <result column="tbl_level" property="tblLevel" />
+        <result column="tbl_name" property="tblName" />
+        <result column="tbl_comment" property="tblComment" />
+        <result column="col_name" property="colName" />
+        <result column="col_type" property="colType" />
+        <result column="col_comment" property="colComment" />
+        <result column="tbl_col_num" property="tblColNum" />
+        <result column="all_row_count" property="allRowCount" />
+        <result column="row_count" property="rowCount" />
+        <result column="index1_name" property="index1Name" />
+        <result column="index2_name" property="index2Name" />
+        <result column="index3_name" property="index3Name" />
+        <result column="is_pt" property="isPt" />
+        <result column="pt_last" property="ptLast" />
+        <result column="tbl_create_time" property="tblCreateTime" />
+        <result column="tbl_update_time" property="tblUpdateTime" />
+        <result column="tbl_lifecycle" property="tblLifecycle" />
+        <result column="tbl_type" property="tblType" />
+        <result column="tbl_size" property="tblSize" />
+        <result column="etl_tm" property="etlTm" />
+        <result column="dt" property="dt" />
+    </resultMap>
+
+    <select id="getOverview" resultType="com.bigdata.backstage.modules.homepage.vo.DataOverviewVo">
+        SELECT
+            COUNT( tbl_name ) as totalTblCount,
+            SUM( tbl_size ) as totalTblSize,
+            SUM( tbl_col_num ) as totalTblCol,
+            SUM( all_row_count ) as totalTblRow
+        FROM
+            (
+                SELECT
+                    tbl_name,
+                    tbl_size,
+                    tbl_col_num,
+                    all_row_count
+                FROM
+                    view_met_detail_outline
+                WHERE
+                    dt = ( SELECT max( dt ) FROM view_met_detail_outline )
+                GROUP BY
+                    tbl_name,
+                    tbl_size,
+                    tbl_col_num,
+                    all_row_count
+            ) t1
+    </select>
+
+    <select id="getDataChangeNum" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
+        select
+            dt as `date`,
+            round(sum(num),2) as dataNum
+        from (
+                 select
+                    dt,
+                    all_row_count as num
+                 from view_met_detail_outline
+                 group by
+                    dt,
+                    tbl_name,
+                    all_row_count
+             ) t
+        group by dt
+        order by dt desc limit #{days}
+    </select>
+
+    <select id="getDataChangeSize" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
+        select
+            dt as `date`,
+            round(sum(num),2) as dataNum
+        from (
+                 select
+                     dt,
+                     tbl_size as num
+                 from view_met_detail_outline
+                 group by
+                     dt,
+                     tbl_name,
+                     tbl_size
+             ) t
+        group by dt
+        order by dt desc limit #{days}
+    </select>
+
+    <select id="getDataSizeTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataSizeTop">
+        SELECT
+            tbl_name as tblName,
+            tbl_size as tblSize,
+            tbl_comment as tblComment
+        FROM
+            view_met_detail_outline
+        WHERE
+            dt = ( SELECT max( dt ) FROM view_met_detail_outline )
+        GROUP BY
+            tbl_name,
+            tbl_comment,
+            tbl_size
+        ORDER BY
+            CAST(tbl_size AS DECIMAL) DESC
+        LIMIT 10
+    </select>
+
+
+</mapper>
