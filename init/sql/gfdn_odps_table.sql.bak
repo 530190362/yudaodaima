@@ -31,7 +31,7 @@ CREATE TABLE if not exists `met_detail_outline`
     `tbl_lifecycle`   int(10)        DEFAULT NULL COMMENT '表生命周期',
     `tbl_type`        varchar(50)    DEFAULT NULL COMMENT '表类型 内部表/外部表',
     `tbl_size`        decimal(16, 2) DEFAULT NULL COMMENT '表大小 单位:MB',
-    `etl_tm`          varchar(50)    DEFAULT NULL COMMENT 'ETL时间',
+    `etl_tm`          datetime    DEFAULT NULL COMMENT 'ETL时间',
     `dt`              varchar(50)    DEFAULT NULL COMMENT '分区',
     `create_time`     datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -50,7 +50,7 @@ CREATE TABLE if not exists `met_blood_relation_detail`
     `tbl_out_zh`  varchar(255) DEFAULT NULL COMMENT '输出表中文名',
     `tbl_in_en`   varchar(255) DEFAULT NULL COMMENT '输入表英文名',
     `tbl_in_zh`   varchar(255) DEFAULT NULL COMMENT '输入表中文名',
-    `etl_tm`      varchar(50)  DEFAULT NULL COMMENT 'ETL时间',
+    `etl_tm`      datetime  DEFAULT NULL COMMENT 'ETL时间',
     `dt`          varchar(50)  DEFAULT NULL COMMENT '分区',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -77,7 +77,7 @@ CREATE TABLE if not exists `met_quality`
     `null_count`     decimal(16, 2) DEFAULT NULL COMMENT '空值数',
     `null_rate`      decimal(16, 2) DEFAULT NULL COMMENT '空值率',
     `spend_time`     int(10)        DEFAULT NULL COMMENT '读取记录数花费的时间单位:秒',
-    `etl_tm`         varchar(255)   DEFAULT NULL COMMENT 'ETL时间',
+    `etl_tm`         datetime   DEFAULT NULL COMMENT 'ETL时间',
     `dt`             varchar(255)   DEFAULT NULL COMMENT '分区',
     `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -321,3 +321,5 @@ CREATE EVENT `event_update_gfdn`
     ENABLE
     DO call pro_update_gfdn()	-- 指定要执行的存储过程
 ;
+
+

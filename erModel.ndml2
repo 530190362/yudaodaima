@@ -1025,205 +1025,6 @@
           },
           {
             "objectType": "Table_LOGICAL",
-            "name": "backstage.met_record_zip",
-            "comment": "ODPS元数据记录拉链表",
-            "oldName": "met_record_zip",
-            "fields": [
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "id",
-                "type": "NUMERIC",
-                "length": 20,
-                "decimals": -2147483648,
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "comment": "自增主键",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "dw_id",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "数仓id",
-                "oldName": "dw_id"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "表总张数",
-                "oldName": "table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "disk_size",
-                "type": "DECIMAL",
-                "length": 16,
-                "decimals": 2,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "数仓id",
-                "oldName": "disk_size"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "col_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "总字段个数",
-                "oldName": "col_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "row_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "总数据记录数据",
-                "oldName": "row_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "ods_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "ODS层表的总数",
-                "oldName": "ods_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "dwd_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "DWD层表的总数",
-                "oldName": "dwd_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "dim_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "DIM层表的总数",
-                "oldName": "dim_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "dws_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "DWS层表的总数",
-                "oldName": "dws_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "dwt_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "DWT层表的总数",
-                "oldName": "dwt_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "dwm_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "DWM层表的总数",
-                "oldName": "dwm_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "ads_table_count",
-                "type": "INTEGER",
-                "length": 10,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "ADS层表的总数",
-                "oldName": "ads_table_count"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "update_date",
-                "type": "DATE",
-                "length": -2147483648,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "comment": "更新日期",
-                "oldName": "update_date"
-              },
-              {
-                "objectType": "TableField_LOGICAL",
-                "name": "update_time",
-                "type": "TIMESTAMP",
-                "length": -2147483648,
-                "decimals": -2147483648,
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "CURRENT_TIMESTAMP",
-                "comment": "更新时间",
-                "oldName": "update_time"
-              }
-            ],
-            "foreignKeys": [],
-            "indexes": [],
-            "uniques": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_LOGICAL",
-              "name": "",
-              "fields": [
-                "id"
-              ],
-              "oldName": ""
-            }
-          },
-          {
-            "objectType": "Table_LOGICAL",
             "name": "gfdn_odps_export.dim_gfdn_meta_blood_relation_detail",
             "comment": "水印库导出(共富大脑)数据血缘表",
             "oldName": "dim_gfdn_meta_blood_relation_detail",
@@ -2751,6 +2552,205 @@
               ],
               "oldName": ""
             }
+          },
+          {
+            "objectType": "Table_LOGICAL",
+            "name": "backstage.met_record_zip",
+            "comment": "ODPS元数据记录拉链表",
+            "oldName": "met_record_zip",
+            "fields": [
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "id",
+                "type": "NUMERIC",
+                "length": 20,
+                "decimals": -2147483648,
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "comment": "自增主键",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dw_id",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "数仓id",
+                "oldName": "dw_id"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "表总张数",
+                "oldName": "table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "disk_size",
+                "type": "DECIMAL",
+                "length": 16,
+                "decimals": 2,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "存储大小",
+                "oldName": "disk_size"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "col_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "总字段个数",
+                "oldName": "col_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "row_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "总数据记录数据",
+                "oldName": "row_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ods_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ODS层表的总数",
+                "oldName": "ods_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dwd_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWD层表的总数",
+                "oldName": "dwd_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dim_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DIM层表的总数",
+                "oldName": "dim_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dws_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWS层表的总数",
+                "oldName": "dws_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dwt_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWT层表的总数",
+                "oldName": "dwt_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "dwm_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "DWM层表的总数",
+                "oldName": "dwm_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "ads_table_count",
+                "type": "INTEGER",
+                "length": 10,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "ADS层表的总数",
+                "oldName": "ads_table_count"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_date",
+                "type": "DATE",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "comment": "更新日期",
+                "oldName": "update_date"
+              },
+              {
+                "objectType": "TableField_LOGICAL",
+                "name": "update_time",
+                "type": "TIMESTAMP",
+                "length": -2147483648,
+                "decimals": -2147483648,
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "comment": "更新时间",
+                "oldName": "update_time"
+              }
+            ],
+            "foreignKeys": [],
+            "indexes": [],
+            "uniques": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_LOGICAL",
+              "name": "",
+              "fields": [
+                "id"
+              ],
+              "oldName": ""
+            }
           }
         ]
       }
@@ -2770,6 +2770,34 @@
       "showFieldComment": true,
       "showTableComment": true,
       "shapes": [
+        {
+          "type": "rectangle",
+          "name": "Rectangle 1",
+          "x": 520,
+          "y": 210,
+          "width": 3140,
+          "height": 1860,
+          "opacity": 1.0,
+          "isBold": true,
+          "shapeStyle": "version1",
+          "label": {
+            "x": 530,
+            "y": 320,
+            "width": 87,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
         {
           "type": "table",
           "schemaName": "default",
@@ -3076,34 +3104,6 @@
           "fontSize": 30,
           "isFontBold": true,
           "isFontItalic": false
-        },
-        {
-          "type": "rectangle",
-          "name": "Rectangle 1",
-          "x": 530,
-          "y": 210,
-          "width": 3140,
-          "height": 1860,
-          "opacity": 1.0,
-          "isBold": true,
-          "shapeStyle": "version1",
-          "label": {
-            "x": 540,
-            "y": 320,
-            "width": 87,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
         },
         {
           "type": "rectangle",
