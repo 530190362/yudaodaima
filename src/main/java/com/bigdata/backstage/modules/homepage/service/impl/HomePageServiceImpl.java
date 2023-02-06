@@ -4,6 +4,7 @@ import com.bigdata.backstage.modules.common.mapper.ViewMetDetailOutlineMapper;
 import com.bigdata.backstage.modules.homepage.enums.DataChangeDaysEnum;
 import com.bigdata.backstage.modules.homepage.service.HomePageService;
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
+import com.bigdata.backstage.modules.homepage.vo.DataCountTop;
 import com.bigdata.backstage.modules.homepage.vo.DataOverviewVo;
 import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,13 @@ public class HomePageServiceImpl implements HomePageService {
 
     @Override
     public List<DataSizeTop> getDataSizeTop() {
-        List<DataSizeTop> dataChangeSize = metDetailOutlineMapper.getDataSizeTop();
-        return dataChangeSize;
+        List<DataSizeTop> dataSizeTop = metDetailOutlineMapper.getDataSizeTop();
+        return dataSizeTop;
+    }
+
+    @Override
+    public List<DataCountTop> getDataCountTop() {
+        List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataCountTop();
+        return dataCountTop;
     }
 }

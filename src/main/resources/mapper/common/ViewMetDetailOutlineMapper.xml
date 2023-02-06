@@ -27,6 +27,7 @@
         <result column="dt" property="dt" />
     </resultMap>
 
+    <!--数据概览-->
     <select id="getOverview" resultType="com.bigdata.backstage.modules.homepage.vo.DataOverviewVo">
         SELECT
             COUNT( tbl_name ) as totalTblCount,
@@ -52,6 +53,7 @@
             ) t1
     </select>
 
+    <!--数据变化记录数-->
     <select id="getDataChangeNum" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
         select
             dt as `date`,
@@ -70,6 +72,7 @@
         order by dt desc limit #{days}
     </select>
 
+    <!--数据变化占用空间-->
     <select id="getDataChangeSize" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
         select
             dt as `date`,
@@ -88,10 +91,11 @@
         order by dt desc limit #{days}
     </select>
 
+    <!--数据榜单空间占用-->
     <select id="getDataSizeTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataSizeTop">
         SELECT
             tbl_name as tblName,
-            tbl_size as tblSize,
+            round(tbl_size,2) as tblSize,
             tbl_comment as tblComment
         FROM
             view_met_detail_outline
@@ -106,5 +110,23 @@
         LIMIT 10
     </select>
 
+    <!--数据榜单记录数-->
+    <select id="getDataCountTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
+        SELECT
+            tbl_name as tblName,
+            round(all_row_count) as tblCount,
+            tbl_comment as tblComment
+        FROM
+            view_met_detail_outline
+        WHERE
+            dt = ( SELECT max( dt ) FROM view_met_detail_outline )
+        GROUP BY
+            tbl_name,
+            tbl_comment,
+            all_row_count
+        ORDER BY
+            CAST(all_row_count AS DOUBLE) DESC
+            LIMIT 10
+    </select>
 
 </mapper>

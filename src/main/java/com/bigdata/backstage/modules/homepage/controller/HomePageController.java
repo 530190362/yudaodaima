@@ -4,6 +4,7 @@ import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.homepage.enums.DataChangeTypeEnum;
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
 import com.bigdata.backstage.modules.homepage.service.HomePageService;
+import com.bigdata.backstage.modules.homepage.vo.DataCountTop;
 import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,14 @@ public class HomePageController {
     @ResponseBody
     public CommonResult<List<DataSizeTop>> getDataSizeTop() {
         List<DataSizeTop> dataSizeTop = homePageService.getDataSizeTop();
+        return CommonResult.success(dataSizeTop);
+    }
+
+    @ApiOperation(value = "数据占用空间top10")
+    @RequestMapping(value = "/dataCountTop", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<DataCountTop>> getDataCountTop() {
+        List<DataCountTop> dataSizeTop = homePageService.getDataCountTop();
         return CommonResult.success(dataSizeTop);
     }
 }
