@@ -127,7 +127,7 @@ drop table if exists `met_norm_table`;
 CREATE TABLE if not exists `met_norm_table`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-    `level`           varchar(50) COMMENT '小层层级名称',
+    `level`           varchar(50) COMMENT '层级名称',
     `rule`            varchar(50) COMMENT '命名标准版',
     `lifecycle`       varchar(50) COMMENT '生命周期',
     `desc`            varchar(255) COMMENT '描述',
@@ -160,7 +160,53 @@ CREATE TABLE if not exists `met_explore_task`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据勘探-数据勘探操作表';
 
+-- #########################################################################
+-- #########################################################################
 
+-- 数据资产-标签管理
+drop table if exists `met_assets_label`;
+CREATE TABLE if not exists `met_assets_label`
+(
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+
+
+    `create_user`     varchar(50)         NOT NULL COMMENT '创建人',
+    `update_user`     varchar(50)         NOT NULL COMMENT '更新人',
+    `create_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted`      tinyint(1) DEFAULT 0 COMMENT '是否删除 1-是 0-否',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产-标签管理';
+
+
+-- 数据资产-UDF函数管理
+drop table if exists `met_assets_function`;
+CREATE TABLE if not exists `met_assets_function`
+(
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `name`     varchar(50)         NOT NULL COMMENT '函数英文名称',
+    `name_zh`     varchar(50)         NOT NULL COMMENT '函数中文名称',
+    `type`     varchar(50)         NOT NULL COMMENT '分类 UDF/UDAF/UDTF',
+    `class_name`     varchar(50)         NOT NULL COMMENT '类名',
+    `jar_name`     varchar(50)         NOT NULL COMMENT '资源列表',
+    `desc`     text         NOT NULL COMMENT '描述',
+    `command`     varchar(50)         NOT NULL COMMENT '命令格式',
+    `param_desc`     varchar(255)         NOT NULL COMMENT '参数说明',
+    `return`     varchar(255)         NOT NULL COMMENT '返回值',
+    `example`     varchar(255)         NOT NULL COMMENT '示例',
+    `create_user`     varchar(50)         NOT NULL COMMENT '创建人',
+    `update_user`     varchar(50)         NOT NULL COMMENT '更新人',
+    `create_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted`      tinyint(1) DEFAULT 0 COMMENT '是否删除 1-是 0-否',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产-UDF函数管理';
+
+
+-- #########################################################################
+-- #########################################################################
 -- 数据勘探报告表
 drop table if exists `met_explore_report`;
 CREATE TABLE if not exists `met_explore_report`
