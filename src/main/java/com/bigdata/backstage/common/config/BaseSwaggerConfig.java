@@ -92,10 +92,10 @@ public abstract class BaseSwaggerConfig {
     public Docket restApi4() {
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("数仓运维平台模块")
+                .groupName("数仓运维平台模块-数据标准")
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.met"))
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.norm"))
                 .paths(PathSelectors.any())
                 .build();
         if (swaggerProperties.isEnableSecurity()) {
@@ -103,6 +103,23 @@ public abstract class BaseSwaggerConfig {
         }
         return docket;
     }
+
+    @Bean
+    public Docket restApi5() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("数仓运维平台模块-首页")
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.homepage"))
+                .paths(PathSelectors.any())
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
+
 
 
 
