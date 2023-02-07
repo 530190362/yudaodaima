@@ -7,7 +7,8 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "NormNodeDto传输对象", description = "数据标准-节点")
-public class NormNodeDto {
+public class NormNodeDto extends PageDto {
+
 
     @ApiModelProperty("节点类型/名称")
     private String name;

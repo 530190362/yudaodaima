@@ -29,5 +29,5 @@ public interface NormDictService extends IService<NormDict> {
     void importDictData(MultipartFile file);
 
     //分页模糊查询
-    IPage<NormDict> selectPage(NormDictDto normDictDto, Integer pageSize, Integer pageNum);
+    IPage<NormDict> selectPage(NormDictDto normDictDto );
 }

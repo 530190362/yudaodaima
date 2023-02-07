@@ -1,6 +1,7 @@
 package com.bigdata.backstage.modules.norm.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -70,10 +72,8 @@ public class NormDictController {
     @ApiOperation(value = "分页模糊查询")
     @PostMapping("/list")
     public CommonResult<CommonPage<NormDict>> list(
-            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-            @RequestBody NormDictDto normDictDto) {
-        IPage<NormDict> pageist= normDictService.selectPage(normDictDto, pageSize, pageNum);
+            @Valid @RequestBody NormDictDto normDictDto) {
+        IPage<NormDict> pageist = normDictService.selectPage(normDictDto);
         return CommonResult.success(CommonPage.restPage(pageist));
     }
 
@@ -81,9 +81,8 @@ public class NormDictController {
     @ApiOperation(value = "修改数据字典的值")
     @PostMapping("/update/{id}")
     @CacheEvict(value = "bigdata:dict", allEntries = true)
-    public CommonResult update(@PathVariable Long id, @RequestBody NormDictDto normDictDto) {
+    public CommonResult update(@RequestBody NormDictDto normDictDto) {
         NormDict normDict = BeanUtil.copyProperties(normDictDto, NormDict.class);
-        normDict.setId(id);
         boolean upadate = normDictService.updateById(normDict);
         if (upadate) {
             return CommonResult.success("修改成功");

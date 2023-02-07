@@ -37,13 +37,18 @@ public class NormNodeServiceImpl extends ServiceImpl<NormNodeMapper, NormNode> i
 
     @Autowired
     private NormNodeMapper normNodeMapper;
+
     //分页查询
     @Override
-    public IPage<NormNode> selectPage(NormNodeDto normNodeDto, Integer pageSize, Integer pageNum) {
+    public IPage<NormNode> selectPage(NormNodeDto normNodeDto) {
+        //分页参数数
+        Integer pageNum = normNodeDto.getPageNum();
+        Integer pageSize = normNodeDto.getPageSize();
+        Page<NormNode> pageParam = new Page<>(pageNum, pageSize);
+
+        //where条件
         String nodeDesc = normNodeDto.getNodeDesc();
         String name = normNodeDto.getName();
-        //封装参数
-        Page<NormNode> pageParam = new Page<>(pageNum, pageSize);
         QueryWrapper<NormNode> wrapper = new QueryWrapper<>();
         if (!StrUtil.isEmpty(name)) {
             wrapper.like("name", name);

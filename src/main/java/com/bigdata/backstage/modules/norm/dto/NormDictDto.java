@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "NormDictDto传输对象", description = "数据标准-字典库")
-public class NormDictDto {
+public class NormDictDto extends PageDto {
 
 
     @ApiModelProperty(value = "父ID")

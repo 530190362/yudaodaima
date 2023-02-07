@@ -81,12 +81,16 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
 
     //分页模糊查询
     @Override
-    public IPage<NormDict> selectPage(NormDictDto normDictDto, Integer pageSize, Integer pageNum) {
+    public IPage<NormDict> selectPage(NormDictDto normDictDto) {
+        //分页查询
+        Integer pageNum = normDictDto.getPageNum();
+        Integer pageSize = normDictDto.getPageSize();
+        Page<NormDict> pageParam = new Page<>(pageNum, pageSize);
+
+        //模糊查询
         Long parentId = normDictDto.getParentId();
         String name = normDictDto.getName();
         String nameCode = normDictDto.getNameCode();
-        //封装参数
-        Page<NormDict> pageParam = new Page<>(pageNum, pageSize);
         QueryWrapper<NormDict> wrapper = new QueryWrapper<>();
         if (parentId != null) {
             wrapper.eq("parent_id", parentId);

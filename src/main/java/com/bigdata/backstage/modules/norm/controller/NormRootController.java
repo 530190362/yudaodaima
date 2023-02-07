@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.norm.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
@@ -16,6 +17,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -37,11 +40,8 @@ public class NormRootController {
     //分页查询
     @ApiOperation(value = "分页查询")
     @PostMapping(value = "/list")
-    public CommonResult<CommonPage<NormRoot>> list(
-            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-            @RequestBody NormRootDto normRootDto) {
-        IPage<NormRoot> pageist = normRootService.selectPage(normRootDto, pageSize, pageNum);
+    public CommonResult<CommonPage<NormRoot>> list(@Valid @RequestBody NormRootDto normRootDto) {
+        IPage<NormRoot> pageist = normRootService.selectPage(normRootDto);
         return CommonResult.success(CommonPage.restPage(pageist));
     }
 
@@ -52,7 +52,6 @@ public class NormRootController {
         normRootService.add(normRootDto);
         return CommonResult.success("写入成功");
     }
-
 
     //删除
     @ApiOperation(value = "删除")
@@ -68,9 +67,8 @@ public class NormRootController {
     //更新
     @ApiOperation(value = "更新")
     @PostMapping(value = "/update/{id}")
-    public CommonResult update(@PathVariable Long id, @RequestBody NormRootDto normRootDto) {
+    public CommonResult update(@RequestBody NormRootDto normRootDto) {
         NormRoot normRoot = BeanUtil.copyProperties(normRootDto, NormRoot.class);
-        normRoot.setId(id);
         boolean isOk = normRootService.updateById(normRoot);
         if (!isOk) {
             return CommonResult.failed("更新失败");

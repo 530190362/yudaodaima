@@ -7,7 +7,8 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "NormRootDto传输对象", description = "数据标准-词根库")
-public class NormRootDto {
+public class NormRootDto extends PageDto {
+
     @ApiModelProperty("词根中文")
     private String nameZh;
 

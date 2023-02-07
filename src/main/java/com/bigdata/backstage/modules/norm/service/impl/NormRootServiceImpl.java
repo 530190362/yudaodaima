@@ -31,13 +31,16 @@ public class NormRootServiceImpl extends ServiceImpl<NormRootMapper, NormRoot> i
     private NormRootMapper normRootMapper;
     // 分页查询
     @Override
-    public IPage<NormRoot> selectPage(NormRootDto normRootDto, Integer pageSize, Integer pageNum) {
+    public IPage<NormRoot> selectPage(NormRootDto normRootDto) {
+        //分页
+        Integer pageNum = normRootDto.getPageNum();
+        Integer pageSize = normRootDto.getPageSize();
+        Page<NormRoot> pageParam = new Page<>(pageNum, pageSize);
+
         //获取条件值
         String nameEn = normRootDto.getNameEn();
         String nameZh = normRootDto.getNameZh();
         String rootDesc = normRootDto.getRootDesc();
-        //封装参数
-        Page<NormRoot> pageParam = new Page<>(pageNum, pageSize);
         QueryWrapper<NormRoot> wrapper = new QueryWrapper<>();
         if (!StrUtil.isEmpty(nameEn)) {
             wrapper.like("name_en", nameEn);

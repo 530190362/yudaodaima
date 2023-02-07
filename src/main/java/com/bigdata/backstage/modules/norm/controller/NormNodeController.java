@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.norm.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -40,11 +42,8 @@ public class NormNodeController {
     //分页模糊查询
     @ApiOperation(value = "分页模糊查询")
     @PostMapping(value = "/list")
-    public CommonResult<CommonPage<NormNode>> list(
-            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-            @RequestBody NormNodeDto normNodeDto) {
-        IPage<NormNode> pageist = normNodeService.selectPage(normNodeDto, pageSize, pageNum);
+    public CommonResult<CommonPage<NormNode>> list(@Valid @RequestBody NormNodeDto normNodeDto) {
+        IPage<NormNode> pageist = normNodeService.selectPage(normNodeDto);
         return CommonResult.success(CommonPage.restPage(pageist));
     }
 
@@ -64,9 +63,8 @@ public class NormNodeController {
     //修改
     @ApiOperation(value = "修改")
     @PostMapping(value = "/update/{id}")
-    public CommonResult update(@PathVariable Long id, @RequestBody NormNodeDto normNodeDto) {
+    public CommonResult update(@RequestBody NormNodeDto normNodeDto) {
         NormNode normNode = BeanUtil.copyProperties(normNodeDto, NormNode.class);
-        normNode.setId(id);
         boolean update = normNodeService.updateById(normNode);
         if (update) {
             return CommonResult.success("修改成功");

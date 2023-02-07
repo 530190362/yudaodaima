@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface NormNodeService extends IService<NormNode> {
 
     //分页查询
-    IPage<NormNode> selectPage(NormNodeDto normNodeDto, Integer pageSize, Integer pageNum);
+    IPage<NormNode> selectPage(NormNodeDto normNodeDto);
 
     ////导出为EXCEL(全量)
     void exportNodeData(HttpServletResponse response);

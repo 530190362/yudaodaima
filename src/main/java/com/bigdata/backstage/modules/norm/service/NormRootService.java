@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface NormRootService extends IService<NormRoot> {
 
     ////分页查询
-    IPage<NormRoot> selectPage(NormRootDto normRootDto, Integer pageSize, Integer pageNum);
+    IPage<NormRoot> selectPage(NormRootDto normRootDto);
 
     //新增
     void add(NormRootDto normRootDto);
