@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bigdata.backstage.modules.norm.dto.NormDictDto;
+import com.bigdata.backstage.modules.norm.dto.NormDictTypeDto;
 import com.bigdata.backstage.modules.norm.listener.NormDictListener;
 
 import com.bigdata.backstage.modules.norm.vo.NormDictVo;
@@ -103,6 +104,14 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
         }
         return normDictMapper.selectPage(pageParam, wrapper);
 
+    }
+
+    //返回字典类型
+    @Override
+    public List<NormDictTypeDto> getDictType() {
+        QueryWrapper<NormDict> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id", 0);
+        return BeanUtil.copyToList(normDictMapper.selectList(wrapper), NormDictTypeDto.class);
     }
 
     //根据数据id查询子数据列表

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.norm.dto.NormDictDto;
+import com.bigdata.backstage.modules.norm.dto.NormDictTypeDto;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import io.swagger.annotations.Api;
@@ -76,6 +77,16 @@ public class NormDictController {
         IPage<NormDict> pageist = normDictService.selectPage(normDictDto);
         return CommonResult.success(CommonPage.restPage(pageist));
     }
+
+
+    //返回字典类型
+    @ApiOperation(value = "返回字典类型")
+    @GetMapping("/getDictType")
+    public CommonResult getDictType() {
+        List<NormDictTypeDto> list = normDictService.getDictType();
+        return CommonResult.success(list);
+    }
+
 
     //根据id修改数据字典
     @ApiOperation(value = "修改数据字典的值")

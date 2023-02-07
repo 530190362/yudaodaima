@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.norm.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.modules.norm.dto.NormDictDto;
+import com.bigdata.backstage.modules.norm.dto.NormDictTypeDto;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,4 +31,7 @@ public interface NormDictService extends IService<NormDict> {
 
     //分页模糊查询
     IPage<NormDict> selectPage(NormDictDto normDictDto );
+
+    //返回字典类型
+    List<NormDictTypeDto> getDictType();
 }
