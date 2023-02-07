@@ -54,5 +54,5 @@ secure:
       # 测试开放
       - /dw/**
       - /ass/**
-      - /met/**
+      - /norm/**
       - /homepage/**

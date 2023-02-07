@@ -26,7 +26,7 @@ import java.util.List;
 @Api(tags = "MetNormDictController")
 @Tag(name = "MetNormDictController", description = "数据标准-字典库")
 @RestController
-@RequestMapping("/met/metNormDict")
+@RequestMapping("/norm/dict")
 public class NormDictController {
 
     @Autowired
