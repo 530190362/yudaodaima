@@ -58,13 +58,30 @@ public class HomePageController {
         return CommonResult.success(dataSizeTop);
     }
 
-    @ApiOperation(value = "数据占用空间top10")
+    @ApiOperation(value = "数据总记录数top10")
     @RequestMapping(value = "/dataCountTop", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<DataCountTop>> getDataCountTop() {
         List<DataCountTop> dataSizeTop = homePageService.getDataCountTop();
         return CommonResult.success(dataSizeTop);
     }
+
+    @ApiOperation(value = "数据最近新增")
+    @RequestMapping(value = "/dataNewTop", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<DataCountTop>> getDataNewTop() {
+        List<DataCountTop> dataSizeTop = homePageService.getDataNewTop();
+        return CommonResult.success(dataSizeTop);
+    }
+
+    @ApiOperation(value = "数据新增记录数")
+    @RequestMapping(value = "/dataNewRowTop", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<DataCountTop>> getDataNewRowTop() {
+        List<DataCountTop> dataSizeTop = homePageService.getDataNewRowTop();
+        return CommonResult.success(dataSizeTop);
+    }
+
 }
 
 

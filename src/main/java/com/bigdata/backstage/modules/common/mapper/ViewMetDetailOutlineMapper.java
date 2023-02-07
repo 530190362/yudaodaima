@@ -54,4 +54,17 @@ public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutl
      * @return
      */
     List<DataCountTop> getDataCountTop();
+
+    /**
+     * 数据榜单-最近新增
+     * @return
+     */
+    List<DataCountTop> getDataNewTop();
+
+    /**
+     * 数据榜单-新增记录数
+     * @return
+     */
+    List<DataCountTop> getDataNewRowTop();
+
 }

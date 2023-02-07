@@ -125,8 +125,68 @@
             tbl_comment,
             all_row_count
         ORDER BY
-            CAST(all_row_count AS DOUBLE) DESC
+            CAST(all_row_count AS DECIMAL) DESC
             LIMIT 10
+    </select>
+
+    <!--数据榜单最近新增-->
+    <select id="getDataNewTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
+        SELECT
+            tbl_name as tblName,
+            round(tbl_col_num) as tblCount,
+            tbl_comment as tblComment
+        FROM
+            view_met_detail_outline
+        WHERE
+            dt = ( SELECT max( dt ) FROM view_met_detail_outline )
+        GROUP BY
+            tbl_name,
+            tbl_comment,
+            tbl_col_num,
+            tbl_create_time
+        ORDER BY
+            tbl_create_time DESC
+            LIMIT 10
+    </select>
+
+    <!--数据榜单新增记录数-->
+    <select id="getDataNewRowTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
+        select
+            a.tblName as tblName,
+            a.tblComment as tblComment,
+            (a.tblCount-b.tblCount) as tblCount
+        from
+            (SELECT
+                 tbl_name as tblName,
+                 round(all_row_count) as tblCount,
+                 tbl_comment as tblComment
+             FROM
+                 view_met_detail_outline
+             WHERE
+                 dt = DATE_FORMAT(curdate(),'%Y%m%d')
+             GROUP BY
+                 tbl_name,
+                 tbl_comment,
+                 all_row_count
+            )a
+                LEFT JOIN
+            (SELECT
+                 tbl_name as tblName,
+                 round(all_row_count) as tblCount,
+                 tbl_comment as tblComment
+             FROM
+                 view_met_detail_outline
+             WHERE
+                 dt = DATE_FORMAT(date_sub(curdate(),interval 1 day),'%Y%m%d')
+             GROUP BY
+                 tbl_name,
+                 tbl_comment,
+                 all_row_count
+            )b
+            on
+                a.tblName=b.tblName
+        order by a.tblCount-b.tblCount desc
+            limit 10
     </select>
 
 </mapper>

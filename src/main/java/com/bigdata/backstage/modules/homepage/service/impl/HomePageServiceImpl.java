@@ -86,4 +86,16 @@ public class HomePageServiceImpl implements HomePageService {
         List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataCountTop();
         return dataCountTop;
     }
+
+    @Override
+    public List<DataCountTop> getDataNewTop() {
+        List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataNewTop();
+        return dataCountTop;
+    }
+
+    @Override
+    public List<DataCountTop> getDataNewRowTop() {
+        List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataNewRowTop();
+        return dataCountTop;
+    }
 }
