@@ -61,7 +61,7 @@ public abstract class BaseSwaggerConfig {
     public Docket restApi2() {
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("团队资产模块")
+                .groupName("团队资产模块(临时)")
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.ass"))
@@ -77,7 +77,7 @@ public abstract class BaseSwaggerConfig {
     public Docket restApi3() {
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("数仓开发模块")
+                .groupName("数仓开发模块(临时)")
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.dw"))
