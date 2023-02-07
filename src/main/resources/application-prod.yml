@@ -20,7 +20,7 @@ logging:
     path: /home/bigdata/logs
   level:
     root: info
-    com.bigdata.com.bigdata.backstage: info
+    com.bigdata.backstage: info
 
 # 集群信息
 cluster:
