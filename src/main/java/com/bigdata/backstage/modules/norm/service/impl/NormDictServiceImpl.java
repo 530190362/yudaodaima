@@ -60,7 +60,7 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
 
     //导入数据字典接口
     @Override
-    @CacheEvict(value = "dict", allEntries = true)
+    @CacheEvict(value = "bigdata:dict", allEntries = true)
     public void importDictData(MultipartFile file) {
         try {
             EasyExcel.read(file.getInputStream(), NormDictVo.class, new NormDictListener(baseMapper)).sheet().doRead();
@@ -71,7 +71,7 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
 
     //根据数据id查询子数据列表
     @Override
-    @Cacheable(value = "dict", keyGenerator = "keyGenerator")
+    @Cacheable(value = "bigdata:dict", keyGenerator = "keyGenerator")
     public List<NormDict> findChildData(Long id) {
         QueryWrapper<NormDict> wrapper = new QueryWrapper<>();
         wrapper.eq("parent_id", id);
