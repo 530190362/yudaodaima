@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 public class NormDictVo {
 
-
     @ExcelProperty(value = "id", index = 0)
     private Long id;
 

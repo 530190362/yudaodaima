@@ -6,7 +6,6 @@ import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.norm.dto.NormDictDto;
 import com.bigdata.backstage.modules.norm.model.NormDict;
-import com.bigdata.backstage.modules.norm.model.NormRoot;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -54,9 +53,8 @@ public class NormDictController {
     //导出数据字典接口
     @ApiOperation(value = "数据字典导出")
     @GetMapping
-    public CommonResult exportDict(HttpServletResponse response) {
+    public void exportDict(HttpServletResponse response) {
         normDictService.exportDictData(response);
-        return CommonResult.success("ok");
     }
 
     //根据数据id查询子数据列表
@@ -120,8 +118,6 @@ public class NormDictController {
             return CommonResult.failed("新增失败");
         }
     }
-
-
 }
 
 
