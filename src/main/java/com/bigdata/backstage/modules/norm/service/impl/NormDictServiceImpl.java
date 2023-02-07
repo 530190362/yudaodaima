@@ -9,7 +9,6 @@ import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.mapper.NormDictMapper;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sun.deploy.net.URLEncoder;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
