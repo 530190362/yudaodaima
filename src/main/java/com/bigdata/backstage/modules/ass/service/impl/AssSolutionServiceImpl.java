@@ -77,6 +77,8 @@ public class AssSolutionServiceImpl extends ServiceImpl<AssSolutionMapper, AssSo
         }
         //调用mapper方法实现分页条件查询
         return assSolutionMapper.selectPage(pageParam, wrapper);
+
+
     }
 
 }
