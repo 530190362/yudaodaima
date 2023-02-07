@@ -46,18 +46,6 @@ public class HomePageServiceImpl implements HomePageService {
         List<DataChangeVo> changeVoist = new ArrayList<>();
         if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)){
             changeVoist = metDetailOutlineMapper.getDataChangeNum(DataChangeDaysEnum.SEVEN_DAYS.getValue());
-            System.out.println(changeVoist);
-//            changeVoist = metDetailOutlineMapper.getDataChangeNum(days);
-//            LambdaQueryWrapper<MetRecordZip> wrapper = new LambdaQueryWrapper<MetRecordZip>()
-//                    .orderByDesc(MetRecordZip::getUpdateDate)
-//                    .last("limit 7");
-//            List<MetRecordZip> businessRecordList = metRecordZipService.list(wrapper);
-//            for (MetRecordZip metRecordZip : businessRecordList) {
-//                DataChangeVo dataChangeVo = new DataChangeVo();
-//                dataChangeVo.setDataNum(BigDecimal.valueOf(metRecordZip.getRowCount()));
-//                dataChangeVo.setDate(DateUtil.format(metRecordZip.getUpdateDate(),"yyyy-MM-dd"));
-//                changeVoist.add(dataChangeVo);
-//            }
         }else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
             changeVoist = metDetailOutlineMapper.getDataChangeNum(DataChangeDaysEnum.FIFTEEN_DAYS.getValue());
         }
@@ -77,25 +65,21 @@ public class HomePageServiceImpl implements HomePageService {
 
     @Override
     public List<DataSizeTop> getDataSizeTop() {
-        List<DataSizeTop> dataSizeTop = metDetailOutlineMapper.getDataSizeTop();
-        return dataSizeTop;
+        return metDetailOutlineMapper.getDataSizeTop();
     }
 
     @Override
     public List<DataCountTop> getDataCountTop() {
-        List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataCountTop();
-        return dataCountTop;
+        return metDetailOutlineMapper.getDataCountTop();
     }
 
     @Override
     public List<DataCountTop> getDataNewTop() {
-        List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataNewTop();
-        return dataCountTop;
+        return metDetailOutlineMapper.getDataNewTop();
     }
 
     @Override
     public List<DataCountTop> getDataNewRowTop() {
-        List<DataCountTop> dataCountTop = metDetailOutlineMapper.getDataNewRowTop();
-        return dataCountTop;
+        return metDetailOutlineMapper.getDataNewRowTop();
     }
 }
