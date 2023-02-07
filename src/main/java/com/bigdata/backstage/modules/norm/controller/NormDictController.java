@@ -1,9 +1,12 @@
 package com.bigdata.backstage.modules.norm.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.norm.dto.NormDictDto;
 import com.bigdata.backstage.modules.norm.model.NormDict;
+import com.bigdata.backstage.modules.norm.model.NormRoot;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +51,6 @@ public class NormDictController {
         }
     }
 
-
     //导出数据字典接口
     @ApiOperation(value = "数据字典导出")
     @GetMapping
@@ -65,6 +67,17 @@ public class NormDictController {
         return CommonResult.success(list);
     }
 
+
+    //分页模糊查询
+    @ApiOperation(value = "分页模糊查询")
+    @PostMapping("/list")
+    public CommonResult<CommonPage<NormDict>> list(
+            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestBody NormDictDto normDictDto) {
+        IPage<NormDict> pageist= normDictService.selectPage(normDictDto, pageSize, pageNum);
+        return CommonResult.success(CommonPage.restPage(pageist));
+    }
 
     //根据id修改数据字典
     @ApiOperation(value = "修改数据字典的值")

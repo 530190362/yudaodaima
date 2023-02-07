@@ -24,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("met_norm_root")
-@ApiModel(value = "MetNormRoot对象", description = "数据标准-字根库")
+@ApiModel(value = "NormRoot表实体对象", description = "数据标准-字根库")
 public class NormRoot implements Serializable {
 
     private static final long serialVersionUID = 1L;

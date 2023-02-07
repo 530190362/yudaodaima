@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("met_norm_dict")
-@ApiModel(value = "MetNormDict对象", description = "数据标准-字典库")
+@ApiModel(value = "NormDict表实体对象", description = "数据标准-字典库")
 public class NormDict implements Serializable {
 
     private static final long serialVersionUID = 1L;

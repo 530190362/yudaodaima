@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("met_norm_node")
-@ApiModel(value = "MetNormNode对象", description = "数据标准-任务节点")
+@ApiModel(value = "NormNode表实体对象", description = "数据标准-任务节点")
 public class NormNode implements Serializable {
 
     private static final long serialVersionUID = 1L;

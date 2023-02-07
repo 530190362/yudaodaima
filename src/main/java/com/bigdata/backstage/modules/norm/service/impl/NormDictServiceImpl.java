@@ -1,14 +1,20 @@
 package com.bigdata.backstage.modules.norm.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bigdata.backstage.modules.norm.dto.NormDictDto;
 import com.bigdata.backstage.modules.norm.listener.NormDictListener;
+
 import com.bigdata.backstage.modules.norm.vo.NormDictVo;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.mapper.NormDictMapper;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -31,6 +37,9 @@ import java.util.List;
 @Service
 public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> implements NormDictService {
 
+
+    @Autowired
+    private NormDictMapper normDictMapper;
 
     //导出数据字典接口
     @Override
@@ -67,6 +76,29 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    //分页模糊查询
+    @Override
+    public IPage<NormDict> selectPage(NormDictDto normDictDto, Integer pageSize, Integer pageNum) {
+        Long parentId = normDictDto.getParentId();
+        String name = normDictDto.getName();
+        String nameCode = normDictDto.getNameCode();
+        //封装参数
+        Page<NormDict> pageParam = new Page<>(pageNum, pageSize);
+        QueryWrapper<NormDict> wrapper = new QueryWrapper<>();
+        if (parentId != null) {
+            wrapper.eq("parent_id", parentId);
+        }
+        if (!StrUtil.isEmpty(name)) {
+            wrapper.like("name", name);
+        }
+        if (!StrUtil.isEmpty(nameCode)) {
+            wrapper.like("name_code", nameCode);
+        }
+        return normDictMapper.selectPage(pageParam, wrapper);
+
     }
 
     //根据数据id查询子数据列表

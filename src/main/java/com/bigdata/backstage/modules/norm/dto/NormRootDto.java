@@ -1,10 +1,12 @@
 package com.bigdata.backstage.modules.norm.dto;
 
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel(value = "NormRootDto传输对象", description = "数据标准-词根库")
 public class NormRootDto {
     @ApiModelProperty("词根中文")
     private String nameZh;

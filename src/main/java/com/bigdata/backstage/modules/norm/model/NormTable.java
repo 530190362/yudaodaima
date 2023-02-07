@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("met_norm_table")
-@ApiModel(value = "MetNormTable对象", description = "数据标准-表命名规范")
+@ApiModel(value = "NormTable表实体对象", description = "数据标准-表命名规范")
 public class NormTable implements Serializable {
 
     private static final long serialVersionUID = 1L;
