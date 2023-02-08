@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.common.model.MetDataColumn;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.bigdata.backstage.modules.common.model.MetDataColumn;
  */
 public interface MetDataColumnMapper extends BaseMapper<MetDataColumn> {
 
+
+    void syncColumnInsert(@Param("dwID") Integer dwId);
+
+    void syncColumnUpdate();
+
+    void syncColumnDelete();
 }

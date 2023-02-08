@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.bigdata.backstage.modules.common.model.MetDataTable;
  */
 public interface MetDataTableMapper extends BaseMapper<MetDataTable> {
 
+
+    void syncTableInsert(@Param("dwID") Integer dwId);
+
+    void syncTableUpdate();
+
+    void syncTableDelete();
 }

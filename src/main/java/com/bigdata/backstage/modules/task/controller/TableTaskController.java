@@ -18,18 +18,18 @@ public class TableTaskController {
     @Autowired
     private TableTaskService tableTaskService;
 
-    @ApiOperation(value = "同步表数据资产概览表met_data_overview")
-    @GetMapping("metDataOverview")
-    public CommonResult syncTabelOverview() {
-        tableTaskService.syncTabelOverview();
-        return CommonResult.success("同步表数据资产概览表met_data_overview");
+    @ApiOperation(value = "同步表级别")
+    @GetMapping("table")
+    public CommonResult syncTabel() {
+        tableTaskService.syncTabel();
+        return CommonResult.success("同步表级别");
     }
 
-    @ApiOperation(value = "数据资产标签表met_data_label")
-    @GetMapping("metDataLabel")
-    public CommonResult syncTableLabel() {
-        tableTaskService.syncTableLabel();
-        return CommonResult.success("数据资产标签表met_data_label");
+    @ApiOperation(value = "同步字段级别")
+    @GetMapping("column")
+    public CommonResult syncColumn() {
+        tableTaskService.syncColumn();
+        return CommonResult.success("同步字段级别");
     }
 
 }

@@ -13,4 +13,6 @@ import com.bigdata.backstage.modules.common.model.MetDataColumn;
  */
 public interface MetDataColumnService extends IService<MetDataColumn> {
 
+    //同步字段级别
+    void syncColumn();
 }
