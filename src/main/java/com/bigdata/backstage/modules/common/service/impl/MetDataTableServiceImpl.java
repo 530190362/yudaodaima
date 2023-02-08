@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataTableMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, MetDataTable> implements MetDataTableService {
 
+    @Value("${dw.id}")
+    private Integer dwId;
+
+    @Autowired
+    private  MetDataTableMapper metDataTableMapper;
+    //同步表级别
+    @Override
+    public void syncTable() {
+        metDataTableMapper.syncTableInsert(dwId);
+        metDataTableMapper.syncTableUpdate();
+        metDataTableMapper.syncTableDelete();
+    }
 }

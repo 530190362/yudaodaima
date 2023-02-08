@@ -13,4 +13,7 @@ import com.bigdata.backstage.modules.common.model.MetDataTable;
  */
 public interface MetDataTableService extends IService<MetDataTable> {
 
+    //同步表级别
+    void syncTable();
+
 }
