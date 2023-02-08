@@ -125,7 +125,7 @@ public abstract class BaseSwaggerConfig {
     public Docket restApi6() {
         SwaggerProperties swaggerProperties = swaggerProperties();
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("数仓运维平台模块-数据集合")
+                .groupName("数仓运维平台模块-数据集成")
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.dataasset"))

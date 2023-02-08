@@ -21,7 +21,8 @@ public class TableTaskService   {
     private String dwNameZh;
 
     //数据资产概览表met_data_overview
-    @Scheduled(cron = "0/50 * * * * ?")
+    //corn每天7点执行
+    @Scheduled(cron = "0 0 7 * * ?")
     public void syncTabelOverview(){
         System.out.println(dwId);
         System.out.println(dwNameEn);
@@ -29,8 +30,9 @@ public class TableTaskService   {
         System.out.println("数据资产概览表met_data_overview");
     }
 
+
     //数据资产标签表met_data_label
-    @Scheduled(cron = "0/55 * * * * ?")
+    @Scheduled(cron = "0 0 7 * * ?")
     public void syncTableLabel(){
         System.out.println(dwId);
         System.out.println(dwNameEn);

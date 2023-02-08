@@ -25,4 +25,11 @@ public class TableTaskController {
         return CommonResult.success("同步表数据资产概览表met_data_overview");
     }
 
+    @ApiOperation(value = "数据资产标签表met_data_label")
+    @GetMapping("metDataLabel")
+    public CommonResult syncTableLabel() {
+        tableTaskService.syncTableLabel();
+        return CommonResult.success("数据资产标签表met_data_label");
+    }
+
 }

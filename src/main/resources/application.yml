@@ -59,8 +59,7 @@ secure:
       - /homepage/**
       - /dataasset/**
       - /res/**
+      - /task/**
 
-dw:
-  id: 1
-  nameEn: gfdn
-  nameZh: 共富大脑
+# 1 共富大脑 2 青燕归巢 3 e家富
+dw: 1
