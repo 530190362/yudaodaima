@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-@Api(tags = "ScheduledTaskController")
-@Tag(name = "ScheduledTaskController", description = "同步管理")
+@Api(tags = "同步管理")
+@Tag(name = "同步管理", description = "TableTaskController")
 @RestController
 @RequestMapping("/task")
 public class TableTaskController {

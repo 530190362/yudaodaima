@@ -72,6 +72,15 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>${springfox-swagger.version}</version>
         </dependency>
+
+        <!--knife4j-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
+
         <!--redis依赖配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

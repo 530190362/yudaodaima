@@ -28,8 +28,8 @@ import javax.validation.Valid;
  * @author macro
  * @since 2023-02-06
  */
-@Api(tags = "MetNormRootController")
-@Tag(name = "MetNormRootController", description = "数据标准-词根库")
+@Api(tags = "数据标准-词根库")
+@Tag(name = "数据标准-词根库", description = "NormRootController")
 @RestController
 @RequestMapping("/norm/root")
 public class NormRootController {

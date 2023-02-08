@@ -29,8 +29,8 @@ import javax.validation.Valid;
  * @author macro
  * @since 2023-02-06
  */
-@Api(tags = "MetNormNodeController")
-@Tag(name = "MetNormNodeController", description = "数据标准-节点")
+@Api(tags = "数据标准-节点")
+@Tag(name = "数据标准-节点", description = "NormNodeController")
 @RestController
 @RequestMapping("/norm/node")
 public class NormNodeController {

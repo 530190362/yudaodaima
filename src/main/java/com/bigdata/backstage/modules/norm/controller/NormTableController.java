@@ -27,8 +27,8 @@ import javax.validation.Valid;
  * @author macro
  * @since 2023-02-06
  */
-@Api(tags = "MetNormTableController")
-@Tag(name = "MetNormTableController", description = "数据标准-表规范")
+@Api(tags = "数据标准-表规范")
+@Tag(name = "数据标准-表规范", description = "NormTableController")
 @RestController
 @RequestMapping("/norm/table")
 public class NormTableController {

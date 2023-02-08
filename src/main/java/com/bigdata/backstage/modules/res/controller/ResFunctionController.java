@@ -28,8 +28,8 @@ import javax.validation.Valid;
  * @since 2023-02-07
  */
 
-@Api(tags = "ResFunctionController")
-@Tag(name = "ResFunctionController", description = "资源管理-UDF函数库")
+@Api(tags = "资源管理-UDF函数库")
+@Tag(name = "资源管理-UDF函数库", description = "ResFunctionController")
 @RestController
 @RequestMapping("/res/resFunction")
 public class ResFunctionController {

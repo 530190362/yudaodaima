@@ -40,6 +40,7 @@ secure:
     urls: #安全路径白名单
       - /swagger-ui/
       - /swagger-resources/**
+      - /doc.html
       - /**/v2/api-docs
       - /**/*.html
       - /**/*.js
@@ -60,7 +61,7 @@ secure:
       - /dataasset/**
       - /res/**
       - /task/**
-
+#
 # 1 共富大脑 2 青燕归巢 3 e家富
 dw:
   id: 1

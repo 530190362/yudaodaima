@@ -30,8 +30,8 @@ import java.util.List;
  * @since 2023-02-06
  */
 
-@Api(tags = "MetNormDictController")
-@Tag(name = "MetNormDictController", description = "数据标准-字典库")
+@Api(tags = "数据标准-字典库")
+@Tag(name = "数据标准-字典库", description = "NormDictController")
 @RestController
 @RequestMapping("/norm/dict")
 public class NormDictController {
