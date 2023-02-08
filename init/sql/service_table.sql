@@ -241,3 +241,50 @@ CREATE TABLE if not exists `met_explore_report`
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据勘探-数据勘探报告表';
 
 -- -
+
+-- 数据资产概览表
+drop table if exists `met_data_overview`;
+CREATE TABLE `met_data_overview`
+(
+    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `dw_id`           int(10)        DEFAULT NULL COMMENT '数仓id',
+    `project_name`    varchar(255)   DEFAULT NULL COMMENT '项目名称',
+    `tbl_level`       varchar(50)    DEFAULT NULL COMMENT '表层级',
+    `table_name`      varchar(255)   DEFAULT NULL COMMENT '表名',
+    `table_comment`   varchar(255)   DEFAULT NULL COMMENT '表备注',
+    `tbl_col_num`     int(10)        DEFAULT NULL COMMENT '字段数',
+    `tbl_create_time` datetime       DEFAULT NULL COMMENT '表创建时间',
+    `tbl_update_time` datetime       DEFAULT NULL COMMENT '表更新时间',
+    `tbl_size`        decimal(16, 2) DEFAULT NULL COMMENT '表大小 单位:MB',
+    `is_pt`           tinyint(1)     DEFAULT NULL COMMENT '是否是分区表 1-是 0-否',
+    `index1_name`     varchar(50)    DEFAULT NULL COMMENT '表一级明细',
+    `index2_name`     varchar(50)    DEFAULT NULL COMMENT '表二级明细',
+    `index3_name`     varchar(50)    DEFAULT NULL COMMENT '表三级明细',
+    `tbl_type`        varchar(50)    DEFAULT NULL COMMENT '表类型 内部表/外部表',
+    `label`           VARCHAR(50)    DEFAULT NULL COMMENT '标签',
+    `is_delete`       int(2)         DEFAULT '0' COMMENT '是否删除  0:未删除 1:已删除',
+    `create_time`     datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 0
+  DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产概览表';
+
+
+-- 数据资产标签表
+drop table if exists `met_data_label`;
+CREATE TABLE `met_data_label`
+(
+    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `label_name`    varchar(255) DEFAULT NULL COMMENT '标签名称',
+    `label_comment` varchar(255) DEFAULT NULL COMMENT '标签备注',
+    `table_name`    varchar(255) DEFAULT NULL COMMENT '关联表名',
+    `create_user`   varchar(50)  DEFAULT NULL COMMENT '创建用户',
+    `update_user`   varchar(50)  DEFAULT NULL COMMENT '修改用户',
+    `is_delete`     int(2)       DEFAULT '0' COMMENT '是否删除  0:未删除 1:已删除',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 0
+  DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产标签表';

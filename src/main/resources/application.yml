@@ -59,3 +59,8 @@ secure:
       - /homepage/**
       - /dataasset/**
       - /res/**
+
+dw:
+  id: 1
+  nameEn: gfdn
+  nameZh: 共富大脑

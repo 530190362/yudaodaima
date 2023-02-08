@@ -137,6 +137,7 @@ public abstract class BaseSwaggerConfig {
         return docket;
     }
 
+
     @Bean
     public Docket restApi7() {
         SwaggerProperties swaggerProperties = swaggerProperties();
@@ -153,6 +154,21 @@ public abstract class BaseSwaggerConfig {
         return docket;
     }
 
+    @Bean
+    public Docket restApi8() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("数仓运维平台模块-任务同步")
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.task"))
+                .paths(PathSelectors.any())
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
 
 
 
