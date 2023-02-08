@@ -71,4 +71,10 @@
         WHERE t1.tbl_name not in (select t2.tbl_name from view_met_data_table t2)
     </update>
 
+    <update id="syncColumnRecover">
+        UPDATE met_data_table t1 SET is_deleted = 0
+        WHERE t1.tbl_name  in (select t2.tbl_name from view_met_data_table t2) and t1.is_deleted = 1;
+
+    </update>
+
 </mapper>

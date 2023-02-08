@@ -33,17 +33,13 @@ public class MetDataSyncLog implements Serializable {
     @ApiModelProperty("同步名称")
     private String name;
 
-    @ApiModelProperty("开始时间")
-    private Date startTime;
-
-    @ApiModelProperty("开始时间")
-    private Date endTime;
-
     @ApiModelProperty("花费时间单位 : 秒")
     private Integer spendTimes;
 
-    @ApiModelProperty("写入时间")
-    private Date createTime;
+    @ApiModelProperty("开始时间")
+    private Date startTime;
 
+    @ApiModelProperty("写入时间")
+    private Date endTime;
 
 }

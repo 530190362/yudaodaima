@@ -15,9 +15,18 @@ import org.apache.ibatis.annotations.Param;
 public interface MetDataTableMapper extends BaseMapper<MetDataTable> {
 
 
+
+    //数据写入
     void syncTableInsert(@Param("dwID") Integer dwId);
 
+
+    //数据更新
     void syncTableUpdate();
 
+
+    //数据删除(逻辑删除)
     void syncTableDelete();
+
+    //数据恢复(逻辑恢复)
+    void syncColumnRecover();
 }

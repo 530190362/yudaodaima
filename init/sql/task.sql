@@ -35,6 +35,11 @@ UPDATE met_data_table t1 SET is_deleted = 1
 WHERE t1.tbl_name not in (select t2.tbl_name from view_met_data_table t2);
 
 
+
+UPDATE met_data_table t1 SET is_deleted = 0
+WHERE t1.tbl_name  in (select t2.tbl_name from view_met_data_table t2) and t1.is_deleted = 1;
+
+
 -- #######################################################################
 -- #######################################################################
 
@@ -55,6 +60,9 @@ set t1.col_type    = t2.col_type,
 UPDATE met_data_column t1 SET is_deleted = 1
 WHERE concat(t1.tbl_name, t1.col_name) not in (select concat(t2.tbl_name, t2.col_name) from view_met_data_column t2);
 
-
+UPDATE met_data_column t1
+SET is_deleted = 0
+WHERE concat(t1.tbl_name, t1.col_name) in (select concat(t2.tbl_name, t2.col_name) from view_met_data_column t2)
+  and t1.is_deleted = 1;
 
 

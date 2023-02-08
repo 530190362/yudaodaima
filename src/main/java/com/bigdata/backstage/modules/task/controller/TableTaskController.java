@@ -22,14 +22,15 @@ public class TableTaskController {
     @GetMapping("table")
     public CommonResult syncTabel() {
         tableTaskService.syncTabel();
-        return CommonResult.success("同步表级别");
+        return CommonResult.success("提交成功,同步表级别");
+
     }
 
     @ApiOperation(value = "同步字段级别")
     @GetMapping("column")
     public CommonResult syncColumn() {
         tableTaskService.syncColumn();
-        return CommonResult.success("同步字段级别");
+        return CommonResult.success("提交成功,同步字段级别");
     }
 
 }

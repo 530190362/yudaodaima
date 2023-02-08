@@ -49,13 +49,9 @@ CREATE TABLE if not exists `met_data_sync_log`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
     `name`        varchar(50)         NOT NULL COMMENT '同步名称',
-    `start_time`  datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
-    `end_time`    datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
     `spend_times` int(5)              NOT NULL COMMENT '花费时间单位 : 秒',
-    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '写入时间',
+    `start_time`  datetime COMMENT '开始时间',
+    `end_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '结束时间',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产-数据同步日志表';
-
-
-

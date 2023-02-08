@@ -31,5 +31,6 @@ public class MetDataColumnServiceImpl extends ServiceImpl<MetDataColumnMapper, M
         metDataColumnMapper.syncColumnInsert(dwId);
         metDataColumnMapper.syncColumnUpdate();
         metDataColumnMapper.syncColumnDelete();
+        metDataColumnMapper.syncColumnRecover();
     }
 }
