@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.common.mapper.MetDataOverviewLabelRelationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation">
+        <id column="id" property="id" />
+        <result column="overview_id" property="overviewId" />
+        <result column="label_id" property="labelId" />
+        <result column="create_user" property="createUser" />
+        <result column="update_user" property="updateUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+    <select id="getOverviewIdList" resultType="java.lang.String">
+        SELECT
+            overview_id
+        FROM
+            met_data_overview_label_relation rel
+        WHERE
+            rel.is_delete = 0
+        and rel.label_id = #{label}
+    </select>
+
+    <select id="getLabelList" resultType="java.lang.String">
+        SELECT a.label_name
+        FROM met_data_label a
+        LEFT JOIN met_data_overview_label_relation b
+        ON a.id =b.label_id
+        WHERE a.is_delete =0 AND b.is_delete =0
+        AND b.overview_id = #{overviewId}
+    </select>
+</mapper>

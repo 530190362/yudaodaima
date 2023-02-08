@@ -189,4 +189,17 @@
             limit 10
     </select>
 
+    <!--根据表名查询字段-->
+    <select id="queryDataField" resultType="com.bigdata.backstage.modules.dataasset.vo.DataFiledVo">
+        SELECT
+            col_name as colName,
+            col_type as colType,
+            col_comment as colComment
+        FROM
+            view_met_detail_outline
+        WHERE
+            dt = ( SELECT max( dt ) FROM view_met_detail_outline )
+        AND tbl_name= #{tblName}
+    </select>
+
 </mapper>

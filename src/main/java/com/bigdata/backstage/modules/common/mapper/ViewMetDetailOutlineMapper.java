@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.common.mapper;
 
 import com.bigdata.backstage.modules.common.model.ViewMetDetailOutline;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bigdata.backstage.modules.dataasset.vo.DataFiledVo;
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
 import com.bigdata.backstage.modules.homepage.vo.DataCountTop;
 import com.bigdata.backstage.modules.homepage.vo.DataOverviewVo;
@@ -65,5 +66,8 @@ public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutl
      * @return
      */
     List<DataCountTop> getDataNewRowTop();
+
+
+    List<DataFiledVo> queryDataField(@Param("tblName") String tblName);
 
 }

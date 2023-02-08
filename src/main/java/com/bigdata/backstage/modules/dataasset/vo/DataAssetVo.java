@@ -43,7 +43,5 @@ public class DataAssetVo {
     @ApiModelProperty("表大小 单位:MB")
     private BigDecimal tblSize;
 
-    @ApiModelProperty("标签")
-    private String label;
 
 }

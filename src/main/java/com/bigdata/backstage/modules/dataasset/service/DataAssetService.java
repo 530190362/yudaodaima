@@ -2,9 +2,8 @@ package com.bigdata.backstage.modules.dataasset.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
-import com.bigdata.backstage.modules.dataasset.vo.DataAssetVo;
-import com.bigdata.backstage.modules.dataasset.vo.DataSelectAssetVo;
-import com.bigdata.backstage.modules.dataasset.vo.DataSelectLabelVo;
+import com.bigdata.backstage.modules.dataasset.vo.*;
+import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 
 import java.util.List;
 
@@ -15,6 +14,15 @@ public interface DataAssetService {
     List<DataSelectLabelVo> queryDataSelectLabel();
 
     List<DataSelectAssetVo> queryDataSelectAsset();
+
+    List<DataSelectDwVo> queryDataSelectDw();
+
+    /**
+     * 查询表字段
+     * @param tblName
+     * @return
+     */
+    List<DataFiledVo> queryDataField(String tblName);
 
 
 }

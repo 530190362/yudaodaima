@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.common.mapper.MetDwInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetDwInfo">
+        <id column="id" property="id" />
+        <result column="dw_name_en" property="dwNameEn" />
+        <result column="dw_name_zn" property="dwNameZn" />
+        <result column="dw_desc" property="dwDesc" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+
+    <select id="queryDataSelectDw" resultType="com.bigdata.backstage.modules.dataasset.vo.DataSelectDwVo">
+        SELECT id,dw_name_en as dwNameEn,dw_name_zn as dwNameZn from met_dw_info where is_deleted=0 GROUP BY id,dw_name_en,dw_name_zn
+    </select>
+</mapper>
