@@ -39,8 +39,6 @@ import java.util.List;
 public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> implements NormDictService {
 
 
-    @Autowired
-    private NormDictMapper normDictMapper;
 
     //导出数据字典接口
     @Override
@@ -102,7 +100,7 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
         if (!StrUtil.isEmpty(nameCode)) {
             wrapper.like("name_code", nameCode);
         }
-        return normDictMapper.selectPage(pageParam, wrapper);
+        return baseMapper.selectPage(pageParam, wrapper);
     }
 
     //返回字典类型
@@ -110,7 +108,7 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
     public List<NormDictTypeDto> getDictType() {
         QueryWrapper<NormDict> wrapper = new QueryWrapper<>();
         wrapper.eq("parent_id", 0);
-        return BeanUtil.copyToList(normDictMapper.selectList(wrapper), NormDictTypeDto.class);
+        return BeanUtil.copyToList(baseMapper.selectList(wrapper), NormDictTypeDto.class);
     }
 
     //根据数据id查询子数据列表
