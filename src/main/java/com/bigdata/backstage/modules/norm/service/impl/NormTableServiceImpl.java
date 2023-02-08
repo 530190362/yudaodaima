@@ -37,8 +37,6 @@ import java.util.List;
 public class NormTableServiceImpl extends ServiceImpl<NormTableMapper, NormTable> implements NormTableService {
 
 
-    @Autowired
-    private NormTableMapper normTableMapper;
 
     //导出EXCEL数据
     @Override
@@ -82,7 +80,7 @@ public class NormTableServiceImpl extends ServiceImpl<NormTableMapper, NormTable
             wrapper.like("table_desc", tableDesc);
         }
         //调用mapper方法实现分页条件查询
-        return normTableMapper.selectPage(pageParam, wrapper);
+        return baseMapper.selectPage(pageParam, wrapper);
     }
 
     //新增
@@ -91,12 +89,12 @@ public class NormTableServiceImpl extends ServiceImpl<NormTableMapper, NormTable
         String level  = normTableDto.getLevel();
         QueryWrapper<NormTable> wrapper = new QueryWrapper<>();
         wrapper.eq("level", level);
-        Long isExist = normTableMapper.selectCount(wrapper);
+        Long isExist = baseMapper.selectCount(wrapper);
         if (isExist > 0) {
             Asserts.fail("此数仓层级已存在");
         }
         normTableDto.setLevel(level.trim().toUpperCase());
         NormTable normTable = BeanUtil.copyProperties(normTableDto, NormTable.class);
-        normTableMapper.insert(normTable);
+        baseMapper.insert(normTable);
     }
 }

@@ -1,9 +1,8 @@
 package com.bigdata.backstage.modules.norm.dto;
 
+import com.bigdata.backstage.domain.PageDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class NormTableDto extends PageDto {

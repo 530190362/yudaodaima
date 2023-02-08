@@ -103,7 +103,6 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
             wrapper.like("name_code", nameCode);
         }
         return normDictMapper.selectPage(pageParam, wrapper);
-
     }
 
     //返回字典类型

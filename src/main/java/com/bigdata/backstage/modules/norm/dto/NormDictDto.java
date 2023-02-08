@@ -1,6 +1,7 @@
 package com.bigdata.backstage.modules.norm.dto;
 
 
+import com.bigdata.backstage.domain.PageDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +9,6 @@ import lombok.Data;
 @Data
 @ApiModel(value = "NormDictDto传输对象", description = "数据标准-字典库")
 public class NormDictDto extends PageDto {
-
 
     @ApiModelProperty(value = "父ID")
     private Long parentId;

@@ -7,14 +7,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bigdata.backstage.modules.norm.dto.NormNodeDto;
-import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.model.NormNode;
 import com.bigdata.backstage.modules.norm.mapper.NormNodeMapper;
 import com.bigdata.backstage.modules.norm.service.NormNodeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.bigdata.backstage.modules.norm.vo.NormDictVo;
 import com.bigdata.backstage.modules.norm.vo.NormNodeVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,15 +25,13 @@ import java.util.List;
  * 数据标准-任务节点 服务实现类
  * </p>
  *
- * @author macro
+ * @author bigdata
  * @since 2023-02-06
  */
 @Service
 public class NormNodeServiceImpl extends ServiceImpl<NormNodeMapper, NormNode> implements NormNodeService {
 
 
-    @Autowired
-    private NormNodeMapper normNodeMapper;
 
     //分页查询
     @Override
@@ -56,7 +51,7 @@ public class NormNodeServiceImpl extends ServiceImpl<NormNodeMapper, NormNode> i
         if (!StrUtil.isEmpty(nodeDesc)) {
             wrapper.like("node_desc", nodeDesc);
         }
-        return normNodeMapper.selectPage(pageParam, wrapper);
+        return baseMapper.selectPage(pageParam, wrapper);
     }
 
     ////导出为EXCEL(全量)

@@ -1,11 +1,13 @@
-package com.bigdata.backstage.modules.norm.dto;
+package com.bigdata.backstage.domain;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(value = "PageDto传输对象", description = "分页对象")
 public class PageDto {
 
     @ApiModelProperty("自增主键")

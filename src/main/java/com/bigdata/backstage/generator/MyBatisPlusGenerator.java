@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 /**
  * MyBatisPlus代码生成器
- * Created by macro on 2020/8/20.
+ * Created by bigdata on 2020/8/20.
  */
 public class MyBatisPlusGenerator {
 
@@ -55,7 +55,7 @@ public class MyBatisPlusGenerator {
     private static GlobalConfig initGlobalConfig(String projectPath) {
         return new GlobalConfig.Builder()
                 .outputDir(projectPath + "/src/main/java")
-                .author("macro")
+                .author("bigdata")
                 .disableOpenDir()
                 .enableSwagger()
                 .fileOverride()

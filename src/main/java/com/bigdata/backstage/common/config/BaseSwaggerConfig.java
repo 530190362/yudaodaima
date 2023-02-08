@@ -121,6 +121,41 @@ public abstract class BaseSwaggerConfig {
     }
 
 
+    @Bean
+    public Docket restApi6() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("数仓运维平台模块-数据集合")
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.dataasset"))
+                .paths(PathSelectors.any())
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
+
+    @Bean
+    public Docket restApi7() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("数仓运维平台模块-资源管理")
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.res"))
+                .paths(PathSelectors.any())
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
+
+
+
+
 
 
     private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {

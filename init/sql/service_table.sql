@@ -181,8 +181,8 @@ CREATE TABLE if not exists `met_assets_label`
 
 
 -- 数据资产-UDF函数管理
-drop table if exists `met_assets_function`;
-CREATE TABLE if not exists `met_assets_function`
+drop table if exists `met_res_function`;
+CREATE TABLE if not exists `met_res_function`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
     `name`     varchar(50)         NOT NULL COMMENT '函数英文名称',
@@ -193,8 +193,9 @@ CREATE TABLE if not exists `met_assets_function`
     `function_desc`     text         NOT NULL COMMENT '描述',
     `command`     varchar(50)         NOT NULL COMMENT '命令格式',
     `param_desc`     varchar(255)         NOT NULL COMMENT '参数说明',
-    `return`     varchar(255)         NOT NULL COMMENT '返回值',
+    `return_value`     varchar(255)         NOT NULL COMMENT '返回值',
     `example`     varchar(255)         NOT NULL COMMENT '示例',
+    `is_company`      tinyint(1) DEFAULT 1 COMMENT '函数来源 1-公司创建的函数 0-系统自带函数',
     `create_user`     varchar(50)         NOT NULL COMMENT '创建人',
     `update_user`     varchar(50)         NOT NULL COMMENT '更新人',
     `create_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -202,7 +203,7 @@ CREATE TABLE if not exists `met_assets_function`
     `is_deleted`      tinyint(1) DEFAULT 0 COMMENT '是否删除 1-是 0-否',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产-UDF函数管理';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='资源管理-UDF函数管理';
 
 
 -- #########################################################################
