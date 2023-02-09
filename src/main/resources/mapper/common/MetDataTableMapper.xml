@@ -4,25 +4,37 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetDataTable">
-        <id column="id" property="id" />
-        <result column="dw_id" property="dwId" />
-        <result column="tbl_name" property="tblName" />
-        <result column="tbl_comment" property="tblComment" />
-        <result column="tbl_create_time" property="tblCreateTime" />
-        <result column="tbl_update_time" property="tblUpdateTime" />
-        <result column="is_pt" property="isPt" />
-        <result column="pt_last" property="ptLast" />
-        <result column="tbl_lifecycle" property="tblLifecycle" />
-        <result column="tbl_type" property="tblType" />
-        <result column="tbl_size" property="tblSize" />
-        <result column="tbl_col_num" property="tblColNum" />
-        <result column="all_row_count" property="allRowCount" />
-        <result column="row_count" property="rowCount" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="isDeleted" />
+        <id column="id" property="id"/>
+        <result column="dw_id" property="dwId"/>
+        <result column="tbl_name" property="tblName"/>
+        <result column="tbl_comment" property="tblComment"/>
+        <result column="tbl_create_time" property="tblCreateTime"/>
+        <result column="tbl_update_time" property="tblUpdateTime"/>
+        <result column="is_pt" property="isPt"/>
+        <result column="pt_last" property="ptLast"/>
+        <result column="tbl_lifecycle" property="tblLifecycle"/>
+        <result column="tbl_type" property="tblType"/>
+        <result column="tbl_size" property="tblSize"/>
+        <result column="tbl_col_num" property="tblColNum"/>
+        <result column="all_row_count" property="allRowCount"/>
+        <result column="row_count" property="rowCount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
+    <resultMap id="sourceTotalMap" type="com.bigdata.backstage.modules.source.dto.DataSourceTotalDto">
+        <id column="tables" property="tables"/>
+        <result column="size" property="size"/>
+        <result column="rows" property="rows"/>
+    </resultMap>
+
+    <resultMap id="sourceTotalHistoryMap" type="com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto">
+        <id column="date" property="date"/>
+        <id column="ods" property="ods"/>
+        <result column="irs" property="irs"/>
+        <result column="bms" property="bms"/>
+    </resultMap>
 
     <insert id="syncTableInsert">
 
@@ -45,36 +57,65 @@
         where not exists(select 1 from met_data_table t1 where t1.tbl_name = t2.tbl_name)
 
     </insert>
-    
+
     <update id="syncTableUpdate">
 
         update met_data_table t1
             inner join view_met_data_table t2 on t1.tbl_name = t2.tbl_name
-        set t1.tbl_name =t2.tbl_name,
-            t1.tbl_comment =t2.tbl_comment,
+        set t1.tbl_name        =t2.tbl_name,
+            t1.tbl_comment     =t2.tbl_comment,
             t1.tbl_create_time =t2.tbl_create_time,
             t1.tbl_update_time =t2.tbl_update_time,
-            t1.is_pt =t2.is_pt,
-            t1.pt_last =t2.pt_last,
-            t1.tbl_lifecycle =t2.tbl_lifecycle,
-            t1.tbl_type =t2.tbl_type,
-            t1.tbl_size =t2.tbl_size,
-            t1.tbl_col_num =t2.tbl_col_num,
-            t1.all_row_count =t2.all_row_count,
-            t1.row_count =t2.row_count
+            t1.is_pt           =t2.is_pt,
+            t1.pt_last         =t2.pt_last,
+            t1.tbl_lifecycle   =t2.tbl_lifecycle,
+            t1.tbl_type        =t2.tbl_type,
+            t1.tbl_size        =t2.tbl_size,
+            t1.tbl_col_num     =t2.tbl_col_num,
+            t1.all_row_count   =t2.all_row_count,
+            t1.row_count       =t2.row_count
 
     </update>
 
     <update id="syncTableDelete">
 
-        UPDATE met_data_table t1 SET is_deleted = 1
+        UPDATE met_data_table t1
+        SET is_deleted = 1
         WHERE t1.tbl_name not in (select t2.tbl_name from view_met_data_table t2)
     </update>
 
     <update id="syncColumnRecover">
-        UPDATE met_data_table t1 SET is_deleted = 0
-        WHERE t1.tbl_name  in (select t2.tbl_name from view_met_data_table t2) and t1.is_deleted = 1;
+        UPDATE met_data_table t1
+        SET is_deleted = 0
+        WHERE t1.tbl_name in (select t2.tbl_name from view_met_data_table t2)
+          and t1.is_deleted = 1;
 
     </update>
+
+
+    <select id="selectOdsIndex" resultMap="sourceTotalMap">
+        select count(*)                as tables,
+               round(sum(tbl_size), 2) as size,
+               sum(row_count)          as rows
+        from view_met_data_table
+        where tbl_level = 'ods';
+
+    </select>
+
+    <select id="selectOdsHistory" resultMap="sourceTotalHistoryMap">
+
+        select date_format(str_to_date(dt, '%Y%m%d'),'%Y-%m-%d') as date
+             ,count(*) as ods
+             ,sum(is_irs) as irs
+             ,sum(is_bms) as bms
+        from (
+                 select dt,
+                        if(locate('_irs_',tbl_name)>0,1,0) as is_irs,
+                        if(locate('_bms_',tbl_name)>0,1,0) as is_bms
+                 from view_met_detail_outline
+                 where tbl_level='ods'
+                 group by dt,tbl_name) t1
+        group by dt order by dt desc limit #{limit};
+    </select>
 
 </mapper>

@@ -24,5 +24,5 @@ public interface MetExploreTaskService extends IService<MetExploreTask> {
     MetExploreViewIndexDto getViewTotal();
 
     //探查概览(折线图)
-    List<MetExploreViewHistoryDto> getViewHistory(Integer id);
+    List<MetExploreViewHistoryDto> getViewHistory(Integer limit);
 }

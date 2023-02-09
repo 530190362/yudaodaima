@@ -29,9 +29,9 @@ public class MetExploreViewController {
     }
 
     @ApiOperation(value = "探查概览(折线图)")
-    @GetMapping("/history/{id}")
-    public CommonResult history(@PathVariable Integer id) {
-        List<MetExploreViewHistoryDto> resultList = metExploreTaskService.getViewHistory(id);
+    @GetMapping("/history/{limit}")
+    public CommonResult history(@PathVariable Integer limit) {
+        List<MetExploreViewHistoryDto> resultList = metExploreTaskService.getViewHistory(limit);
         return CommonResult.success(resultList);
     }
 

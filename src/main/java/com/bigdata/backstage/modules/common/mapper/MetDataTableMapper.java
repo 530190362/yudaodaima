@@ -2,7 +2,11 @@ package com.bigdata.backstage.modules.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
+import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
+import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,4 +33,9 @@ public interface MetDataTableMapper extends BaseMapper<MetDataTable> {
 
     //数据恢复(逻辑恢复)
     void syncColumnRecover();
+
+    // //数据集成-3个指标
+    DataSourceTotalDto selectOdsIndex();
+
+    List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit);
 }

@@ -75,6 +75,7 @@ drop table if exists `met_explore_report`;
 CREATE TABLE if not exists `met_explore_report`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `dw_id`           int(10)             NOT NULL COMMENT '数仓ID',
     `table_name`      varchar(255) DEFAULT NULL COMMENT '表名',
     `table_comment`   varchar(255) DEFAULT NULL COMMENT '表描述',
     `col_name`        varchar(255) DEFAULT NULL COMMENT '字段名',
@@ -88,11 +89,7 @@ CREATE TABLE if not exists `met_explore_report`
     `min_value`       varchar(255) DEFAULT NULL COMMENT '最小值',
     `null_count`      varchar(255) DEFAULT NULL COMMENT '空值数',
     `null_rate`       varchar(255) DEFAULT NULL COMMENT '空值率',
-
-    `value_quality`   varchar(255) DEFAULT NULL COMMENT '字段值质量,使用空值率判断:高(<30),中(30,80),低(>80)',
-    `value_kind`      varchar(255) DEFAULT NULL COMMENT '种类(超过10个不显示),JSON格式化',
     `value_kind_json` varchar(255) DEFAULT NULL COMMENT '值种类(所占百分比,超过15个不显示),JSON格式化',
-    `value_status`    varchar(255) DEFAULT NULL COMMENT '值类型 空值类|唯一类|二分类|多分类|无穷类',
 
     `spend_time`      varchar(255) DEFAULT NULL COMMENT '读取记录数花费的时间单位:秒',
     `etl_tm`          varchar(255) DEFAULT NULL COMMENT '探查时间',

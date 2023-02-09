@@ -57,8 +57,8 @@ public class MetExploreTaskServiceImpl extends ServiceImpl<MetExploreTaskMapper,
 
     //探查概览(折线图)
     @Override
-    public List<MetExploreViewHistoryDto> getViewHistory(Integer id) {
-        List<MetExploreViewHistoryDto>  result = baseMapper.selectHistory(id);
+    public List<MetExploreViewHistoryDto> getViewHistory(Integer limit) {
+        List<MetExploreViewHistoryDto>  result = baseMapper.selectHistory(limit);
         return result;
     }
 }

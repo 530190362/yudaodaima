@@ -20,7 +20,7 @@ import java.util.Map;
 public interface MetExploreTaskMapper extends BaseMapper<MetExploreTask> {
 
 
-    List<MetExploreViewHistoryDto> selectHistory(@Param("limit") Integer id);
+    List<MetExploreViewHistoryDto> selectHistory(@Param("limit") Integer limit);
 
     MetExploreViewIndexDto selectTotal();
 
