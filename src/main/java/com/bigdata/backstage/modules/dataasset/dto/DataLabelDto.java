@@ -11,6 +11,6 @@ public class DataLabelDto {
     @ApiModelProperty(value = "页大小")
     private Integer pageSize;
 
-    @ApiModelProperty(value = "所属项目")
-    private String labelName;
+    @ApiModelProperty(value = "标签id")
+    private Integer labelId;
 }

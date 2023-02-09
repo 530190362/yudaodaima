@@ -105,7 +105,7 @@ public class DataAssetServiceImpl implements DataAssetService {
     @Override
     public IPage<DataLabelVo> labelPageQuery(DataLabelDto dataLabelDto) {
         Page<MetDataLabel> labelPage = dataLabelMapper.selectPage(new Page<>(dataLabelDto.getCurrent(), dataLabelDto.getPageSize()), new QueryWrapper<MetDataLabel>()
-                .like(dataLabelDto.getLabelName() != null && !"".equals(dataLabelDto.getLabelName()),"label_name",dataLabelDto.getLabelName())
+                .eq(dataLabelDto.getLabelId() != null ,"id",dataLabelDto.getLabelId())
                 .orderByDesc("create_time"));
         List<MetDataLabel> records = labelPage.getRecords();
         IPage<DataLabelVo> dataLabelVoPage = new Page<>();

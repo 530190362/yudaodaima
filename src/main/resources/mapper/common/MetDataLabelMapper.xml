@@ -16,11 +16,11 @@
     </resultMap>
 
     <select id="queryDataSelectLabel" resultType="com.bigdata.backstage.modules.dataasset.vo.DataSelectLabelVo">
-        SELECT id,label_name as labelName from met_data_label GROUP BY id,label_name
+        SELECT id,label_name as labelName from met_data_label where is_delete = '0' GROUP BY id,label_name
     </select>
 
 
     <select id="queryDataSelectAsset" resultType="com.bigdata.backstage.modules.dataasset.vo.DataSelectAssetVo">
-        SELECT id,table_name as tableName from met_data_overview GROUP BY id,table_name
+        SELECT id,table_name as tableName from met_data_overview where is_delete = '0' GROUP BY id,table_name
     </select>
 </mapper>
