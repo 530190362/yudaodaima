@@ -1,5 +1,6 @@
 package com.bigdata.backstage.modules.common.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataTableMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
@@ -22,14 +23,22 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
     @Value("${dw.id}")
     private Integer dwId;
 
-    @Autowired
-    private  MetDataTableMapper metDataTableMapper;
+
     //同步表级别
     @Override
     public void syncTable() {
-        metDataTableMapper.syncTableInsert(dwId);
-        metDataTableMapper.syncTableUpdate();
-        metDataTableMapper.syncTableDelete();
-        metDataTableMapper.syncColumnRecover();
+        baseMapper.syncTableInsert(dwId);
+        baseMapper.syncTableUpdate();
+        baseMapper.syncTableDelete();
+        baseMapper.syncColumnRecover();
+    }
+
+    //查看表是否存在
+    @Override
+    public boolean selectTable(String table) {
+        QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
+        wrapper.eq("tbl_name", table);
+        Long count = baseMapper.selectCount(wrapper);
+        return count > 0;
     }
 }

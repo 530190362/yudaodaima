@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.explore.mapper.MetExploreReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.explore.model.MetExploreReport">
+        <result column="table_name" property="tableName" />
+        <result column="table_comment" property="tableComment" />
+        <result column="col_name" property="colName" />
+        <result column="col_type" property="colType" />
+        <result column="col_comment" property="colComment" />
+        <result column="distinct_count" property="distinctCount" />
+        <result column="total_count" property="totalCount" />
+        <result column="max_len" property="maxLen" />
+        <result column="min_len" property="minLen" />
+        <result column="max_value" property="maxValue" />
+        <result column="min_value" property="minValue" />
+        <result column="null_count" property="nullCount" />
+        <result column="null_rate" property="nullRate" />
+        <result column="value_quality" property="valueQuality" />
+        <result column="value_kind" property="valueKind" />
+        <result column="value_kind_json" property="valueKindJson" />
+        <result column="value_status" property="valueStatus" />
+        <result column="is_repeat" property="isRepeat" />
+        <result column="is_exist_null" property="isExistNull" />
+        <result column="is_all_null" property="isAllNull" />
+        <result column="is_only_value" property="isOnlyValue" />
+        <result column="is_diff_value" property="isDiffValue" />
+        <result column="spend_time" property="spendTime" />
+        <result column="etl_tm" property="etlTm" />
+        <result column="dt" property="dt" />
+    </resultMap>
+
+</mapper>

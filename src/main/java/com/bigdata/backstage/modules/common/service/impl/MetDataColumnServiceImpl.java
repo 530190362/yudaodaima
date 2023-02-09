@@ -22,15 +22,13 @@ public class MetDataColumnServiceImpl extends ServiceImpl<MetDataColumnMapper, M
 
     @Value("${dw.id}")
     private Integer dwId;
-    @Autowired
-    private MetDataColumnMapper metDataColumnMapper;
 
     //同步字段级别
     @Override
     public void syncColumn( ) {
-        metDataColumnMapper.syncColumnInsert(dwId);
-        metDataColumnMapper.syncColumnUpdate();
-        metDataColumnMapper.syncColumnDelete();
-        metDataColumnMapper.syncColumnRecover();
+        baseMapper.syncColumnInsert(dwId);
+        baseMapper.syncColumnUpdate();
+        baseMapper.syncColumnDelete();
+        baseMapper.syncColumnRecover();
     }
 }

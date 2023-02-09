@@ -16,4 +16,6 @@ public interface MetDataTableService extends IService<MetDataTable> {
     //同步表级别
     void syncTable();
 
+    //查看表是否存在
+    boolean selectTable(String table);
 }

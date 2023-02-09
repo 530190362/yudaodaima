@@ -170,6 +170,22 @@ public abstract class BaseSwaggerConfig {
         return docket;
     }
 
+    @Bean
+    public Docket restApi9() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("数仓运维平台模块-数据探查")
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.explore"))
+                .paths(PathSelectors.any())
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
+
 
 
 
