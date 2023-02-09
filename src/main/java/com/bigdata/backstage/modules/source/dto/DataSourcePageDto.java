@@ -10,4 +10,7 @@ public class DataSourcePageDto  extends PageDto {
 
     @ApiModelProperty("表名")
     private String tableName;
+
+    @ApiModelProperty("来源 irs/bms")
+    private String sourceType;
 }

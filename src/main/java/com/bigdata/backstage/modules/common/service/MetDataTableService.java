@@ -3,6 +3,9 @@ package com.bigdata.backstage.modules.common.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
+import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
+import com.bigdata.backstage.modules.common.model.ViewMetDetailOutline;
+import com.bigdata.backstage.modules.common.service.impl.ViewMetDetailOutlineServiceImpl;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
@@ -32,5 +35,8 @@ public interface MetDataTableService extends IService<MetDataTable> {
     List<DataSourceHistoryDto> selectOdsHistory(Integer limit);
 
     //数据集成-表单(分页模糊查询)
-    IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto);
+    IPage<ViewMetDataTable> selectOdsPage(DataSourcePageDto dto);
+
+    ////获取表信息
+    MetDataTable getTableInfo(String tableName);
 }

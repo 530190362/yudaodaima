@@ -1,5 +1,6 @@
 package com.bigdata.backstage.modules.common.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataColumnMapper;
 import com.bigdata.backstage.modules.common.model.MetDataColumn;
@@ -7,6 +8,8 @@ import com.bigdata.backstage.modules.common.service.MetDataColumnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,5 +33,13 @@ public class MetDataColumnServiceImpl extends ServiceImpl<MetDataColumnMapper, M
         baseMapper.syncColumnUpdate();
         baseMapper.syncColumnDelete();
         baseMapper.syncColumnRecover();
+    }
+
+    //获取表信息
+    @Override
+    public List<MetDataColumn> getColumnInfo(String tableName) {
+        QueryWrapper<MetDataColumn> wrapper = new QueryWrapper<>();
+        wrapper.eq("tbl_name",tableName);
+        return baseMapper.selectList(wrapper);
     }
 }

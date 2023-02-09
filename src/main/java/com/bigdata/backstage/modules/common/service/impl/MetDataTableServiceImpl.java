@@ -6,9 +6,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataTableMapper;
+import com.bigdata.backstage.modules.common.mapper.MetDwInfoMapper;
+import com.bigdata.backstage.modules.common.mapper.ViewMetDataTableMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
+import com.bigdata.backstage.modules.common.model.MetDwInfo;
+import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
-import com.bigdata.backstage.modules.norm.model.NormNode;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
@@ -33,6 +36,13 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
     private Integer dwId;
 
 
+    @Autowired
+    private MetDwInfoMapper metDwInfoMapper;
+
+    @Autowired
+    private ViewMetDataTableMapper viewMetDataTableMapper;
+
+
     //同步表级别
     @Override
     public void syncTable() {
@@ -54,28 +64,42 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
     //数据集成-3个指标
     @Override
     public DataSourceTotalDto selectOdsTable() {
-        DataSourceTotalDto dataSourceTotalDto =baseMapper.selectOdsIndex();
-        return dataSourceTotalDto;
+        return baseMapper.selectOdsIndex();
     }
 
     //数据集成-折线图
     @Override
     public List<DataSourceHistoryDto> selectOdsHistory(Integer limit) {
-        List<DataSourceHistoryDto> resultList = baseMapper.selectOdsHistory(limit);
-        return resultList;
+        return baseMapper.selectOdsHistory(limit);
     }
 
     //数据集成-表单(分页模糊查询)
     @Override
-    public IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto) {
+    public IPage<ViewMetDataTable> selectOdsPage(DataSourcePageDto dto) {
         Integer pageNum = dto.getPageNum();
         Integer pageSize = dto.getPageSize();
-        Page<MetDataTable> pageParam = new Page<>(pageNum, pageSize);
-        QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
+        Page<ViewMetDataTable> pageParam = new Page<>(pageNum, pageSize);
+        QueryWrapper<ViewMetDataTable> wrapper = new QueryWrapper<>();
         String name = dto.getTableName();
         if (!StrUtil.isEmpty(name)) {
             wrapper.like("tbl_name", name);
         }
-        return baseMapper.selectPage(pageParam, wrapper);
+        wrapper.eq("tbl_level", "ods");
+        MetDwInfo metDwInfo = metDwInfoMapper.selectById(dwId);
+        Page<ViewMetDataTable> viewMetDataTablePage = viewMetDataTableMapper.selectPage(pageParam, wrapper);
+        viewMetDataTablePage.getRecords().forEach(item -> {
+            item.setDwName(metDwInfo.getDwNameZn());
+            item.setSourceType("irs");
+        });
+        return viewMetDataTablePage;
     }
+
+    //获取表信息
+    @Override
+    public MetDataTable getTableInfo(String tableName) {
+        QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
+        wrapper.eq("tbl_name", tableName);
+        return baseMapper.selectOne(wrapper);
+    }
+
 }
