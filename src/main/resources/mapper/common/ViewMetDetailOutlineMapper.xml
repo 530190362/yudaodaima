@@ -56,7 +56,7 @@
     <!--数据变化记录数-->
     <select id="getDataChangeNum" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
         select
-            dt as `date`,
+            date_format(str_to_date(dt, '%Y%m%d'),'%Y/%m/%d')  as `date`,
             round(sum(num),2) as dataNum
         from (
                  select
@@ -75,7 +75,7 @@
     <!--数据变化占用空间-->
     <select id="getDataChangeSize" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
         select
-            dt as `date`,
+            date_format(str_to_date(dt, '%Y%m%d'),'%Y/%m/%d')  as `date`,
             round(sum(num),2) as dataNum
         from (
                  select
@@ -133,7 +133,7 @@
     <select id="getDataNewTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
         SELECT
             tbl_name as tblName,
-            round(tbl_col_num) as tblCount,
+            tbl_create_time as createTime,
             tbl_comment as tblComment
         FROM
             view_met_detail_outline

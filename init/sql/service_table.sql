@@ -288,3 +288,34 @@ CREATE TABLE `met_data_label`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 0
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产标签表';
+
+-- 数据质量-质检规则表
+drop table if exists `met_quality_rule`;
+CREATE TABLE `met_quality_rule` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `dw_id` int(10) DEFAULT NULL COMMENT '数仓id',
+    `rule_name` varchar(255) DEFAULT NULL COMMENT '规则名称',
+    `rule_comment` varchar(255) DEFAULT NULL COMMENT '规则描述',
+    `rule_type` int(10) DEFAULT '0' COMMENT '规则类型',
+    `rule_bind_num` int(10) DEFAULT '0' COMMENT '绑定任务数',
+    `create_user` varchar(50) NOT NULL COMMENT '创建人',
+    `update_user` varchar(50) NOT NULL COMMENT '更新人',
+    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除 1-是 0-否',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='数据质量-质检规则';
+
+-- 质检规则任务映射表
+drop table if exists `met_quality_rule_task_relation`;
+CREATE TABLE `met_quality_rule_task_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `rule_id` int(10) DEFAULT NULL COMMENT '规则id',
+  `task_id` int(10) DEFAULT NULL COMMENT '任务id',
+  `create_user` varchar(50) DEFAULT NULL COMMENT '创建用户',
+  `update_user` varchar(50) DEFAULT NULL COMMENT '修改用户',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `is_delete` int(2) DEFAULT '0' COMMENT '是否删除  0:未删除 1:已删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='质检规则任务映射表';
