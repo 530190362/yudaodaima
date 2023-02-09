@@ -1,7 +1,13 @@
 package com.bigdata.backstage.modules.explore.mapper;
 
+import com.bigdata.backstage.modules.explore.dto.MetExploreViewHistoryDto;
+import com.bigdata.backstage.modules.explore.dto.MetExploreViewIndexDto;
 import com.bigdata.backstage.modules.explore.model.MetExploreTask;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +19,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MetExploreTaskMapper extends BaseMapper<MetExploreTask> {
 
+
+    List<MetExploreViewHistoryDto> selectHistory(@Param("limit") Integer id);
+
+    MetExploreViewIndexDto selectTotal();
+
+    MetExploreViewIndexDto selectToday();
 }

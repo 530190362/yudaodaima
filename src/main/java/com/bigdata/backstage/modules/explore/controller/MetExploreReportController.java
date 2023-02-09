@@ -37,18 +37,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class MetExploreReportController {
 
 
-    @Autowired
-    private MetExploreTaskService metExploreTaskService;
-
-
-    @ApiOperation(value = "添加数据勘探")
-    @PostMapping("/add")
-    public CommonResult add(@RequestBody MetExploreTaskDto metExploreTaskDto) {
-        MetExploreTask metExploreTask = BeanUtil.copyProperties(metExploreTaskDto, MetExploreTask.class);
-        metExploreTask.setCreateDate(DateUtil.date());
-        metExploreTaskService.add(metExploreTask);
-        return CommonResult.success("添加成功");
-    }
-
 }
 

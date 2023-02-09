@@ -4,12 +4,77 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.explore.model.MetExploreTask">
-        <id column="id" property="id" />
-        <result column="tbl_name" property="tblName" />
-        <result column="create_user" property="createUser" />
-        <result column="create_date" property="createDate" />
-        <result column="create_time" property="createTime" />
-        <result column="is_deleted" property="isDeleted" />
+        <id column="id" property="id"/>
+        <result column="tbl_name" property="tblName"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_date" property="createDate"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
+
+    <!-- 历史记录折现图 -->
+    <resultMap id="selectHistoryMap" type="com.bigdata.backstage.modules.explore.dto.MetExploreViewHistoryDto">
+        <result column="create_date" property="date"/>
+        <result column="num" property="tables"/>
+        <result column="row_count" property="rows"/>
+        <result column="tbl_col_num" property="columns"/>
+    </resultMap>
+
+    <!-- 6个标签指标 -->
+    <resultMap id="selectIndexMap" type="com.bigdata.backstage.modules.explore.dto.MetExploreViewIndexDto">
+        <result column="total_rows" property="totalRows"/>
+        <result column="total_tables" property="totalTables"/>
+        <result column="total_columns" property="totalColumns"/>
+        <result column="today_rows" property="todayRows"/>
+        <result column="today_tables" property="todayTables"/>
+        <result column="today_columns" property="todayColumns"/>
+    </resultMap>
+
+    <select id="selectHistory" resultMap="selectHistoryMap">
+
+        select create_date, sum(num) as num, sum(row_count) as row_count, sum(tbl_col_num) as tbl_col_num
+        from (select create_date,
+                     num,
+                     num * row_count   as row_count,
+                     num * tbl_col_num as tbl_col_num
+              from (select create_date, tbl_name, count(*) as num
+                    from met_explore_task
+                    group by create_date, tbl_name) t1
+                       left join met_data_table t2
+                                 on t1.tbl_name = t2.tbl_name) t3
+        group by create_date order by create_date desc limit #{limit};
+
+    </select>
+
+
+    <select id="selectTotal" resultMap="selectIndexMap">
+        select sum(num)         as total_tables
+             , sum(row_count)   as total_rows
+             , sum(tbl_col_num) as total_columns
+        from (select num,
+                     num * row_count   as row_count,
+                     num * tbl_col_num as tbl_col_num
+              from (select tbl_name, count(*) as num
+                    from met_explore_task
+                    group by tbl_name) t1
+                       left join met_data_table t2
+                                 on t1.tbl_name = t2.tbl_name) t3
+
+    </select>
+    <select id="selectToday" resultMap="selectIndexMap">
+        select sum(num)         as today_tables
+             , sum(row_count)   as today_rows
+             , sum(tbl_col_num) as today_columns
+        from (select num,
+                     num * row_count   as row_count,
+                     num * tbl_col_num as tbl_col_num
+              from (select tbl_name, count(*) as num
+                    from met_explore_task
+                    where create_date= current_date()
+                    group by tbl_name) t1
+                       left join met_data_table t2
+                                 on t1.tbl_name = t2.tbl_name) t3
+
+    </select>
 
 </mapper>
