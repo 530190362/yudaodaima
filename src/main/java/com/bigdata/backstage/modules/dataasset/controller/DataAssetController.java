@@ -212,8 +212,8 @@ public class DataAssetController {
                 );
                 if (CollectionUtils.isEmpty(list)){
                     MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
-                    mapping.setLabelId(tblId);
-                    mapping.setOverviewId(bindTbl.getLabelId());
+                    mapping.setLabelId(bindTbl.getLabelId());
+                    mapping.setOverviewId(tblId);
                     insert = metDataOverviewLabelRelationMapper.insert(mapping);
                 }
             }
