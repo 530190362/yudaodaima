@@ -19,4 +19,8 @@
         <result column="is_deleted" property="isDeleted" />
     </resultMap>
 
+    <select id="getRuleList" resultType="java.util.Map">
+        select id,name from met_norm_dict where parent_id = '109' and is_deleted =0
+    </select>
+
 </mapper>

@@ -8,8 +8,6 @@ import com.bigdata.backstage.modules.common.model.MetDataLabel;
 import com.bigdata.backstage.modules.common.model.MetDataOverview;
 import com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation;
 import com.bigdata.backstage.modules.common.model.MetDwInfo;
-import com.bigdata.backstage.modules.common.service.MetDataLabelService;
-import com.bigdata.backstage.modules.common.service.MetDataOverviewLabelRelationService;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
 import com.bigdata.backstage.modules.dataasset.dto.DataLabelDto;
@@ -33,13 +31,9 @@ public class DataAssetServiceImpl implements DataAssetService {
     @Autowired
     private ViewMetDetailOutlineMapper metDetailOutlineMapper;
     @Autowired
-    private MetDataLabelService metDataLabelService;
-    @Autowired
     private MetDwInfoMapper metDwInfoMapper;
     @Autowired
     private MetDwInfoService metDwInfoService;
-    @Autowired
-    private MetDataOverviewLabelRelationService metDataOverviewLabelRelationService;
     @Autowired
     private MetDataOverviewLabelRelationMapper metDataOverviewLabelRelationMapper;
 

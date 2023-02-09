@@ -84,14 +84,6 @@ public class DataAssetController {
         MetDataOverview metOverview = metDataOverviewService.getById(assetId);
         List<String> overviewIdList = metDataOverviewLabelRelationMapper.getLabelList(metOverview.getId());
         List<String> labelIndexList = metDataOverviewLabelRelationMapper.getLabelIndexList(metOverview.getId());
-//        List<String> labelList = new ArrayList<>();
-//        if (!metOverview.getLabel().isEmpty()) {
-//            String[] split = metOverview.getLabel().split(",");
-//            for (String s : split) {
-//                MetDataLabel byId = metDataLabelService.getById(s);
-//                labelList.add(byId.getLabelName());
-//            }
-//        }
         DataAssetDetailVo dataAssetDetailVo = BeanUtil.copyProperties(metOverview, DataAssetDetailVo.class);
         dataAssetDetailVo.setTblSize(metOverview.getTblSize().divide(BigDecimal.valueOf(1000),2, RoundingMode.UP));
         dataAssetDetailVo.setLabelIndex(labelIndexList);
