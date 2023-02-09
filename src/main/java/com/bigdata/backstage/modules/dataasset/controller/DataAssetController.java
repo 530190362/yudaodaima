@@ -142,7 +142,7 @@ public class DataAssetController {
     }
 
     @ApiOperation(value = "标签分页查询")
-    @GetMapping("/labelpagelsit")
+    @PostMapping("/labelpagelsit")
     public CommonResult<IPage<DataLabelVo>> pageLabelList(@RequestBody DataLabelDto dataLabelDto) {
         IPage<DataLabelVo> dataAssetVoPage = dataAssetService.labelPageQuery(dataLabelDto);
         return CommonResult.success(dataAssetVoPage);

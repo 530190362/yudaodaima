@@ -113,7 +113,7 @@ public class DataAssetServiceImpl implements DataAssetService {
     public IPage<DataLabelVo> labelPageQuery(DataLabelDto dataLabelDto) {
         Page<MetDataLabel> labelPage = dataLabelMapper.selectPage(new Page<>(dataLabelDto.getCurrent(), dataLabelDto.getPageSize()), new QueryWrapper<MetDataLabel>()
                 .like(dataLabelDto.getLabelName() != null && !"".equals(dataLabelDto.getLabelName()),"label_name",dataLabelDto.getLabelName())
-                .orderByAsc("create_time"));
+                .orderByDesc("create_time"));
         List<MetDataLabel> records = labelPage.getRecords();
         IPage<DataLabelVo> dataLabelVoPage = new Page<>();
         if (!records.isEmpty()) {
@@ -122,7 +122,7 @@ public class DataAssetServiceImpl implements DataAssetService {
                 DataLabelVo dataLabelVo = new DataLabelVo();
                 BeanUtils.copyProperties(record, dataLabelVo);
                 Long tblNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
-                        .eq("label_id", record.getId()).eq("is_deleted", 0));
+                        .eq("label_id", record.getId()).eq("is_delete", 0));
                 dataLabelVo.setRelationTblNum(tblNum.intValue());
                 dataLabelVos.add(dataLabelVo);
             }
