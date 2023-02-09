@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.dataasset.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.common.mapper.MetDataOverviewLabelRelationMapper;
@@ -14,15 +15,18 @@ import com.bigdata.backstage.modules.common.service.MetDataOverviewLabelRelation
 import com.bigdata.backstage.modules.common.service.MetDataOverviewService;
 import com.bigdata.backstage.modules.dataasset.dto.BindLabelDto;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
+import com.bigdata.backstage.modules.dataasset.dto.DataLabelDto;
 import com.bigdata.backstage.modules.dataasset.service.DataAssetService;
 import com.bigdata.backstage.modules.dataasset.vo.*;
-import com.bigdata.backstage.modules.norm.model.NormDict;
+import com.bigdata.backstage.modules.norm.dto.NormNodeDto;
+import com.bigdata.backstage.modules.norm.model.NormNode;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -41,8 +45,6 @@ public class DataAssetController {
     private DataAssetService dataAssetService;
     @Autowired
     private MetDataOverviewService metDataOverviewService;
-    @Autowired
-    private MetDataOverviewMapper metDataOverviewMapper;
     @Autowired
     private MetDataLabelService metDataLabelService;
     @Autowired
@@ -83,6 +85,7 @@ public class DataAssetController {
     public CommonResult<DataAssetDetailVo> queryDataAssetById(Integer assetId) {
         MetDataOverview metOverview = metDataOverviewService.getById(assetId);
         List<String> overviewIdList = metDataOverviewLabelRelationMapper.getLabelList(metOverview.getId());
+        List<String> labelIndexList = metDataOverviewLabelRelationMapper.getLabelIndexList(metOverview.getId());
 //        List<String> labelList = new ArrayList<>();
 //        if (!metOverview.getLabel().isEmpty()) {
 //            String[] split = metOverview.getLabel().split(",");
@@ -92,7 +95,9 @@ public class DataAssetController {
 //            }
 //        }
         DataAssetDetailVo dataAssetDetailVo = BeanUtil.copyProperties(metOverview, DataAssetDetailVo.class);
-        dataAssetDetailVo.setLabel(overviewIdList.toString());
+        dataAssetDetailVo.setTblSize(metOverview.getTblSize().divide(BigDecimal.valueOf(1000),2, RoundingMode.UP));
+        dataAssetDetailVo.setLabelIndex(labelIndexList);
+        dataAssetDetailVo.setLabel(overviewIdList);
         return CommonResult.success(dataAssetDetailVo);
     }
 
@@ -129,17 +134,52 @@ public class DataAssetController {
             }
         }
         if (insert>0){
-            return CommonResult.success(null);
+            return CommonResult.success("绑定成功");
         }else {
             return CommonResult.failed("绑定失败");
         }
     }
 
     @ApiOperation(value = "标签分页查询")
-    @PostMapping("/labelpagelsit")
-    public CommonResult<IPage<DataLabelVo>> pageLabelList(@RequestBody DataAssetDto dataAssetDto) {
-//        IPage<DataAssetVo> dataAssetVoPage = dataAssetService.labelPageQueryList(dataAssetDto);
-//        return CommonResult.success(dataAssetVoPage);
-        return null;
+    @GetMapping("/labelpagelsit")
+    public CommonResult<IPage<DataLabelVo>> pageLabelList(@RequestBody DataLabelDto dataLabelDto) {
+        IPage<DataLabelVo> dataAssetVoPage = dataAssetService.labelPageQuery(dataLabelDto);
+        return CommonResult.success(dataAssetVoPage);
+    }
+
+    @ApiOperation(value = "新增修改")
+    @PostMapping(value = "/addOrUpdate")
+    public CommonResult addOrUpdate(@RequestBody MetDataLabel metDataLabel) {
+        if (metDataLabel.getId() == null){
+            boolean save = metDataLabelService.save(metDataLabel);
+            if (save) {
+                return CommonResult.success("新增成功");
+            } else {
+                return CommonResult.failed("新增失败");
+            }
+        }else {
+            boolean update = metDataLabelService.updateById(metDataLabel);
+            if (update) {
+                return CommonResult.success("修改成功");
+            } else {
+                return CommonResult.failed("修改失败");
+            }
+        }
+    }
+
+    @ApiOperation(value = "删除")
+    @DeleteMapping(value = "/delete/{id}")
+    public CommonResult delete(@PathVariable Long id) {
+        Long tblNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
+                .eq("label_id", id).eq("is_deleted", 0));
+        if (tblNum > 0) {
+            return CommonResult.failed("删除失败,标签下有关联表");
+        }
+        boolean delete = metDataLabelService.removeById(id);
+        if (delete) {
+            return CommonResult.success("删除成功");
+        } else {
+            return CommonResult.failed("删除失败");
+        }
     }
 }

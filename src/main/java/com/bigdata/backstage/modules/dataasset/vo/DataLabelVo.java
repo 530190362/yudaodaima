@@ -25,9 +25,15 @@ public class DataLabelVo {
     @ApiModelProperty("创建用户")
     private String createUser;
 
+    @ApiModelProperty("更新用户")
+    private String updateUser;
+
     @ApiModelProperty("关联表数量")
     private Integer relationTblNum;
 
     @ApiModelProperty("创建时间")
     private Date createTime;
+
+    @ApiModelProperty("更新时间")
+    private Date updateTime;
 }

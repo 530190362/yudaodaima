@@ -21,4 +21,6 @@ public interface MetDataOverviewLabelRelationMapper extends BaseMapper<MetDataOv
 
     List<String> getLabelList(Long overviewId);
 
+    List<String> getLabelIndexList(Long overviewId);
+
 }

@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.dataasset.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
+import com.bigdata.backstage.modules.dataasset.dto.DataLabelDto;
 import com.bigdata.backstage.modules.dataasset.vo.*;
 import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 
@@ -24,5 +25,6 @@ public interface DataAssetService {
      */
     List<DataFiledVo> queryDataField(String tblName);
 
+    IPage<DataLabelVo> labelPageQuery(DataLabelDto dataLabelDto);
 
 }

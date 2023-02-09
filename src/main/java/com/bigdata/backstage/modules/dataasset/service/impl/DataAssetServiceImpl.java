@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bigdata.backstage.modules.common.mapper.*;
 import com.bigdata.backstage.modules.common.model.MetDataLabel;
 import com.bigdata.backstage.modules.common.model.MetDataOverview;
+import com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation;
 import com.bigdata.backstage.modules.common.model.MetDwInfo;
 import com.bigdata.backstage.modules.common.service.MetDataLabelService;
 import com.bigdata.backstage.modules.common.service.MetDataOverviewLabelRelationService;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
+import com.bigdata.backstage.modules.dataasset.dto.DataLabelDto;
 import com.bigdata.backstage.modules.dataasset.service.DataAssetService;
 import com.bigdata.backstage.modules.dataasset.vo.*;
 import org.springframework.beans.BeanUtils;
@@ -107,50 +109,33 @@ public class DataAssetServiceImpl implements DataAssetService {
         return metDetailOutlineMapper.queryDataField(tblName);
     }
 
-
-
-    //////////////////////////
-    public IPage<DataAssetVo> pageQueryList1(DataAssetDto dataAssetDto) {
-        List<MetDataOverview> records = new ArrayList<>();
-        IPage<DataAssetVo> dataAssetVoPage = new Page<>();
-        Page<MetDataOverview> dataOverviewPage = new Page<>();
-        if (dataAssetDto.getLabel().isEmpty()) {
-            dataOverviewPage = dataOverviewMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
-                    new QueryWrapper<MetDataOverview>()
-                            .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
-                            .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
-                            .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
-                            .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
-                            .orderByAsc("create_time"));
-            records = dataOverviewPage.getRecords();
-        }else {
-            List<String> overviewIdList = metDataOverviewLabelRelationMapper.getOverviewIdList(dataAssetDto.getLabel());
-            dataOverviewPage = dataOverviewMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
-                    new QueryWrapper<MetDataOverview>()
-                            .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
-                            .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
-                            .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
-                            .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
-                            .in(overviewIdList != null, "id", overviewIdList).orderByAsc("create_time"));
-            records = dataOverviewPage.getRecords();
-        }
+    @Override
+    public IPage<DataLabelVo> labelPageQuery(DataLabelDto dataLabelDto) {
+        Page<MetDataLabel> labelPage = dataLabelMapper.selectPage(new Page<>(dataLabelDto.getCurrent(), dataLabelDto.getPageSize()), new QueryWrapper<MetDataLabel>()
+                .like(dataLabelDto.getLabelName() != null && !"".equals(dataLabelDto.getLabelName()),"label_name",dataLabelDto.getLabelName())
+                .orderByAsc("create_time"));
+        List<MetDataLabel> records = labelPage.getRecords();
+        IPage<DataLabelVo> dataLabelVoPage = new Page<>();
         if (!records.isEmpty()) {
-            ArrayList<DataAssetVo> dataAssetVos = new ArrayList<>();
-            for (MetDataOverview record : records) {
-                DataAssetVo dataAssetVo = new DataAssetVo();
-                BeanUtils.copyProperties(record, dataAssetVo);
-                dataAssetVo.setTblSize(record.getTblSize().divide(BigDecimal.valueOf(1000),2, RoundingMode.UP));
-                MetDwInfo metDwInfo = metDwInfoService.getById(record.getProjectName());
-                dataAssetVo.setProjectName(metDwInfo.getDwNameZn());
-                dataAssetVos.add(dataAssetVo);
+            ArrayList<DataLabelVo> dataLabelVos = new ArrayList<>();
+            for (MetDataLabel record : records) {
+                DataLabelVo dataLabelVo = new DataLabelVo();
+                BeanUtils.copyProperties(record, dataLabelVo);
+                Long tblNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
+                        .eq("label_id", record.getId()).eq("is_deleted", 0));
+                dataLabelVo.setRelationTblNum(tblNum.intValue());
+                dataLabelVos.add(dataLabelVo);
             }
-            dataAssetVoPage.setRecords(dataAssetVos);
-            dataAssetVoPage.setTotal(dataOverviewPage.getTotal());
-            dataAssetVoPage.setPages(dataOverviewPage.getPages());
-            dataAssetVoPage.setSize(dataOverviewPage.getSize());
-            dataAssetVoPage.setCurrent(dataOverviewPage.getCurrent());
+            dataLabelVoPage.setRecords(dataLabelVos);
+            dataLabelVoPage.setTotal(labelPage.getTotal());
+            dataLabelVoPage.setPages(labelPage.getPages());
+            dataLabelVoPage.setSize(labelPage.getSize());
+            dataLabelVoPage.setCurrent(labelPage.getCurrent());
         }
-        return dataAssetVoPage;
+        return dataLabelVoPage;
     }
+
+
+
 
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -57,7 +58,10 @@ public class DataAssetDetailVo {
     private String tblType;
 
     @ApiModelProperty("标签")
-    private String label;
+    private List<String> label;
+
+    @ApiModelProperty("标签序号")
+    private List<String> labelIndex;
 
     @ApiModelProperty("是否删除  0:未删除 1:已删除")
     private Integer isDelete;

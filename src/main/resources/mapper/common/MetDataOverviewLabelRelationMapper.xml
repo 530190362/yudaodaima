@@ -32,4 +32,13 @@
         WHERE a.is_delete =0 AND b.is_delete =0
         AND b.overview_id = #{overviewId}
     </select>
+
+    <select id="getLabelIndexList" resultType="java.lang.String">
+        SELECT a.id
+        FROM met_data_label a
+                 LEFT JOIN met_data_overview_label_relation b
+                           ON a.id =b.label_id
+        WHERE a.is_delete =0 AND b.is_delete =0
+          AND b.overview_id = #{overviewId}
+    </select>
 </mapper>
