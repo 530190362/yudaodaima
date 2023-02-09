@@ -21,5 +21,8 @@ public class UnionTblVo {
     private Integer bindNum;
 
     @ApiModelProperty("已绑定表")
-    private List<String> bindTblList;
+    private List<DataAssetBindVo> hasBindTblList;
+
+    @ApiModelProperty("可绑定表")
+    private List<DataAssetBindVo> ableBindTblList;
 }

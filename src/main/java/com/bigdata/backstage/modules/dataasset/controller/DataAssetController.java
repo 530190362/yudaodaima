@@ -14,6 +14,7 @@ import com.bigdata.backstage.modules.common.service.MetDataLabelService;
 import com.bigdata.backstage.modules.common.service.MetDataOverviewLabelRelationService;
 import com.bigdata.backstage.modules.common.service.MetDataOverviewService;
 import com.bigdata.backstage.modules.dataasset.dto.BindLabelDto;
+import com.bigdata.backstage.modules.dataasset.dto.BindTblDto;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
 import com.bigdata.backstage.modules.dataasset.dto.DataLabelDto;
 import com.bigdata.backstage.modules.dataasset.service.DataAssetService;
@@ -110,7 +111,7 @@ public class DataAssetController {
 
     @ApiOperation(value = "根据表id查询其标签")
     @GetMapping(value = "/getLabelList")
-    public CommonResult<List<String>> queryDataField(Long overviewId) {
+    public CommonResult<List<String>> queryLabelList(Long overviewId) {
         List<String> labelList = metDataOverviewLabelRelationMapper.getLabelList(overviewId);
         return CommonResult.success(labelList);
     }
@@ -180,6 +181,47 @@ public class DataAssetController {
             return CommonResult.success("删除成功");
         } else {
             return CommonResult.failed("删除失败");
+        }
+    }
+
+    @ApiOperation(value = "根据标签id查询关联表")
+    @GetMapping(value = "/getTblListById")
+    public CommonResult<UnionTblVo> queryTblListById(Long labelId) {
+        UnionTblVo unionTblVo = new UnionTblVo();
+        MetDataLabel metDataLabel = metDataLabelService.getById(labelId);
+        Long bindNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
+                .eq("label_id", labelId).eq("is_deleted", 0));
+        List<DataAssetBindVo> labelList = metDataOverviewLabelRelationMapper.getBindTblList(labelId);
+        List<DataAssetBindVo> ableBindTblList = metDataOverviewLabelRelationMapper.getAbleBindTblList(labelId);
+        unionTblVo.setLabelName(metDataLabel.getLabelName());
+        unionTblVo.setBindNum(bindNum.intValue());
+        unionTblVo.setAbleBindTblList(ableBindTblList);
+        unionTblVo.setHasBindTblList(labelList);
+        return CommonResult.success(unionTblVo);
+    }
+
+    @ApiOperation(value = "标签绑定表")
+    @PostMapping("/labelBindTbl")
+    public CommonResult labelBindTbl(@RequestBody BindTblDto bindTbl) {
+        int insert = 0;
+        if (null != bindTbl.getOverviewIds()) {
+            for (Integer tblId : bindTbl.getOverviewIds()) {
+                List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
+                        .eq(MetDataOverviewLabelRelation::getLabelId,bindTbl.getLabelId() )
+                        .eq(MetDataOverviewLabelRelation::getOverviewId, tblId)
+                );
+                if (CollectionUtils.isEmpty(list)){
+                    MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
+                    mapping.setLabelId(tblId);
+                    mapping.setOverviewId(bindTbl.getLabelId());
+                    insert = metDataOverviewLabelRelationMapper.insert(mapping);
+                }
+            }
+        }
+        if (insert>0){
+            return CommonResult.success("绑定成功");
+        }else {
+            return CommonResult.failed("绑定失败");
         }
     }
 }

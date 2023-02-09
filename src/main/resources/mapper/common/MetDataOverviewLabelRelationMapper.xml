@@ -36,9 +36,32 @@
     <select id="getLabelIndexList" resultType="java.lang.String">
         SELECT a.id
         FROM met_data_label a
-                 LEFT JOIN met_data_overview_label_relation b
-                           ON a.id =b.label_id
+        LEFT JOIN met_data_overview_label_relation b
+        ON a.id =b.label_id
         WHERE a.is_delete =0 AND b.is_delete =0
-          AND b.overview_id = #{overviewId}
+        AND b.overview_id = #{overviewId}
+    </select>
+
+    <select id="getBindTblList" resultType="com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo">
+        SELECT a.id,a.table_name
+        FROM met_data_overview a
+        LEFT JOIN met_data_overview_label_relation b
+        ON a.id =b.overview_id
+        WHERE a.is_delete =0 AND b.is_delete =0
+        AND b.label_id = #{labelId}
+    </select>
+
+    <select id="getAbleBindTblList" resultType="com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo">
+        SELECT a.id, a.table_name
+        FROM met_data_overview a
+        WHERE a.id NOT IN (
+            SELECT a.id
+            FROM met_data_overview a
+            LEFT JOIN met_data_overview_label_relation b
+                ON a.id = b.overview_id
+            WHERE a.is_delete = 0
+              AND b.is_delete = 0
+              AND b.label_id = #{labelId}
+        )
     </select>
 </mapper>
