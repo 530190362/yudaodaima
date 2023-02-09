@@ -172,7 +172,7 @@ public class DataAssetController {
     @DeleteMapping(value = "/delete/{id}")
     public CommonResult delete(@PathVariable Long id) {
         Long tblNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
-                .eq("label_id", id).eq("is_deleted", 0));
+                .eq("label_id", id).eq("is_delete", 0));
         if (tblNum > 0) {
             return CommonResult.failed("删除失败,标签下有关联表");
         }
@@ -190,7 +190,7 @@ public class DataAssetController {
         UnionTblVo unionTblVo = new UnionTblVo();
         MetDataLabel metDataLabel = metDataLabelService.getById(labelId);
         Long bindNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
-                .eq("label_id", labelId).eq("is_deleted", 0));
+                .eq("label_id", labelId).eq("is_delete", 0));
         List<DataAssetBindVo> labelList = metDataOverviewLabelRelationMapper.getBindTblList(labelId);
         List<DataAssetBindVo> ableBindTblList = metDataOverviewLabelRelationMapper.getAbleBindTblList(labelId);
         unionTblVo.setLabelName(metDataLabel.getLabelName());
