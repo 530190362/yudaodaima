@@ -35,7 +35,7 @@ public class DataQualityTaskDetailVo {
     @ApiModelProperty("绑定表")
     private String bindTblName;
     @ApiModelProperty("绑定表")
-    private String bindTbl;
+    private Integer bindTbl;
 
     @ApiModelProperty("绑定字段")
     private String bindCol;
@@ -62,7 +62,7 @@ public class DataQualityTaskDetailVo {
     private Date updateTime;
 
     @ApiModelProperty("状态 1-上线 0-下线")
-    private String status;
+    private Integer status;
 
     @ApiModelProperty("是否删除 1-是 0-否")
     private Boolean isDelete;
