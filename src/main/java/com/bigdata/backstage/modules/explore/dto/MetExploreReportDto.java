@@ -13,9 +13,6 @@ public class MetExploreReportDto extends PageDto {
     @ApiModelProperty("数仓id")
     private Long dwId;
 
-    @ApiModelProperty("数仓名称")
-    private String dwName;
-
     @ApiModelProperty("表名")
     private String tableName;
 

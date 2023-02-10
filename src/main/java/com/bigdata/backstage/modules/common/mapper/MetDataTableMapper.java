@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
+import com.github.yulichang.base.MPJBaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author bigdata
  * @since 2023-02-08
  */
-public interface MetDataTableMapper extends BaseMapper<MetDataTable> {
+public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
 
 
 

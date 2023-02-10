@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bigdata.backstage.modules.common.model.MetDataTable;
+import com.bigdata.backstage.modules.common.model.MetDwInfo;
 import com.bigdata.backstage.modules.explore.dto.MetExploreReportDto;
 import com.bigdata.backstage.modules.explore.dto.MetExploreReportTableDto;
 import com.bigdata.backstage.modules.explore.mapper.ViewExportDataColumnMapper;
@@ -15,6 +17,7 @@ import com.bigdata.backstage.modules.explore.model.ViewExportDataTable;
 import com.bigdata.backstage.modules.explore.service.MetExploreReportService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.norm.model.NormDict;
+import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,7 @@ public class MetExploreReportServiceImpl extends ServiceImpl<MetExploreReportMap
 
     @Autowired
     private ViewExportDataColumnMapper viewExportDataColumnMapper;
+
     //勘探报告模糊查询
     @Override
     public IPage<ViewExportDataTable> selectPage(MetExploreReportDto dto) {
@@ -45,21 +49,26 @@ public class MetExploreReportServiceImpl extends ServiceImpl<MetExploreReportMap
         Integer pageSize = dto.getPageSize();
         Page<ViewExportDataTable> pageParam = new Page<>(pageNum, pageSize);
 
-        QueryWrapper<ViewExportDataTable> wrapper = new QueryWrapper<>();
-        wrapper.eq("dw_id", dto.getDwId());
+        //分页多表关联模糊查询
+        MPJLambdaWrapper<ViewExportDataTable> joinMrapper = new MPJLambdaWrapper<>();
+        joinMrapper.selectAll(ViewExportDataTable.class)
+                .selectAs(MetDwInfo::getDwNameZn, ViewExportDataTable::getDwName)
+                .leftJoin(MetDwInfo.class, MetDwInfo::getId, ViewExportDataTable::getDwId);
+
+        Long dwId = dto.getDwId();
         String tableComment = dto.getTableComment();
         String tableName = dto.getTableName();
+        if (dwId != null) {
+            joinMrapper.eq("dw_id", dwId);
+        }
         if (!StrUtil.isEmpty(tableName)) {
-            wrapper.like("table_name", tableName);
+            joinMrapper.like("table_name", tableName);
         }
         if (!StrUtil.isEmpty(tableComment)) {
-            wrapper.like("table_comment", tableComment);
+            joinMrapper.like("table_comment", tableComment);
         }
-        Page<ViewExportDataTable> metExploreReportPage = viewExportDataTableMapper.selectPage(pageParam, wrapper);
-        metExploreReportPage.getRecords().forEach(item -> {
-            item.setDwName(dto.getDwName());
-        });
-        return metExploreReportPage;
+        return viewExportDataTableMapper.selectPage(pageParam, joinMrapper);
+
     }
 
     //勘探报告表明确信息

@@ -7,23 +7,20 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataTableMapper;
 import com.bigdata.backstage.modules.common.mapper.MetDwInfoMapper;
-import com.bigdata.backstage.modules.common.mapper.ViewMetDataTableMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
 import com.bigdata.backstage.modules.common.model.MetDwInfo;
-import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceInfoDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
-import org.aspectj.weaver.ast.Var;
+import com.github.yulichang.base.MPJBaseMapper;
+import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * <p>
@@ -77,33 +74,36 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
     //数据集成-表单(分页模糊查询)
     @Override
     public IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto) {
+        //分页
         Integer pageNum = dto.getPageNum();
         Integer pageSize = dto.getPageSize();
         Page<MetDataTable> pageParam = new Page<>(pageNum, pageSize);
-        QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
+        //多表联查及其分页
+        MPJLambdaWrapper<MetDataTable> joinMrapper = new MPJLambdaWrapper<>();
+        joinMrapper.selectAll(MetDataTable.class)
+                .selectAll(MetDataTable.class)
+                .selectAs(MetDwInfo::getDwNameZn,MetDataTable::getDwName)
+                .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
+                .likeRight("tbl_name", "ods_" + dto.getSourceCode() + "_");
         String name = dto.getTableName();
         if (!StrUtil.isEmpty(name)) {
-            wrapper.like("tbl_name", name);
+            joinMrapper.like("tbl_name", name);
         }
         Integer dwId = dto.getDwId();
-        String dwNameZn = "数仓合集";
         if (dwId != null) {
-            wrapper.eq("dw_id", dto.getDwId());
-            dwNameZn = metDwInfoMapper.selectById(dwId).getDwNameZn();
+            joinMrapper.eq("dw_id", dto.getDwId());
         }
-        wrapper.likeRight("tbl_name", "ods_" + dto.getSourceCode()+"_");
-        Page<MetDataTable> viewMetDataTablePage = baseMapper.selectPage(pageParam, wrapper);
+        Page<MetDataTable> viewMetDataTablePage = baseMapper.selectPage(pageParam, joinMrapper);
         long size = viewMetDataTablePage.getSize();
         if (size > 0) {
-            String finalDwNameZn = dwNameZn;
             viewMetDataTablePage.getRecords().forEach(item -> {
-                item.setDwName(finalDwNameZn);
                 item.setSourceType(dto.getSourceName());
             });
             return viewMetDataTablePage;
         }
         return null;
     }
+
 
     //获取表信息
     @Override
