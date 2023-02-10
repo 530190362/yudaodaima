@@ -1,19 +1,27 @@
 package com.bigdata.backstage.modules.dataquality.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.common.mapper.MetQualityRuleTaskRelationMapper;
-import com.bigdata.backstage.modules.common.model.MetQualityRule;
-import com.bigdata.backstage.modules.common.model.MetQualityRuleTaskRelation;
+import com.bigdata.backstage.modules.common.mapper.MetQualityTaskMapper;
+import com.bigdata.backstage.modules.common.model.*;
+import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.common.service.MetQualityRuleService;
+import com.bigdata.backstage.modules.dataasset.vo.DataAssetDetailVo;
 import com.bigdata.backstage.modules.dataquality.dto.RulePageDto;
 import com.bigdata.backstage.modules.dataquality.service.DataQualityService;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityRulePageVo;
+import com.bigdata.backstage.modules.norm.model.NormDict;
+import com.bigdata.backstage.modules.norm.service.NormDictService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +43,12 @@ public class DataQualityController {
     private MetQualityRuleService metQualityRuleService;
     @Autowired
     private MetQualityRuleTaskRelationMapper metQualityRuleTaskRelationMapper;
+    @Autowired
+    private MetDwInfoService metDwInfoService;
+    @Autowired
+    private NormDictService normDictService;
+    @Autowired
+    private MetQualityTaskMapper metQualityTaskMapper;
 
     @ApiOperation(value = "质检规则分页查询")
     @PostMapping("/pagelist")
@@ -48,6 +62,23 @@ public class DataQualityController {
     public CommonResult<List<Map<String,String>>> getRuleList() {
         List<Map<String, String>> ruleList = dataQualityService.getRuleList();
         return CommonResult.success(ruleList);
+    }
+
+    @ApiOperation(value = "质检规则详情")
+    @GetMapping(value = "/getRuleDetailById")
+    public CommonResult<DataQualityRulePageVo> getRuleDetailById(Integer ruleId) {
+        MetQualityRule ruleServiceById = metQualityRuleService.getById(ruleId);
+        DataQualityRulePageVo dataQualityRulePageVo = new DataQualityRulePageVo();
+        BeanUtils.copyProperties(ruleServiceById, dataQualityRulePageVo);
+        MetDwInfo metDwInfo = metDwInfoService.getById(ruleServiceById.getDwId());
+        dataQualityRulePageVo.setProjectName(metDwInfo.getDwNameZn());
+        NormDict normDict = normDictService.getById(ruleServiceById.getRuleType());
+        dataQualityRulePageVo.setRuleType(normDict.getName());
+        Long count = metQualityTaskMapper.selectCount(new QueryWrapper<MetQualityTask>().eq("rule_id", ruleId).eq("is_delete", 0));
+//        Long count = qualityRuleTaskRelationMapper.selectCount(new QueryWrapper<MetQualityRuleTaskRelation>().eq("rule_id", record.getId()).eq("is_delete", 0));
+        dataQualityRulePageVo.setRuleBindNum(count.intValue());
+
+        return CommonResult.success(dataQualityRulePageVo);
     }
 
     @ApiOperation(value = "新增修改")
