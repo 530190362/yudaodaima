@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.common.mapper.MetQualityWarnMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetQualityWarn">
+        <id column="id" property="id" />
+        <result column="dw_id" property="dwId" />
+        <result column="task_id" property="taskId" />
+        <result column="rule_type" property="ruleType" />
+        <result column="target_scope" property="targetScope" />
+        <result column="actual_value" property="actualValue" />
+        <result column="warn_time" property="warnTime" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+</mapper>

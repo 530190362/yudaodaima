@@ -24,4 +24,8 @@
         <result column="is_delete" property="isDelete" />
     </resultMap>
 
+    <select id="getTaskList" resultType="java.util.Map">
+        select id,task_name from met_quality_task where is_delete =0 group by id,task_name
+    </select>
+
 </mapper>

@@ -14,10 +14,12 @@ import com.bigdata.backstage.modules.common.service.MetQualityTaskService;
 import com.bigdata.backstage.modules.dataquality.dto.RulePageDto;
 import com.bigdata.backstage.modules.dataquality.dto.TaskPageDto;
 import com.bigdata.backstage.modules.dataquality.dto.TaskUpdateDto;
+import com.bigdata.backstage.modules.dataquality.dto.WarnPageDto;
 import com.bigdata.backstage.modules.dataquality.service.DataQualityService;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityRulePageVo;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskDetailVo;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskPageVo;
+import com.bigdata.backstage.modules.dataquality.vo.DataQualityWarnPageVo;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import io.swagger.annotations.ApiOperation;
@@ -197,8 +199,15 @@ public class DataQualityController {
 
     @ApiOperation(value = "质检预警分页查询")
     @PostMapping("/pageWarnlist")
-    public CommonResult<IPage<DataQualityTaskPageVo>> getpageWarnlist(@RequestBody TaskPageDto taskPageDto) {
-        IPage<DataQualityTaskPageVo> qualityTaskPageVoPage = dataQualityService.getpageTasklist(taskPageDto);
-        return CommonResult.success(qualityTaskPageVoPage);
+    public CommonResult<IPage<DataQualityWarnPageVo>> getpageWarnlist(@RequestBody WarnPageDto warnPageDto) {
+        IPage<DataQualityWarnPageVo> qualityWarnPageVoPage = dataQualityService.getpageWarnlist(warnPageDto);
+        return CommonResult.success(qualityWarnPageVoPage);
+    }
+
+    @ApiOperation(value = "获取任务名称")
+    @GetMapping(value = "/getTaskList")
+    public CommonResult<List<Map<String,String>>> getTaskList() {
+        List<Map<String, String>> ruleList = dataQualityService.getTaskList();
+        return CommonResult.success(ruleList);
     }
 }

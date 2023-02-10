@@ -6,13 +6,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bigdata.backstage.modules.common.mapper.MetQualityRuleMapper;
 import com.bigdata.backstage.modules.common.mapper.MetQualityRuleTaskRelationMapper;
 import com.bigdata.backstage.modules.common.mapper.MetQualityTaskMapper;
+import com.bigdata.backstage.modules.common.mapper.MetQualityWarnMapper;
 import com.bigdata.backstage.modules.common.model.*;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.dataquality.dto.RulePageDto;
 import com.bigdata.backstage.modules.dataquality.dto.TaskPageDto;
+import com.bigdata.backstage.modules.dataquality.dto.WarnPageDto;
 import com.bigdata.backstage.modules.dataquality.service.DataQualityService;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityRulePageVo;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskPageVo;
+import com.bigdata.backstage.modules.dataquality.vo.DataQualityWarnPageVo;
 import com.bigdata.backstage.modules.norm.mapper.NormDictMapper;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
@@ -39,6 +42,8 @@ public class DataQualityServiceImpl implements DataQualityService {
     private MetQualityRuleTaskRelationMapper qualityRuleTaskRelationMapper;
     @Autowired
     private MetQualityTaskMapper metQualityTaskMapper;
+    @Autowired
+    private MetQualityWarnMapper metQualityWarnMapper;
 
     @Override
     public IPage<DataQualityRulePageVo> pageQueryList(RulePageDto rulePageDto) {
@@ -112,5 +117,41 @@ public class DataQualityServiceImpl implements DataQualityService {
     @Override
     public List<Map<String, String>> getBindRuleList() {
         return metQualityRuleMapper.getBindRuleList();
+    }
+
+    @Override
+    public IPage<DataQualityWarnPageVo> getpageWarnlist(WarnPageDto warnPageDto) {
+        List<MetQualityWarn> records = new ArrayList<>();
+        IPage<DataQualityWarnPageVo> dataQualityRulePageVos = new Page<>();
+        Page<MetQualityWarn> metQualityRulePage = metQualityWarnMapper.selectPage(new Page<>(warnPageDto.getCurrent(), warnPageDto.getPageSize()),
+                new QueryWrapper<MetQualityWarn>()
+                        .eq(warnPageDto.getProjectId() != null, "dw_id", warnPageDto.getProjectId())
+                        .eq(warnPageDto.getTaskNameId() != null, "task_id", warnPageDto.getTaskNameId())
+                        .orderByDesc("create_time"));
+        records = metQualityRulePage.getRecords();
+
+        if (!records.isEmpty()) {
+            ArrayList<DataQualityWarnPageVo> dataQualityWarnPage = new ArrayList<>();
+            for (MetQualityWarn record : records) {
+                DataQualityWarnPageVo warnPageVo = new DataQualityWarnPageVo();
+                BeanUtils.copyProperties(record, warnPageVo);
+                MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
+                warnPageVo.setProjectName(metDwInfo.getDwNameZn());
+                NormDict normDict = normDictService.getById(record.getRuleType());
+                warnPageVo.setRuleTypeName(normDict.getName());
+                dataQualityWarnPage.add(warnPageVo);
+            }
+            dataQualityRulePageVos.setRecords(dataQualityWarnPage);
+            dataQualityRulePageVos.setTotal(metQualityRulePage.getTotal());
+            dataQualityRulePageVos.setPages(metQualityRulePage.getPages());
+            dataQualityRulePageVos.setSize(metQualityRulePage.getSize());
+            dataQualityRulePageVos.setCurrent(metQualityRulePage.getCurrent());
+        }
+        return dataQualityRulePageVos;
+    }
+
+    @Override
+    public List<Map<String, String>> getTaskList() {
+        return metQualityTaskMapper.getTaskList();
     }
 }

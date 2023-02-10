@@ -12,6 +12,8 @@ public class DataQualityTaskDetailVo {
 
     @ApiModelProperty("项目名称")
     private String projectName;
+    @ApiModelProperty("项目名称")
+    private Integer dwId;
 
     @ApiModelProperty("任务名称")
     private String taskName;
@@ -27,9 +29,13 @@ public class DataQualityTaskDetailVo {
 
     @ApiModelProperty("质检规则")
     private String ruleName;
+    @ApiModelProperty("质检规则")
+    private Integer ruleId;
 
     @ApiModelProperty("绑定表")
     private String bindTblName;
+    @ApiModelProperty("绑定表")
+    private String bindTbl;
 
     @ApiModelProperty("绑定字段")
     private String bindCol;
