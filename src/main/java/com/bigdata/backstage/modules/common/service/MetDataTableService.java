@@ -7,6 +7,7 @@ import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
 import com.bigdata.backstage.modules.common.model.ViewMetDetailOutline;
 import com.bigdata.backstage.modules.common.service.impl.ViewMetDetailOutlineServiceImpl;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
+import com.bigdata.backstage.modules.source.dto.DataSourceInfoDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
 
@@ -38,5 +39,5 @@ public interface MetDataTableService extends IService<MetDataTable> {
     IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto);
 
     ////获取表信息
-    MetDataTable getTableInfo(DataSourcePageDto dto);
+    MetDataTable getTableInfo(DataSourceInfoDto dto);
 }

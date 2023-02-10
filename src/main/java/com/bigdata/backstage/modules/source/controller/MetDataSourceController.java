@@ -6,8 +6,6 @@ import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.common.model.MetDataColumn;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
-import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
-import com.bigdata.backstage.modules.common.model.ViewMetDetailOutline;
 import com.bigdata.backstage.modules.common.service.MetDataColumnService;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.norm.model.NormDict;
@@ -33,7 +31,6 @@ import java.util.Map;
 @RequestMapping("/source")
 public class MetDataSourceController {
 
-
     @Autowired
     private MetDataTableService metDataTableService;
 
@@ -47,11 +44,10 @@ public class MetDataSourceController {
     // 获取ODS的数据源头(数据集成)
     @ApiOperation("数据集成-系统源头")
     @GetMapping("/type")
-    public CommonResult odsType () {
-        List<NormDict> normDictList=normDictService.getOdsType();
+    public CommonResult odsType() {
+        List<NormDict> normDictList = normDictService.getOdsType();
         return CommonResult.success(normDictList);
     }
-
 
 
     @ApiOperation(value = "数据集成-3个指标")
@@ -78,15 +74,15 @@ public class MetDataSourceController {
 
     @ApiOperation(value = "数据集成-(表/字段)展示")
     @PostMapping("/info")
-    public CommonResult tableInfo(@RequestBody DataSourcePageDto dto) {
+    public CommonResult tableInfo(@RequestBody DataSourceInfoDto dto) {
         //获取表信息
         MetDataTable table = metDataTableService.getTableInfo(dto);
         //获取列信息
         List<MetDataColumn> column = metDataColumnService.getColumnInfo(dto);
-        DataSourceInfoDto dataSourceInfoDto = new DataSourceInfoDto();
-        dataSourceInfoDto.setTableInfo(table);
-        dataSourceInfoDto.setColumnInfo(column);
-        return CommonResult.success(dataSourceInfoDto);
+        Map<String, Object> result = new HashMap<>();
+        result.put("taleInfo", table);
+        result.put("columnInfo", column);
+        return CommonResult.success(result);
     }
 
 

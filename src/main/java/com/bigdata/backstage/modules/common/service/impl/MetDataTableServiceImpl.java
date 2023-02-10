@@ -13,6 +13,7 @@ import com.bigdata.backstage.modules.common.model.MetDwInfo;
 import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
+import com.bigdata.backstage.modules.source.dto.DataSourceInfoDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
 import org.aspectj.weaver.ast.Var;
@@ -84,7 +85,7 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
         if (!StrUtil.isEmpty(name)) {
             wrapper.like("tbl_name", name);
         }
-        wrapper.likeRight("tbl_name", "ods_" + dto.getSourceType()+"_");
+        wrapper.likeRight("tbl_name", "ods_" + dto.getSourceCode()+"_");
         wrapper.eq("dw_id", dto.getDwId());
         MetDwInfo metDwInfo = metDwInfoMapper.selectById(dwId);
         Page<MetDataTable> viewMetDataTablePage = baseMapper.selectPage(pageParam, wrapper);
@@ -92,7 +93,7 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
         if (size > 0) {
             viewMetDataTablePage.getRecords().forEach(item -> {
                 item.setDwName(metDwInfo.getDwNameZn());
-                item.setSourceType(dto.getSourceType());
+                item.setSourceType(dto.getSourceName());
             });
             return viewMetDataTablePage;
         }
@@ -101,7 +102,7 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
 
     //获取表信息
     @Override
-    public MetDataTable getTableInfo(DataSourcePageDto dto) {
+    public MetDataTable getTableInfo(DataSourceInfoDto dto) {
         QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
         wrapper.eq("tbl_name", dto.getTableName());
         wrapper.eq("dw_id", dto.getDwId());

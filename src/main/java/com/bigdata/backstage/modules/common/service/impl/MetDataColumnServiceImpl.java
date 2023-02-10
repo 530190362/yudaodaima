@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataColumnMapper;
 import com.bigdata.backstage.modules.common.model.MetDataColumn;
 import com.bigdata.backstage.modules.common.service.MetDataColumnService;
+import com.bigdata.backstage.modules.source.dto.DataSourceInfoDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,7 @@ public class MetDataColumnServiceImpl extends ServiceImpl<MetDataColumnMapper, M
 
     //获取表信息
     @Override
-    public List<MetDataColumn> getColumnInfo(DataSourcePageDto dto) {
+    public List<MetDataColumn> getColumnInfo(DataSourceInfoDto dto) {
         QueryWrapper<MetDataColumn> wrapper = new QueryWrapper<>();
         wrapper.eq("tbl_name",dto.getTableName());
         wrapper.eq("dw_id",dto.getDwId());
