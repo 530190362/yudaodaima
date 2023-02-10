@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.common.mapper.MetQualityTaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetQualityTask">
+        <id column="id" property="id" />
+        <result column="dw_id" property="dwId" />
+        <result column="task_name" property="taskName" />
+        <result column="task_comment" property="taskComment" />
+        <result column="monitor_num" property="monitorNum" />
+        <result column="warn_num" property="warnNum" />
+        <result column="rule_id" property="ruleId" />
+        <result column="bind_tbl" property="bindTbl" />
+        <result column="bind_col" property="bindCol" />
+        <result column="target_begin" property="targetBegin" />
+        <result column="target_end" property="targetEnd" />
+        <result column="monitor_freq" property="monitorFreq" />
+        <result column="create_user" property="createUser" />
+        <result column="update_user" property="updateUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="status" property="status" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+</mapper>

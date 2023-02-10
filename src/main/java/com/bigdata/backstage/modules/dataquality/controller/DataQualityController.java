@@ -1,6 +1,5 @@
 package com.bigdata.backstage.modules.dataquality.controller;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonResult;
@@ -9,10 +8,13 @@ import com.bigdata.backstage.modules.common.mapper.MetQualityTaskMapper;
 import com.bigdata.backstage.modules.common.model.*;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.common.service.MetQualityRuleService;
-import com.bigdata.backstage.modules.dataasset.vo.DataAssetDetailVo;
+import com.bigdata.backstage.modules.common.service.MetQualityTaskService;
 import com.bigdata.backstage.modules.dataquality.dto.RulePageDto;
+import com.bigdata.backstage.modules.dataquality.dto.TaskPageDto;
 import com.bigdata.backstage.modules.dataquality.service.DataQualityService;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityRulePageVo;
+import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskDetailVo;
+import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskPageVo;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
 import io.swagger.annotations.ApiOperation;
@@ -20,8 +22,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 
@@ -49,10 +49,12 @@ public class DataQualityController {
     private NormDictService normDictService;
     @Autowired
     private MetQualityTaskMapper metQualityTaskMapper;
+    @Autowired
+    private MetQualityTaskService metQualityTaskService;
 
     @ApiOperation(value = "质检规则分页查询")
     @PostMapping("/pagelist")
-    public CommonResult<IPage<DataQualityRulePageVo>> pageAssetList(@RequestBody RulePageDto rulePageDto) {
+    public CommonResult<IPage<DataQualityRulePageVo>> pageRuleList(@RequestBody RulePageDto rulePageDto) {
         IPage<DataQualityRulePageVo> dataQualityRulePageVoIPage = dataQualityService.pageQueryList(rulePageDto);
         return CommonResult.success(dataQualityRulePageVoIPage);
     }
@@ -116,4 +118,31 @@ public class DataQualityController {
             return CommonResult.failed("删除失败");
         }
     }
+
+    @ApiOperation(value = "质检任务分页查询")
+    @PostMapping("/pageTasklist")
+    public CommonResult<IPage<DataQualityTaskPageVo>> getpageTasklist(@RequestBody TaskPageDto taskPageDto) {
+        IPage<DataQualityTaskPageVo> qualityTaskPageVoPage = dataQualityService.getpageTasklist(taskPageDto);
+        return CommonResult.success(qualityTaskPageVoPage);
+    }
+
+    @ApiOperation(value = "质检任务详情")
+    @GetMapping(value = "/getTaskDetailById")
+    public CommonResult<DataQualityTaskDetailVo> getTaskDetailById(Integer taskId) {
+        MetQualityTask metQualityTask = metQualityTaskService.getById(taskId);
+        DataQualityTaskDetailVo dataQualityTaskVo = new DataQualityTaskDetailVo();
+        BeanUtils.copyProperties(metQualityTask, dataQualityTaskVo);
+        MetDwInfo metDwInfo = metDwInfoService.getById(metQualityTask.getDwId());
+        dataQualityTaskVo.setProjectName(metDwInfo.getDwNameZn());
+        MetQualityRule qualityRule = metQualityRuleService.getById(metQualityTask.getRuleId());
+        dataQualityTaskVo.setRuleName(qualityRule.getRuleName());
+        return CommonResult.success(dataQualityTaskVo);
+    }
+
+//    @ApiOperation(value = "绑定规则列表")
+//    @GetMapping(value = "/getBindRuleList")
+//    public CommonResult<List<Map<String,String>>> getBindRuleList() {
+//        List<Map<String, String>> ruleList = dataQualityService.getBindRuleList();
+//        return CommonResult.success(ruleList);
+//    }
 }

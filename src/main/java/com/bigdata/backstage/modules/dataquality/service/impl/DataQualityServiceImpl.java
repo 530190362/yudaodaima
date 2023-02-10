@@ -9,8 +9,10 @@ import com.bigdata.backstage.modules.common.mapper.MetQualityTaskMapper;
 import com.bigdata.backstage.modules.common.model.*;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.dataquality.dto.RulePageDto;
+import com.bigdata.backstage.modules.dataquality.dto.TaskPageDto;
 import com.bigdata.backstage.modules.dataquality.service.DataQualityService;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityRulePageVo;
+import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskPageVo;
 import com.bigdata.backstage.modules.norm.mapper.NormDictMapper;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import com.bigdata.backstage.modules.norm.service.NormDictService;
@@ -76,5 +78,34 @@ public class DataQualityServiceImpl implements DataQualityService {
     @Override
     public List<Map<String, String>> getRuleList() {
         return normDictMapper.getRuleList();
+    }
+
+    @Override
+    public IPage<DataQualityTaskPageVo> getpageTasklist(TaskPageDto taskPageDto) {
+        List<MetQualityTask> records = new ArrayList<>();
+        IPage<DataQualityTaskPageVo> dataQualityTaskPageVoPage = new Page<>();
+        Page<MetQualityTask> metQualityTaskPage = metQualityTaskMapper.selectPage(new Page<>(taskPageDto.getCurrent(), taskPageDto.getPageSize()),
+                new QueryWrapper<MetQualityTask>()
+                        .eq(taskPageDto.getProjectId() != null, "dw_id", taskPageDto.getProjectId())
+                        .like(taskPageDto.getTaskName() != null && !"".equals(taskPageDto.getTaskName()), "task_name", taskPageDto.getTaskName())
+                        .eq(taskPageDto.getStatus() != null, "status", taskPageDto.getStatus())
+                        .orderByDesc("create_time"));
+        records = metQualityTaskPage.getRecords();
+        if (!records.isEmpty()) {
+            ArrayList<DataQualityTaskPageVo> dataQualityTaskPage = new ArrayList<>();
+            for (MetQualityTask record : records) {
+                DataQualityTaskPageVo taskPageVo = new DataQualityTaskPageVo();
+                BeanUtils.copyProperties(record, taskPageVo);
+                MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
+                taskPageVo.setProjectName(metDwInfo.getDwNameZn());
+                dataQualityTaskPage.add(taskPageVo);
+            }
+            dataQualityTaskPageVoPage.setRecords(dataQualityTaskPage);
+            dataQualityTaskPageVoPage.setTotal(metQualityTaskPage.getTotal());
+            dataQualityTaskPageVoPage.setPages(metQualityTaskPage.getPages());
+            dataQualityTaskPageVoPage.setSize(metQualityTaskPage.getSize());
+            dataQualityTaskPageVoPage.setCurrent(metQualityTaskPage.getCurrent());
+        }
+        return dataQualityTaskPageVoPage;
     }
 }
