@@ -109,27 +109,23 @@ public class DataAssetController {
     @PostMapping("/update")
     public CommonResult update(@RequestBody BindLabelDto bindLabel) {
         int insert = 0;
+        List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
+                        .eq(MetDataOverviewLabelRelation::getOverviewId, bindLabel.getOverviewId())
+        );
+        if (!CollectionUtils.isEmpty(list)){
+            boolean b = metDataOverviewLabelRelationService.removeBatchByIds(list);
+        }
         if (null != bindLabel.getLabelIds()) {
             for (Integer labelId : bindLabel.getLabelIds()) {
-                List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
-                        .eq(MetDataOverviewLabelRelation::getOverviewId, bindLabel.getOverviewId())
-                        .eq(MetDataOverviewLabelRelation::getLabelId, labelId)
-                );
-                if (CollectionUtils.isEmpty(list)){
-                    MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
-                    mapping.setLabelId(labelId);
-                    mapping.setOverviewId(bindLabel.getOverviewId());
-                    insert = metDataOverviewLabelRelationMapper.insert(mapping);
 
-                }
+                MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
+                mapping.setLabelId(labelId);
+                mapping.setOverviewId(bindLabel.getOverviewId());
+                insert = metDataOverviewLabelRelationMapper.insert(mapping);
             }
             return CommonResult.success("绑定成功");
         }
-//        if (insert>0){
-            return CommonResult.failed("未选择标签进行绑定！");
-//        }else {
-//            return CommonResult.failed("绑定失败");
-//        }
+        return CommonResult.failed("未选择标签进行绑定！");
     }
 
     @ApiOperation(value = "标签分页查询")
@@ -195,25 +191,22 @@ public class DataAssetController {
     @PostMapping("/labelBindTbl")
     public CommonResult labelBindTbl(@RequestBody BindTblDto bindTbl) {
         int insert = 0;
+        List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
+                .eq(MetDataOverviewLabelRelation::getLabelId,bindTbl.getLabelId())
+        );
+        if (!CollectionUtils.isEmpty(list)){
+            boolean b = metDataOverviewLabelRelationService.removeBatchByIds(list);
+        }
         if (null != bindTbl.getOverviewIds()) {
             for (Integer tblId : bindTbl.getOverviewIds()) {
-                List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
-                        .eq(MetDataOverviewLabelRelation::getLabelId,bindTbl.getLabelId() )
-                        .eq(MetDataOverviewLabelRelation::getOverviewId, tblId)
-                );
-                if (CollectionUtils.isEmpty(list)){
                     MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
                     mapping.setLabelId(bindTbl.getLabelId());
                     mapping.setOverviewId(tblId);
                     insert = metDataOverviewLabelRelationMapper.insert(mapping);
                 }
-            }
             return CommonResult.success("绑定成功");
-        }
-//        if (insert>0){
-//            return CommonResult.success("绑定成功");
-//        }else {
-            return CommonResult.failed("未选择表进行绑定！");
-//        }
+            }
+        return CommonResult.failed("未选择表进行绑定！");
     }
+
 }

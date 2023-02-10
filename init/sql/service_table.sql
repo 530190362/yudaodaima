@@ -319,3 +319,26 @@ CREATE TABLE `met_quality_rule_task_relation` (
   `is_delete` int(2) DEFAULT '0' COMMENT '是否删除  0:未删除 1:已删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='质检规则任务映射表';
+
+-- 数据质量-质检任务表
+CREATE TABLE `met_quality_task` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `dw_id` int(10) DEFAULT NULL COMMENT '数仓id',
+    `task_name` varchar(255) DEFAULT NULL COMMENT '任务名称',
+    `task_comment` varchar(255) DEFAULT NULL COMMENT '任务描述',
+    `monitor_num` int(10) DEFAULT '0' COMMENT '监测次数',
+    `warn_num` int(10) DEFAULT '0' COMMENT '预警次数',
+    `rule_id` int(10) DEFAULT NULL COMMENT '绑定规则',
+    `bind_tbl` int(10) DEFAULT NULL COMMENT '绑定表',
+    `bind_col` varchar(255) DEFAULT NULL COMMENT '绑定字段',
+    `target_begin` varchar(255) DEFAULT NULL COMMENT '目标范围起',
+    `target_end` varchar(255) DEFAULT NULL COMMENT '目标范围始',
+    `monitor_freq` int(10) DEFAULT '0' COMMENT '监测频率',
+    `create_user` varchar(50) NOT NULL COMMENT '创建人',
+    `update_user` varchar(50) NOT NULL COMMENT '更新人',
+    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `status` int(1) DEFAULT '1' COMMENT '状态 1-上线 0-下线',
+    `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除 1-是 0-否',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='数据质量-质检任务';
