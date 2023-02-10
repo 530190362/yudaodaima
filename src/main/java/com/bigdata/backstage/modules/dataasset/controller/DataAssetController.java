@@ -120,14 +120,16 @@ public class DataAssetController {
                     mapping.setLabelId(labelId);
                     mapping.setOverviewId(bindLabel.getOverviewId());
                     insert = metDataOverviewLabelRelationMapper.insert(mapping);
+
                 }
             }
-        }
-        if (insert>0){
             return CommonResult.success("绑定成功");
-        }else {
-            return CommonResult.failed("绑定失败");
         }
+//        if (insert>0){
+            return CommonResult.failed("未选择标签进行绑定");
+//        }else {
+//            return CommonResult.failed("绑定失败");
+//        }
     }
 
     @ApiOperation(value = "标签分页查询")
