@@ -19,5 +19,5 @@ public interface DataQualityService {
 
     IPage<DataQualityTaskPageVo> getpageTasklist(TaskPageDto taskPageDto);
 
-//    List<Map<String,String>> getRuleList() ;
+    List<Map<String,String>> getBindRuleList() ;
 }

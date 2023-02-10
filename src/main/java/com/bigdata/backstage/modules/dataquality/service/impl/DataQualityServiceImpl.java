@@ -108,4 +108,9 @@ public class DataQualityServiceImpl implements DataQualityService {
         }
         return dataQualityTaskPageVoPage;
     }
+
+    @Override
+    public List<Map<String, String>> getBindRuleList() {
+        return metQualityRuleMapper.getBindRuleList();
+    }
 }

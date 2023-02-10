@@ -1,6 +1,8 @@
 package com.bigdata.backstage.modules.dataquality.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.common.mapper.MetQualityRuleTaskRelationMapper;
@@ -11,6 +13,7 @@ import com.bigdata.backstage.modules.common.service.MetQualityRuleService;
 import com.bigdata.backstage.modules.common.service.MetQualityTaskService;
 import com.bigdata.backstage.modules.dataquality.dto.RulePageDto;
 import com.bigdata.backstage.modules.dataquality.dto.TaskPageDto;
+import com.bigdata.backstage.modules.dataquality.dto.TaskUpdateDto;
 import com.bigdata.backstage.modules.dataquality.service.DataQualityService;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityRulePageVo;
 import com.bigdata.backstage.modules.dataquality.vo.DataQualityTaskDetailVo;
@@ -59,7 +62,7 @@ public class DataQualityController {
         return CommonResult.success(dataQualityRulePageVoIPage);
     }
 
-    @ApiOperation(value = "规则类型列表")
+    @ApiOperation(value = "获取规则类型列表")
     @GetMapping(value = "/getRuleList")
     public CommonResult<List<Map<String,String>>> getRuleList() {
         List<Map<String, String>> ruleList = dataQualityService.getRuleList();
@@ -83,9 +86,9 @@ public class DataQualityController {
         return CommonResult.success(dataQualityRulePageVo);
     }
 
-    @ApiOperation(value = "新增修改")
-    @PostMapping(value = "/addOrUpdate")
-    public CommonResult addOrUpdate(@RequestBody MetQualityRule metQualityRule) {
+    @ApiOperation(value = "规则新增修改")
+    @PostMapping(value = "/addOrUpdateRule")
+    public CommonResult addOrUpdateRule(@RequestBody MetQualityRule metQualityRule) {
         if (metQualityRule.getId() == null){
             boolean save = metQualityRuleService.save(metQualityRule);
             if (save) {
@@ -103,9 +106,9 @@ public class DataQualityController {
         }
     }
 
-    @ApiOperation(value = "删除")
-    @DeleteMapping(value = "/delete/{id}")
-    public CommonResult delete(@PathVariable Long id) {
+    @ApiOperation(value = "规则删除")
+    @DeleteMapping(value = "/deleteRule/{id}")
+    public CommonResult deleteRule(@PathVariable Long id) {
         Long tblNum = metQualityRuleTaskRelationMapper.selectCount(new QueryWrapper<MetQualityRuleTaskRelation>()
                 .eq("rule_id", id).eq("is_delete", 0));
         if (tblNum > 0) {
@@ -139,10 +142,54 @@ public class DataQualityController {
         return CommonResult.success(dataQualityTaskVo);
     }
 
-//    @ApiOperation(value = "绑定规则列表")
-//    @GetMapping(value = "/getBindRuleList")
-//    public CommonResult<List<Map<String,String>>> getBindRuleList() {
-//        List<Map<String, String>> ruleList = dataQualityService.getBindRuleList();
-//        return CommonResult.success(ruleList);
-//    }
+    @ApiOperation(value = "获取绑定规则列表")
+    @GetMapping(value = "/getBindRuleList")
+    public CommonResult<List<Map<String,String>>> getBindRuleList() {
+        List<Map<String, String>> ruleList = dataQualityService.getBindRuleList();
+        return CommonResult.success(ruleList);
+    }
+
+    @ApiOperation(value = "任务新增修改")
+    @PostMapping(value = "/addOrUpdateTask")
+    public CommonResult addOrUpdateTask(@RequestBody MetQualityTask metQualityTask) {
+        if (metQualityTask.getId() == null){
+            boolean save = metQualityTaskService.save(metQualityTask);
+            if (save) {
+                return CommonResult.success("新增成功");
+            } else {
+                return CommonResult.failed("新增失败");
+            }
+        }else {
+            boolean update = metQualityTaskService.updateById(metQualityTask);
+            if (update) {
+                return CommonResult.success("修改成功");
+            } else {
+                return CommonResult.failed("修改失败");
+            }
+        }
+    }
+
+    @ApiOperation(value = "任务删除")
+    @DeleteMapping(value = "/deleteTask/{id}")
+    public CommonResult deleteTask(@PathVariable Long id) {
+        boolean delete = metQualityTaskService.removeById(id);
+        if (delete) {
+            return CommonResult.success("删除成功");
+        } else {
+            return CommonResult.failed("删除失败");
+        }
+    }
+
+    @ApiOperation(value = "任务上线下线")
+    @PostMapping (value = "/updateTask")
+    public CommonResult updateTask(@RequestBody TaskUpdateDto updateDto) {
+        MetQualityTask qualityTask = metQualityTaskService.getById(updateDto.getId());
+        qualityTask.setStatus(updateDto.getStatus());
+        boolean update = metQualityTaskService.updateById(qualityTask);
+        if (update) {
+            return CommonResult.success("更新成功");
+        } else {
+            return CommonResult.failed("更新失败");
+        }
+    }
 }

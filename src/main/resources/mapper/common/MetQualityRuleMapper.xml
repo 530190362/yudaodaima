@@ -17,4 +17,8 @@
         <result column="is_delete" property="isDelete" />
     </resultMap>
 
+
+    <select id="getBindRuleList" resultType="java.util.Map">
+        select id,rule_name from met_quality_rule where is_delete =0 group by id,rule_name
+    </select>
 </mapper>
