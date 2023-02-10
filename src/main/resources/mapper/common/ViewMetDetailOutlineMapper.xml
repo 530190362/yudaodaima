@@ -76,7 +76,7 @@
     <select id="getDataChangeSize" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
         select
             date_format(str_to_date(dt, '%Y%m%d'),'%Y/%m/%d')  as `date`,
-            round(sum(num),2) as dataNum
+            round(sum(num)/1024,2) as dataNum
         from (
                  select
                      dt,
@@ -95,7 +95,7 @@
     <select id="getDataSizeTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataSizeTop">
         SELECT
             tbl_name as tblName,
-            round(tbl_size,2) as tblSize,
+            round(tbl_size/1024,2) as tblSize,
             tbl_comment as tblComment
         FROM
             view_met_detail_outline
