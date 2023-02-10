@@ -42,7 +42,7 @@
                     group by create_date, tbl_name) t1
                        left join met_data_table t2
                                  on t1.tbl_name = t2.tbl_name) t3
-        group by create_date order by create_date desc limit #{limit};
+        group by create_date order by create_date  limit #{limit};
 
     </select>
 

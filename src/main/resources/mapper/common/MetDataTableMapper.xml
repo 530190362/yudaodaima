@@ -95,7 +95,7 @@
 
     <select id="selectOdsIndex" resultMap="sourceTotalMap">
         select count(*)                as tables,
-               round(sum(tbl_size), 2) as size,
+               round(sum(tbl_size)/1024, 2) as size,
                sum(row_count)          as rows
         from view_met_data_table
         where tbl_level = 'ods';
@@ -115,7 +115,7 @@
                  from view_met_detail_outline
                  where tbl_level='ods'
                  group by dt,tbl_name) t1
-        group by dt order by dt desc limit #{limit};
+        group by dt order by dt  limit #{limit};
     </select>
 
 </mapper>
