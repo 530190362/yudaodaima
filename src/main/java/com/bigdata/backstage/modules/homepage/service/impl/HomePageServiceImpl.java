@@ -10,6 +10,7 @@ import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
@@ -33,7 +34,7 @@ public class HomePageServiceImpl implements HomePageService {
         Map<String, Object> map = new HashMap<String, Object>();
         if (overview != null) {
             map.put("totalTbl", overview.getTotalTblCount());
-            map.put("totalSize", overview.getTotalTblSize().setScale(2,RoundingMode.HALF_UP));
+            map.put("totalSize", overview.getTotalTblSize().divide(BigDecimal.valueOf(1024),2, RoundingMode.UP));
             map.put("colCount", overview.getTotalTblCol());
             map.put("rowCount", overview.getTotalTblRow());
             return map;
