@@ -53,14 +53,16 @@ public class DataAssetServiceImpl implements DataAssetService {
             records = dataOverviewPage.getRecords();
         }else {
             List<String> overviewIdList = metDataOverviewLabelRelationMapper.getOverviewIdList(dataAssetDto.getLabel());
-            dataOverviewPage = dataOverviewMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
-                    new QueryWrapper<MetDataOverview>()
-                            .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
-                            .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
-                            .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
-                            .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
-                            .in(overviewIdList != null, "id", overviewIdList).orderByAsc("create_time"));
-            records = dataOverviewPage.getRecords();
+            if(overviewIdList.size()>0){
+                dataOverviewPage = dataOverviewMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
+                        new QueryWrapper<MetDataOverview>()
+                                .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
+                                .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
+                                .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
+                                .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
+                                .in(overviewIdList != null, "id", overviewIdList).orderByAsc("create_time"));
+                records = dataOverviewPage.getRecords();
+            }
         }
         if (!records.isEmpty()) {
             ArrayList<DataAssetVo> dataAssetVos = new ArrayList<>();
