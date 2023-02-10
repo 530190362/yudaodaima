@@ -202,6 +202,23 @@ public abstract class BaseSwaggerConfig {
         return docket;
     }
 
+    @Bean
+    public Docket restApi11() {
+        SwaggerProperties swaggerProperties = swaggerProperties();
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .groupName("数仓运维平台模块-数据质量")
+                .apiInfo(apiInfo(swaggerProperties))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.dataquality"))
+                .paths(PathSelectors.any())
+                .build();
+        if (swaggerProperties.isEnableSecurity()) {
+            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+        }
+        return docket;
+    }
+
+
 
 
 

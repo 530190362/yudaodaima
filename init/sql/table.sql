@@ -19,7 +19,8 @@ CREATE TABLE if not exists `met_data_table`
     `create_time`     datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `is_deleted`      tinyint(1)     DEFAULT 0 COMMENT '是否删除 1-是 0-否',
-    PRIMARY KEY (`id`) USING BTREE
+    PRIMARY KEY (`id`) USING BTREE,
+    key `idx_tbl_name` (`tbl_name`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产-ODPS表';
 
@@ -41,6 +42,8 @@ CREATE TABLE if not exists `met_data_column`
     index `idx_col_name` (`col_name`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据资产-ODPS表字段';
+
+
 
 
 -- 数据资产-数据同步日志表

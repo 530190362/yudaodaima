@@ -34,4 +34,7 @@ public interface NormDictService extends IService<NormDict> {
 
     //返回字典类型
     List<NormDictTypeDto> getDictType();
+
+     // 获取ODS的数据源头(数据集成)
+     List<NormDict> getOdsType();
 }

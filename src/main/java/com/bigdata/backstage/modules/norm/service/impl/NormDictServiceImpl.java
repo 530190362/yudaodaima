@@ -111,6 +111,14 @@ public class NormDictServiceImpl extends ServiceImpl<NormDictMapper, NormDict> i
         return BeanUtil.copyToList(baseMapper.selectList(wrapper), NormDictTypeDto.class);
     }
 
+    // 获取ODS的数据源头(数据集成)
+    @Override
+    public List<NormDict> getOdsType() {
+        QueryWrapper<NormDict> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id", 53);
+        return baseMapper.selectList(wrapper);
+    }
+
     //根据数据id查询子数据列表
     @Override
     @Cacheable(value = "bigdata:dict", keyGenerator = "keyGenerator")

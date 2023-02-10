@@ -10,7 +10,10 @@ import com.bigdata.backstage.modules.common.model.ViewMetDataTable;
 import com.bigdata.backstage.modules.common.model.ViewMetDetailOutline;
 import com.bigdata.backstage.modules.common.service.MetDataColumnService;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
+import com.bigdata.backstage.modules.norm.model.NormDict;
+import com.bigdata.backstage.modules.norm.service.NormDictService;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
+import com.bigdata.backstage.modules.source.dto.DataSourceInfoDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
 import io.swagger.annotations.Api;
@@ -37,9 +40,23 @@ public class MetDataSourceController {
     @Autowired
     private MetDataColumnService metDataColumnService;
 
+    @Autowired
+    private NormDictService normDictService;
+
+
+    // 获取ODS的数据源头(数据集成)
+    @ApiOperation("数据集成-系统源头")
+    @GetMapping("/type")
+    public CommonResult odsType () {
+        List<NormDict> normDictList=normDictService.getOdsType();
+        return CommonResult.success(normDictList);
+    }
+
+
+
     @ApiOperation(value = "数据集成-3个指标")
     @GetMapping("/total")
-    public CommonResult syncColumn() {
+    public CommonResult odsTotalIndex() {
         DataSourceTotalDto dataSourceTotalDto = metDataTableService.selectOdsTable();
         return CommonResult.success(dataSourceTotalDto);
     }
@@ -47,7 +64,7 @@ public class MetDataSourceController {
 
     @ApiOperation(value = "数据集成-折线图")
     @GetMapping("/history/{limit}")
-    public CommonResult syncColumn(@PathVariable Integer limit) {
+    public CommonResult odsHistoryIndex(@PathVariable Integer limit) {
         List<DataSourceHistoryDto> resutList = metDataTableService.selectOdsHistory(limit);
         return CommonResult.success(resutList);
     }
@@ -55,22 +72,21 @@ public class MetDataSourceController {
     @ApiOperation(value = "数据集成-表单(分页模糊查询)")
     @PostMapping("/list")
     public CommonResult list(@RequestBody DataSourcePageDto dto) {
-        IPage<ViewMetDataTable> pageist = metDataTableService.selectOdsPage(dto);
+        IPage<MetDataTable> pageist = metDataTableService.selectOdsPage(dto);
         return CommonResult.success(CommonPage.restPage(pageist));
     }
 
     @ApiOperation(value = "数据集成-(表/字段)展示")
-    @PostMapping("/info}")
-    public CommonResult info(@RequestBody DataSourcePageDto dto) {
+    @PostMapping("/info")
+    public CommonResult tableInfo(@RequestBody DataSourcePageDto dto) {
         //获取表信息
-        MetDataTable table = metDataTableService.getTableInfo(dto.getTableName());
+        MetDataTable table = metDataTableService.getTableInfo(dto);
         //获取列信息
-        List<MetDataColumn> column = metDataColumnService.getColumnInfo(dto.getTableName());
-        HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("table", table);
-        resultMap.put("column", column);
-
-        return CommonResult.success(resultMap);
+        List<MetDataColumn> column = metDataColumnService.getColumnInfo(dto);
+        DataSourceInfoDto dataSourceInfoDto = new DataSourceInfoDto();
+        dataSourceInfoDto.setTableInfo(table);
+        dataSourceInfoDto.setColumnInfo(column);
+        return CommonResult.success(dataSourceInfoDto);
     }
 
 

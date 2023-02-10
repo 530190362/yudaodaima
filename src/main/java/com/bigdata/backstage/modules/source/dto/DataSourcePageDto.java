@@ -8,6 +8,9 @@ import lombok.Data;
 @Data
 public class DataSourcePageDto  extends PageDto {
 
+    @ApiModelProperty("数仓id")
+    private Integer dwId;
+
     @ApiModelProperty("表名")
     private String tableName;
 

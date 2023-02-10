@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bigdata.backstage.modules.common.model.MetDataColumn;
+import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface MetDataColumnService extends IService<MetDataColumn> {
     void syncColumn();
 
     ////获取表信息
-    List<MetDataColumn> getColumnInfo(String tableName);
+    List<MetDataColumn> getColumnInfo(DataSourcePageDto dto);
 }

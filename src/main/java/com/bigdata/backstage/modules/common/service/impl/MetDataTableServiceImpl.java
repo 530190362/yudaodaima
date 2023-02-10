@@ -15,11 +15,14 @@ import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -38,9 +41,6 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
 
     @Autowired
     private MetDwInfoMapper metDwInfoMapper;
-
-    @Autowired
-    private ViewMetDataTableMapper viewMetDataTableMapper;
 
 
     //同步表级别
@@ -75,30 +75,36 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
 
     //数据集成-表单(分页模糊查询)
     @Override
-    public IPage<ViewMetDataTable> selectOdsPage(DataSourcePageDto dto) {
+    public IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto) {
         Integer pageNum = dto.getPageNum();
         Integer pageSize = dto.getPageSize();
-        Page<ViewMetDataTable> pageParam = new Page<>(pageNum, pageSize);
-        QueryWrapper<ViewMetDataTable> wrapper = new QueryWrapper<>();
+        Page<MetDataTable> pageParam = new Page<>(pageNum, pageSize);
+        QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
         String name = dto.getTableName();
         if (!StrUtil.isEmpty(name)) {
             wrapper.like("tbl_name", name);
         }
-        wrapper.eq("tbl_level", "ods");
+        wrapper.likeRight("tbl_name", "ods_" + dto.getSourceType()+"_");
+        wrapper.eq("dw_id", dto.getDwId());
         MetDwInfo metDwInfo = metDwInfoMapper.selectById(dwId);
-        Page<ViewMetDataTable> viewMetDataTablePage = viewMetDataTableMapper.selectPage(pageParam, wrapper);
-        viewMetDataTablePage.getRecords().forEach(item -> {
-            item.setDwName(metDwInfo.getDwNameZn());
-            item.setSourceType("irs");
-        });
-        return viewMetDataTablePage;
+        Page<MetDataTable> viewMetDataTablePage = baseMapper.selectPage(pageParam, wrapper);
+        long size = viewMetDataTablePage.getSize();
+        if (size > 0) {
+            viewMetDataTablePage.getRecords().forEach(item -> {
+                item.setDwName(metDwInfo.getDwNameZn());
+                item.setSourceType(dto.getSourceType());
+            });
+            return viewMetDataTablePage;
+        }
+        return null;
     }
 
     //获取表信息
     @Override
-    public MetDataTable getTableInfo(String tableName) {
+    public MetDataTable getTableInfo(DataSourcePageDto dto) {
         QueryWrapper<MetDataTable> wrapper = new QueryWrapper<>();
-        wrapper.eq("tbl_name", tableName);
+        wrapper.eq("tbl_name", dto.getTableName());
+        wrapper.eq("dw_id", dto.getDwId());
         return baseMapper.selectOne(wrapper);
     }
 

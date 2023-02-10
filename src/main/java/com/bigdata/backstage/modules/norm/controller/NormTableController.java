@@ -7,6 +7,7 @@ import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.norm.dto.NormRootDto;
 import com.bigdata.backstage.modules.norm.dto.NormTableDto;
+import com.bigdata.backstage.modules.norm.model.NormNode;
 import com.bigdata.backstage.modules.norm.model.NormRoot;
 import com.bigdata.backstage.modules.norm.model.NormTable;
 import com.bigdata.backstage.modules.norm.service.NormTableService;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -35,6 +38,18 @@ public class NormTableController {
 
     @Autowired
     private NormTableService normTableService;
+
+
+    @ApiOperation(value = "返回数仓分层名称")
+    @GetMapping(value = "/dwLevel")
+    public CommonResult dwLevel() {
+        List<NormTable> detailedList = normTableService.list();
+        List<String> result = new ArrayList<>();
+        for (NormTable normTable : detailedList) {
+            result.add(normTable.getLevel());
+        }
+        return CommonResult.success(result);
+    }
 
     //导出EXCEL数据
     @ApiOperation(value = "导出EXCEL数据(全量)")

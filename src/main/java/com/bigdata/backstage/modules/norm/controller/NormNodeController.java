@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +39,17 @@ public class NormNodeController {
 
     @Autowired
     private NormNodeService normNodeService;
+
+    @ApiOperation(value = "返回节点节点类型")
+    @GetMapping(value = "/nodeType")
+    public CommonResult nodeType() {
+        List<NormNode> detailedList = normNodeService.list();
+        List<String> result = new ArrayList<>();
+        for (NormNode normNode : detailedList) {
+            result.add(normNode.getName());
+        }
+        return CommonResult.success(result);
+    }
 
 
     //分页模糊查询

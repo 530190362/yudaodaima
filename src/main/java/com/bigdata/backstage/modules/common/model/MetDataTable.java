@@ -1,9 +1,6 @@
 package com.bigdata.backstage.modules.common.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,6 +30,14 @@ public class MetDataTable implements Serializable {
     @ApiModelProperty("自增主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
+    @ApiModelProperty("数仓名称")
+    @TableField(exist = false)
+    private String dwName;
+
+    @ApiModelProperty("ODS层数据源类型")
+    @TableField(exist = false)
+    private String SourceType;
 
     @ApiModelProperty("数仓ID")
     private Integer dwId;

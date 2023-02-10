@@ -35,8 +35,8 @@ public interface MetDataTableService extends IService<MetDataTable> {
     List<DataSourceHistoryDto> selectOdsHistory(Integer limit);
 
     //数据集成-表单(分页模糊查询)
-    IPage<ViewMetDataTable> selectOdsPage(DataSourcePageDto dto);
+    IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto);
 
     ////获取表信息
-    MetDataTable getTableInfo(String tableName);
+    MetDataTable getTableInfo(DataSourcePageDto dto);
 }

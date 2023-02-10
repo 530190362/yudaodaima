@@ -2,8 +2,9 @@
 create or replace view `view_met_detail_outline`
 as
 select tbl_level
-#      ,tbl_name 正式，等修改,下面测试使用
-     , if(tbl_level = 'ods', if(mod(md5(tbl_name), 100) = 1, concat(tbl_name, '_irs_'), concat(tbl_name, '_bms_')),
+     # 正式，等修改,下面测试使用
+#      ,tbl_name
+     , if(tbl_level = 'ods', if(mod(md5(tbl_name), 99) = 1, concat('ods_bms_',tbl_name ), concat('ods_irs_',tbl_name)),
           tbl_name) as tbl_name
      , tbl_comment
      , col_name
