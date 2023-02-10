@@ -85,7 +85,7 @@ public class DataAssetController {
         List<String> overviewIdList = metDataOverviewLabelRelationMapper.getLabelList(metOverview.getId());
         List<String> labelIndexList = metDataOverviewLabelRelationMapper.getLabelIndexList(metOverview.getId());
         DataAssetDetailVo dataAssetDetailVo = BeanUtil.copyProperties(metOverview, DataAssetDetailVo.class);
-        dataAssetDetailVo.setTblSize(metOverview.getTblSize().divide(BigDecimal.valueOf(1000),2, RoundingMode.UP));
+        dataAssetDetailVo.setTblSize(metOverview.getTblSize().divide(BigDecimal.valueOf(1024),2, RoundingMode.UP));
         dataAssetDetailVo.setLabelIndex(labelIndexList);
         dataAssetDetailVo.setLabel(overviewIdList);
         return CommonResult.success(dataAssetDetailVo);
@@ -126,7 +126,7 @@ public class DataAssetController {
             return CommonResult.success("绑定成功");
         }
 //        if (insert>0){
-            return CommonResult.failed("未选择标签进行绑定");
+            return CommonResult.failed("未选择标签进行绑定！");
 //        }else {
 //            return CommonResult.failed("绑定失败");
 //        }
@@ -208,11 +208,12 @@ public class DataAssetController {
                     insert = metDataOverviewLabelRelationMapper.insert(mapping);
                 }
             }
-        }
-        if (insert>0){
             return CommonResult.success("绑定成功");
-        }else {
-            return CommonResult.failed("绑定失败");
         }
+//        if (insert>0){
+//            return CommonResult.success("绑定成功");
+//        }else {
+            return CommonResult.failed("未选择表进行绑定！");
+//        }
     }
 }
