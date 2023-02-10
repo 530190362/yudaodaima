@@ -62,9 +62,9 @@
 
     </select>
     <select id="selectToday" resultMap="selectIndexMap">
-        select sum(num)         as today_tables
-             , sum(row_count)   as today_rows
-             , sum(tbl_col_num) as today_columns
+        select ifnull(sum(num),0)         as today_tables
+             , ifnull(sum(row_count),0)   as today_rows
+             , ifnull(sum(tbl_col_num),0) as today_columns
         from (select num,
                      num * row_count   as row_count,
                      num * tbl_col_num as tbl_col_num

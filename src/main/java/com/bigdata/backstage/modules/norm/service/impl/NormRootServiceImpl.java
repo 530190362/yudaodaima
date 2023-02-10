@@ -33,12 +33,12 @@ public class NormRootServiceImpl extends ServiceImpl<NormRootMapper, NormRoot> i
         Page<NormRoot> pageParam = new Page<>(pageNum, pageSize);
 
         //获取条件值
-        String nameEn = normRootDto.getNameEn();
+        String nameShortEn = normRootDto.getNameShortEn();
         String nameZh = normRootDto.getNameZh();
         String rootDesc = normRootDto.getRootDesc();
         QueryWrapper<NormRoot> wrapper = new QueryWrapper<>();
-        if (!StrUtil.isEmpty(nameEn)) {
-            wrapper.like("name_en", nameEn);
+        if (!StrUtil.isEmpty(nameShortEn)) {
+            wrapper.like("name_short_en", nameShortEn);
         }
         if (!StrUtil.isEmpty(nameZh)) {
             wrapper.like("name_zh", nameZh);
