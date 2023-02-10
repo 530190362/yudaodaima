@@ -342,3 +342,16 @@ CREATE TABLE `met_quality_task` (
     `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除 1-是 0-否',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='数据质量-质检任务';
+
+-- 数据质量-监测预警表
+CREATE TABLE `met_quality_warn` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `dw_id` int(10) DEFAULT NULL COMMENT '数仓id',
+    `task_id` int(10) DEFAULT NULL COMMENT '任务名称',
+    `rule_type` int(10) DEFAULT NULL COMMENT '规则类型',
+    `target_scope` varchar(255) DEFAULT NULL COMMENT '目标范围',
+    `actual_value` varchar(255) DEFAULT NULL COMMENT '实际值',
+    `warn_time` datetime DEFAULT NULL COMMENT '预警时间',
+    `is_delete` tinyint(1) DEFAULT '0' COMMENT '是否删除 1-是 0-否',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='数据质量-监测预警';

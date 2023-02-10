@@ -22,8 +22,17 @@ public class DataQualityRulePageVo {
     @ApiModelProperty("规则名称")
     private String ruleName;
 
+    @ApiModelProperty("项目名称")
+    private Integer dwId;
+
     @ApiModelProperty("规则类型")
-    private String ruleType;
+    private Integer ruleType;
+
+    @ApiModelProperty("规则类型")
+    private String ruleTypeName;
+
+    @ApiModelProperty("规则描述")
+    private String ruleComment;
 
     @ApiModelProperty("绑定任务数")
     private Integer ruleBindNum;

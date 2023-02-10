@@ -60,7 +60,7 @@ public class DataQualityServiceImpl implements DataQualityService {
                 MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
                 rulePageVo.setProjectName(metDwInfo.getDwNameZn());
                 NormDict normDict = normDictService.getById(record.getRuleType());
-                rulePageVo.setRuleType(normDict.getName());
+                rulePageVo.setRuleTypeName(normDict.getName());
 //                Long count = qualityRuleTaskRelationMapper.selectCount(new QueryWrapper<MetQualityRuleTaskRelation>().eq("rule_id", record.getId()).eq("is_delete", 0));
                 Long count = metQualityTaskMapper.selectCount(new QueryWrapper<MetQualityTask>().eq("rule_id", record.getId()).eq("is_delete", 0));
                 rulePageVo.setRuleBindNum(count.intValue());

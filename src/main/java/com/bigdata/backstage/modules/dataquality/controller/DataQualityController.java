@@ -78,7 +78,7 @@ public class DataQualityController {
         MetDwInfo metDwInfo = metDwInfoService.getById(ruleServiceById.getDwId());
         dataQualityRulePageVo.setProjectName(metDwInfo.getDwNameZn());
         NormDict normDict = normDictService.getById(ruleServiceById.getRuleType());
-        dataQualityRulePageVo.setRuleType(normDict.getName());
+        dataQualityRulePageVo.setRuleTypeName(normDict.getName());
         Long count = metQualityTaskMapper.selectCount(new QueryWrapper<MetQualityTask>().eq("rule_id", ruleId).eq("is_delete", 0));
 //        Long count = qualityRuleTaskRelationMapper.selectCount(new QueryWrapper<MetQualityRuleTaskRelation>().eq("rule_id", record.getId()).eq("is_delete", 0));
         dataQualityRulePageVo.setRuleBindNum(count.intValue());
@@ -138,7 +138,9 @@ public class DataQualityController {
         MetDwInfo metDwInfo = metDwInfoService.getById(metQualityTask.getDwId());
         dataQualityTaskVo.setProjectName(metDwInfo.getDwNameZn());
         MetQualityRule qualityRule = metQualityRuleService.getById(metQualityTask.getRuleId());
-        dataQualityTaskVo.setRuleName(qualityRule.getRuleName());
+        if (qualityRule != null) {
+            dataQualityTaskVo.setRuleName(qualityRule.getRuleName());
+        }
         return CommonResult.success(dataQualityTaskVo);
     }
 
@@ -191,5 +193,12 @@ public class DataQualityController {
         } else {
             return CommonResult.failed("更新失败");
         }
+    }
+
+    @ApiOperation(value = "质检预警分页查询")
+    @PostMapping("/pageWarnlist")
+    public CommonResult<IPage<DataQualityTaskPageVo>> getpageWarnlist(@RequestBody TaskPageDto taskPageDto) {
+        IPage<DataQualityTaskPageVo> qualityTaskPageVoPage = dataQualityService.getpageTasklist(taskPageDto);
+        return CommonResult.success(qualityTaskPageVoPage);
     }
 }
