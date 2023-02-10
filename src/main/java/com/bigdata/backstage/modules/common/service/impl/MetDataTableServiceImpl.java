@@ -85,14 +85,19 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
         if (!StrUtil.isEmpty(name)) {
             wrapper.like("tbl_name", name);
         }
+        Integer dwId = dto.getDwId();
+        String dwNameZn = "数仓合集";
+        if (dwId != null) {
+            wrapper.eq("dw_id", dto.getDwId());
+            dwNameZn = metDwInfoMapper.selectById(dwId).getDwNameZn();
+        }
         wrapper.likeRight("tbl_name", "ods_" + dto.getSourceCode()+"_");
-        wrapper.eq("dw_id", dto.getDwId());
-        MetDwInfo metDwInfo = metDwInfoMapper.selectById(dwId);
         Page<MetDataTable> viewMetDataTablePage = baseMapper.selectPage(pageParam, wrapper);
         long size = viewMetDataTablePage.getSize();
         if (size > 0) {
+            String finalDwNameZn = dwNameZn;
             viewMetDataTablePage.getRecords().forEach(item -> {
-                item.setDwName(metDwInfo.getDwNameZn());
+                item.setDwName(finalDwNameZn);
                 item.setSourceType(dto.getSourceName());
             });
             return viewMetDataTablePage;
