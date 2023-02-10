@@ -4,7 +4,7 @@ as
 select tbl_level
      # 正式，等修改,下面测试使用
 #      ,tbl_name
-     , if(tbl_level = 'ods', if(mod(md5(tbl_name), 99) = 1, concat('ods_bms_',tbl_name ), concat('ods_irs_',tbl_name)),
+     , if(tbl_level = 'ods', if(mod(md5(tbl_name), 99) = 1, concat('ods_bms_', tbl_name), concat('ods_irs_', tbl_name)),
           tbl_name) as tbl_name
      , tbl_comment
      , col_name
@@ -107,3 +107,37 @@ from (select tbl_name, col_name, col_type, col_comment
       where dt = (select max(dt)
                   from view_met_detail_outline)) t
 group by tbl_name, col_name, col_type, col_comment;
+
+
+-- 视图原子性表级别(勘探)
+create or replace view `view_export_data_table`
+as
+select dw_id,
+       table_name,
+       table_comment,
+       sum(distinct_count) as distinct_count,
+       sum(total_count)    as total_count,
+       max(spend_time)     as spend_time,
+       min(etl_tm)         as etl_tm
+from met_explore_report
+group by dw_id, table_name, table_comment;
+
+
+-- 视图原子性字段级别(勘探)
+create or replace view `view_export_data_column`
+as
+select dw_id,
+       table_name,
+       col_name,
+       col_type,
+       col_comment,
+       max_len,
+       min_len,
+       max_value,
+       min_value,
+       null_count,
+       null_rate,
+       value_kind_json,
+       is_only_value
+from met_explore_report;
+

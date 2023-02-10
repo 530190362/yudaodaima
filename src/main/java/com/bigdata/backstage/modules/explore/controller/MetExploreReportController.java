@@ -1,25 +1,30 @@
 package com.bigdata.backstage.modules.explore.controller;
 
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
-import com.bigdata.backstage.modules.explore.dto.MetExploreTaskDto;
-import com.bigdata.backstage.modules.explore.model.MetExploreTask;
+import com.bigdata.backstage.modules.explore.dto.MetExploreReportDto;
+import com.bigdata.backstage.modules.explore.dto.MetExploreReportTableDto;
+import com.bigdata.backstage.modules.explore.model.MetExploreReport;
+import com.bigdata.backstage.modules.explore.model.ViewExportDataColumn;
+import com.bigdata.backstage.modules.explore.model.ViewExportDataTable;
 import com.bigdata.backstage.modules.explore.service.MetExploreReportService;
-import com.bigdata.backstage.modules.explore.service.MetExploreTaskService;
 import com.bigdata.backstage.modules.norm.dto.NormDictDto;
 import com.bigdata.backstage.modules.norm.model.NormDict;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -27,14 +32,37 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author bigdata
- * @since 2023-02-09
+ * @since 2023-02-10
  */
-
-@Api(tags = "数据探查-探查报告")
-@Tag(name = "数据探查-探查报告", description = "MetExploreReportController")
+@Api(tags = "数据探查-勘探报告")
+@Tag(name = "数据探查-勘探报告", description = "MetExploreReportController")
 @RestController
 @RequestMapping("/explore/report")
 public class MetExploreReportController {
+
+
+    @Autowired
+    private MetExploreReportService metExploreReportService;
+
+    @ApiOperation(value = "勘探报告模糊查询")
+    @PostMapping("/list")
+    public CommonResult<CommonPage<ViewExportDataTable>> list(
+            @Valid @RequestBody MetExploreReportDto metExploreReportDto) {
+        IPage<ViewExportDataTable> pageist = metExploreReportService.selectPage(metExploreReportDto);
+        return CommonResult.success(CommonPage.restPage(pageist));
+    }
+
+    @ApiOperation(value = "勘探报告表/字段明确信息")
+    @PostMapping("/info")
+    public CommonResult exploreTablInfo(
+            @RequestBody MetExploreReportTableDto dto) {
+        ViewExportDataTable tableInfo = metExploreReportService.exploreTablInfo(dto);
+        List<ViewExportDataColumn> columnsInfo = metExploreReportService.exploreColumnsInfo(dto);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("tableInfo", tableInfo);
+        result.put("columnsInfo", columnsInfo);
+        return CommonResult.success(result);
+    }
 
 
 }

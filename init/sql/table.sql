@@ -72,6 +72,7 @@ CREATE TABLE if not exists `met_explore_task`
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据勘探-数据勘探操作表';
 
 
+-- 数据勘探报告
 drop table if exists `met_explore_report`;
 CREATE TABLE if not exists `met_explore_report`
 (
@@ -86,14 +87,14 @@ CREATE TABLE if not exists `met_explore_report`
     `total_count`     bigint(10)   DEFAULT NULL COMMENT '总记录数(最近的分区)',
     `max_len`         varchar(50)  DEFAULT NULL COMMENT '最大长度',
     `min_len`         varchar(50)  DEFAULT NULL COMMENT '最小长度',
-    `max_value`       varchar(50)  DEFAULT NULL COMMENT '最大值',
-    `min_value`       varchar(50)  DEFAULT NULL COMMENT '最小值',
+    `max_value`       text  DEFAULT NULL COMMENT '最大值',
+    `min_value`       text  DEFAULT NULL COMMENT '最小值',
     `null_count`      bigint(10)   DEFAULT NULL COMMENT '空值数',
     `null_rate`       varchar(50)  DEFAULT NULL COMMENT '空值率',
     `value_kind_json` varchar(255) DEFAULT NULL COMMENT '值种类(所占百分比,超过15个不显示),JSON格式化',
     `is_only_value`     tinyint(1)   DEFAULT 0 COMMENT '是否只有一个值',
     `spend_time`      int(5)       DEFAULT NULL COMMENT '读取记录数花费的时间单位:秒',
-    `etl_tm`          datetime     DEFAULT NULL COMMENT '探查时间',
+    `etl_tm`          varchar(255)     DEFAULT NULL COMMENT '探查时间',
     `dt`              varchar(255) DEFAULT NULL COMMENT '日期',
     `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE
