@@ -12,13 +12,13 @@
 ################################################################################
 
 # Mysql参数配置
-MYSQL_HOST: hadoop103
-MYSQL_PORT: 3306
-MYSQL_USER: root
-MYSQL_PASSWD: 123456
-MYSQL_DB: backstage
-JAR_NAME: bigdata-backstage-backend-1.0.0.jar
-SQL_NAME: init.sql
+MYSQL_HOST=hadoop103
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWD=123456
+MYSQL_DB=backstage
+JAR_NAME=bigdata-backstage-backend-1.0.0.jar
+SQL_NAME=init.sql
 
 
 # 部署 mysql(略) ...
@@ -26,6 +26,13 @@ SQL_NAME: init.sql
 
 # 执行 SQL 文件
 # shellcheck disable=SC2112
+
+function init() {
+  echo "判断当前时候是否存在Mysql客户端"
+
+  echo "判断当前环境是否存在 JAVA_HOME 环境"
+}
+
 function fun_do_mysql() {
   echo "正在创建数据库 ${MYSQL_DB} ..."
   CREATE_DB_SQL="CREATE DATABASE IF NOT EXISTS ${MYSQL_DB} DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
@@ -54,6 +61,7 @@ function fun_do_vue() {
 # 主程序
 # shellcheck disable=SC2112
 function main() {
+  init
   fun_do_mysql
   fun_do_java
   fun_do_vue

@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("view_explore_data_table")
+@TableName("view_explore_data_column")
 @ApiModel(value = "ViewExportDataColumn对象", description = "VIEW")
 public class ViewExploreDataColumn implements Serializable {
 
