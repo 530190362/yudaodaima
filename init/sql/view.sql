@@ -110,7 +110,7 @@ group by tbl_name, col_name, col_type, col_comment;
 
 
 -- 视图原子性表级别(勘探)
-create or replace view `view_export_data_table`
+create or replace view `view_explore_data_table`
 as
 select dw_id,
        table_name,
@@ -124,7 +124,7 @@ group by dw_id, table_name, table_comment;
 
 
 -- 视图原子性字段级别(勘探)
-create or replace view `view_export_data_column`
+create or replace view `view_explore_data_column`
 as
 select dw_id,
        table_name,

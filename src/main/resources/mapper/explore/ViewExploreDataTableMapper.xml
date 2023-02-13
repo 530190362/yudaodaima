@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bigdata.backstage.modules.explore.mapper.ViewExportDataTableMapper">
+<mapper namespace="com.bigdata.backstage.modules.explore.mapper.ViewExploreDataTableMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.explore.model.ViewExportDataTable">
+    <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.explore.model.ViewExploreDataTable">
         <result column="dw_id" property="dwId" />
         <result column="table_name" property="tableName" />
         <result column="table_comment" property="tableComment" />

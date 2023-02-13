@@ -6,12 +6,9 @@ import com.bigdata.backstage.common.api.CommonPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.explore.dto.MetExploreReportDto;
 import com.bigdata.backstage.modules.explore.dto.MetExploreReportTableDto;
-import com.bigdata.backstage.modules.explore.model.MetExploreReport;
-import com.bigdata.backstage.modules.explore.model.ViewExportDataColumn;
-import com.bigdata.backstage.modules.explore.model.ViewExportDataTable;
+import com.bigdata.backstage.modules.explore.model.ViewExploreDataColumn;
+import com.bigdata.backstage.modules.explore.model.ViewExploreDataTable;
 import com.bigdata.backstage.modules.explore.service.MetExploreReportService;
-import com.bigdata.backstage.modules.norm.dto.NormDictDto;
-import com.bigdata.backstage.modules.norm.model.NormDict;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,9 +43,9 @@ public class MetExploreReportController {
 
     @ApiOperation(value = "勘探报告模糊查询")
     @PostMapping("/list")
-    public CommonResult<CommonPage<ViewExportDataTable>> list(
+    public CommonResult<CommonPage<ViewExploreDataTable>> list(
             @Valid @RequestBody MetExploreReportDto metExploreReportDto) {
-        IPage<ViewExportDataTable> pageist = metExploreReportService.selectPage(metExploreReportDto);
+        IPage<ViewExploreDataTable> pageist = metExploreReportService.selectPage(metExploreReportDto);
         return CommonResult.success(CommonPage.restPage(pageist));
     }
 
@@ -56,8 +53,8 @@ public class MetExploreReportController {
     @PostMapping("/info")
     public CommonResult exploreTablInfo(
             @RequestBody MetExploreReportTableDto dto) {
-        ViewExportDataTable tableInfo = metExploreReportService.exploreTablInfo(dto);
-        List<ViewExportDataColumn> columnsInfo = metExploreReportService.exploreColumnsInfo(dto);
+        ViewExploreDataTable tableInfo = metExploreReportService.exploreTablInfo(dto);
+        List<ViewExploreDataColumn> columnsInfo = metExploreReportService.exploreColumnsInfo(dto);
         HashMap<String, Object> result = new HashMap<>();
         result.put("tableInfo", tableInfo);
         result.put("columnsInfo", columnsInfo);

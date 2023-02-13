@@ -1,6 +1,6 @@
 package com.bigdata.backstage.modules.explore.mapper;
 
-import com.bigdata.backstage.modules.explore.model.ViewExportDataTable;
+import com.bigdata.backstage.modules.explore.model.ViewExploreDataColumn;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author bigdata
  * @since 2023-02-10
  */
-public interface ViewExportDataTableMapper extends BaseMapper<ViewExportDataTable> {
+public interface ViewExploreDataColumnMapper extends BaseMapper<ViewExploreDataColumn> {
 
 }
