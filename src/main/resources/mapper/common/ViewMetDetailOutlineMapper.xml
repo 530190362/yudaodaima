@@ -196,10 +196,13 @@
             col_type as colType,
             col_comment as colComment
         FROM
-            view_met_detail_outline
+            met_data_column
         WHERE
-            dt = ( SELECT max( dt ) FROM view_met_detail_outline )
-        AND tbl_name= #{tblName}
+            tbl_name= #{tblName}
+        group by
+            col_name ,
+            col_type ,
+            col_comment
     </select>
 
 </mapper>

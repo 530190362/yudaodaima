@@ -25,10 +25,10 @@ public class DataAssetDetailVo {
     private String tblLevel;
 
     @ApiModelProperty("表名")
-    private String tableName;
+    private String tblName;
 
     @ApiModelProperty("表备注")
-    private String tableComment;
+    private String tblComment;
 
     @ApiModelProperty("字段数")
     private Integer tblColNum;
@@ -64,7 +64,7 @@ public class DataAssetDetailVo {
     private List<String> labelIndex;
 
     @ApiModelProperty("是否删除  0:未删除 1:已删除")
-    private Integer isDelete;
+    private Integer isDeleted;
 
     @ApiModelProperty("创建时间")
     private Date createTime;

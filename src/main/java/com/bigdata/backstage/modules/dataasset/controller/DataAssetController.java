@@ -9,9 +9,11 @@ import com.bigdata.backstage.modules.common.mapper.MetDataOverviewLabelRelationM
 import com.bigdata.backstage.modules.common.model.MetDataLabel;
 import com.bigdata.backstage.modules.common.model.MetDataOverview;
 import com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation;
+import com.bigdata.backstage.modules.common.model.MetDataTable;
 import com.bigdata.backstage.modules.common.service.MetDataLabelService;
 import com.bigdata.backstage.modules.common.service.MetDataOverviewLabelRelationService;
 import com.bigdata.backstage.modules.common.service.MetDataOverviewService;
+import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.dataasset.dto.BindLabelDto;
 import com.bigdata.backstage.modules.dataasset.dto.BindTblDto;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
@@ -25,7 +27,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,6 +48,8 @@ public class DataAssetController {
     private DataAssetService dataAssetService;
     @Autowired
     private MetDataOverviewService metDataOverviewService;
+    @Autowired
+    private MetDataTableService metDataTableService;
     @Autowired
     private MetDataLabelService metDataLabelService;
     @Autowired
@@ -81,7 +88,8 @@ public class DataAssetController {
     @ApiOperation(value = "数据资产详情")
     @GetMapping(value = "/getDataAssetById")
     public CommonResult<DataAssetDetailVo> queryDataAssetById(Integer assetId) {
-        MetDataOverview metOverview = metDataOverviewService.getById(assetId);
+//        MetDataOverview metOverview = metDataOverviewService.getById(assetId);
+        MetDataTable metOverview = metDataTableService.getById(assetId);
         List<String> overviewIdList = metDataOverviewLabelRelationMapper.getLabelList(metOverview.getId());
         List<String> labelIndexList = metDataOverviewLabelRelationMapper.getLabelIndexList(metOverview.getId());
         DataAssetDetailVo dataAssetDetailVo = BeanUtil.copyProperties(metOverview, DataAssetDetailVo.class);
@@ -208,5 +216,8 @@ public class DataAssetController {
             }
         return CommonResult.failed("未选择表进行绑定！");
     }
+
+
+
 
 }

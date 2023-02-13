@@ -23,10 +23,10 @@ public class DataAssetVo {
     private String tblLevel;
 
     @ApiModelProperty("表名")
-    private String tableName;
+    private String tblName;
 
     @ApiModelProperty("表备注")
-    private String tableComment;
+    private String tblComment;
 
     @ApiModelProperty("字段数")
     private Integer tblColNum;

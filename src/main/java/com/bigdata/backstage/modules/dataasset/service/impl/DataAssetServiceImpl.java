@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bigdata.backstage.modules.common.mapper.*;
-import com.bigdata.backstage.modules.common.model.MetDataLabel;
-import com.bigdata.backstage.modules.common.model.MetDataOverview;
-import com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation;
-import com.bigdata.backstage.modules.common.model.MetDwInfo;
+import com.bigdata.backstage.modules.common.model.*;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.dataasset.dto.DataAssetDto;
 import com.bigdata.backstage.modules.dataasset.dto.DataLabelDto;
@@ -27,6 +24,8 @@ public class DataAssetServiceImpl implements DataAssetService {
     @Autowired
     private MetDataOverviewMapper dataOverviewMapper;
     @Autowired
+    private MetDataTableMapper dataTableMapper;
+    @Autowired
     private MetDataLabelMapper dataLabelMapper;
     @Autowired
     private ViewMetDetailOutlineMapper metDetailOutlineMapper;
@@ -39,12 +38,13 @@ public class DataAssetServiceImpl implements DataAssetService {
 
     @Override
     public IPage<DataAssetVo> pageQueryList(DataAssetDto dataAssetDto) {
-        List<MetDataOverview> records = new ArrayList<>();
+//        List<MetDataOverview> records = new ArrayList<>();
+        List<MetDataTable> records = new ArrayList<>();
         IPage<DataAssetVo> dataAssetVoPage = new Page<>();
-        Page<MetDataOverview> dataOverviewPage = new Page<>();
+        Page<MetDataTable> dataOverviewPage = new Page<>();
         if (dataAssetDto.getLabel()==null) {
-            dataOverviewPage = dataOverviewMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
-                    new QueryWrapper<MetDataOverview>()
+            dataOverviewPage = dataTableMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
+                    new QueryWrapper<MetDataTable>()
                             .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
                             .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
                             .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
@@ -54,8 +54,8 @@ public class DataAssetServiceImpl implements DataAssetService {
         }else {
             List<String> overviewIdList = metDataOverviewLabelRelationMapper.getOverviewIdList(dataAssetDto.getLabel());
             if(overviewIdList.size()>0){
-                dataOverviewPage = dataOverviewMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
-                        new QueryWrapper<MetDataOverview>()
+                dataOverviewPage = dataTableMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
+                        new QueryWrapper<MetDataTable>()
                                 .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
                                 .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
                                 .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
@@ -66,7 +66,7 @@ public class DataAssetServiceImpl implements DataAssetService {
         }
         if (!records.isEmpty()) {
             ArrayList<DataAssetVo> dataAssetVos = new ArrayList<>();
-            for (MetDataOverview record : records) {
+            for (MetDataTable record : records) {
                 DataAssetVo dataAssetVo = new DataAssetVo();
                 BeanUtils.copyProperties(record, dataAssetVo);
                 dataAssetVo.setTblSize(record.getTblSize().setScale(2, RoundingMode.HALF_UP));

@@ -43,27 +43,27 @@
     </select>
 
     <select id="getBindTblList" resultType="com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo">
-        SELECT a.id,c.dw_name_en as projectName,a.table_name
-        FROM met_data_overview a
+        SELECT a.id,c.dw_name_en as projectName,a.tbl_name
+        FROM met_data_table a
         LEFT JOIN met_data_overview_label_relation b
         ON a.id =b.overview_id
         LEFT JOIN met_dw_info c
         ON a.dw_id = c.id
-        WHERE a.is_delete =0 AND b.is_delete =0
+        WHERE a.is_deleted =0 AND b.is_delete =0
         AND b.label_id = #{labelId}
     </select>
 
     <select id="getAbleBindTblList" resultType="com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo">
-        SELECT a.id,c.dw_name_en as projectName,a.table_name
-        FROM met_data_overview a
+        SELECT a.id,c.dw_name_en as projectName,a.tbl_name
+        FROM met_data_table a
         LEFT JOIN met_dw_info c
         ON a.dw_id = c.id
         WHERE a.id NOT IN (
             SELECT a.id
-            FROM met_data_overview a
+            FROM met_data_table a
             LEFT JOIN met_data_overview_label_relation b
                 ON a.id = b.overview_id
-            WHERE a.is_delete = 0
+            WHERE a.is_deleted = 0
               AND b.is_delete = 0
               AND b.label_id = #{labelId}
         )

@@ -18,5 +18,5 @@ public class DataAssetBindVo {
     private String projectName;
 
     @ApiModelProperty("表名")
-    private String tableName;
+    private String tblName;
 }

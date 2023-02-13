@@ -21,6 +21,6 @@
 
 
     <select id="queryDataSelectAsset" resultType="com.bigdata.backstage.modules.dataasset.vo.DataSelectAssetVo">
-        SELECT id,table_name as tableName from met_data_overview where is_delete = '0' GROUP BY id,table_name
+        SELECT id,tbl_name as tableName from met_data_table where is_deleted = '0' GROUP BY id,tbl_name
     </select>
 </mapper>

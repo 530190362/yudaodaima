@@ -27,12 +27,12 @@
         <result column="pt_last" property="ptLast" />
     </resultMap>
 
-    <select id="pageQueryList" resultType="com.bigdata.backstage.modules.common.model.MetDataOverview">
-        select apply.*,  process.result result,process.user_name approveName
-        from met_data_overview over, met_data_overview_label_relation rel
-        on over.id = rel.overview_id
-        where over.is_deleted =0 and rel.is_deleted =0
+<!--    <select id="pageQueryList" resultType="com.bigdata.backstage.modules.common.model.MetDataOverview">-->
+<!--        select apply.*,  process.result result,process.user_name approveName-->
+<!--        from met_data_overview over, met_data_overview_label_relation rel-->
+<!--        on over.id = rel.overview_id-->
+<!--        where over.is_deleted =0 and rel.is_deleted =0-->
 
 
-    </select>
+<!--    </select>-->
 </mapper>
