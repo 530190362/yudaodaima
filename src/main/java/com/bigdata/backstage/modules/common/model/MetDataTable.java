@@ -42,6 +42,18 @@ public class MetDataTable implements Serializable {
     @ApiModelProperty("数仓ID")
     private Integer dwId;
 
+    @ApiModelProperty("表层级")
+    private String tblLevel;
+
+    @ApiModelProperty("表一级明细")
+    private String index1Name;
+
+    @ApiModelProperty("表二级明细")
+    private String index2Name;
+
+    @ApiModelProperty("表三级明细")
+    private String index3Name;
+
     @ApiModelProperty("表名")
     private String tblName;
 

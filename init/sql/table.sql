@@ -4,6 +4,10 @@ CREATE TABLE if not exists `met_data_table`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
     `dw_id`           int(10)             NOT NULL COMMENT '数仓ID',
+    `tbl_level`           varchar(50)           COMMENT '表层级',
+    `index1_name`        varchar(50)            COMMENT '表一级明细',
+    `index2_name`        varchar(50)         COMMENT '表二级明细',
+    `index3_name`        varchar(50)          COMMENT '表三级明细',
     `tbl_name`        varchar(255)        NOT NULL COMMENT '表名',
     `tbl_comment`     varchar(255)        NOT NULL COMMENT '表备注',
     `tbl_create_time` datetime            NOT NULL COMMENT '表创建日期',

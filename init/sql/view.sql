@@ -69,6 +69,9 @@ create or replace view `view_met_data_table`
 as
 select tbl_name,
        max(tbl_level)       as tbl_level,
+       max(index1_name)       as index1_name,
+       max(index2_name)       as index2_name,
+       max(index3_name)       as index3_name,
        max(tbl_comment)     as tbl_comment,
        max(tbl_create_time) as tbl_create_time,
        max(tbl_update_time) as tbl_update_time,
@@ -82,6 +85,9 @@ select tbl_name,
        max(row_count)       as row_count
 from (select tbl_name,
              tbl_level,
+             index1_name,
+             index2_name,
+             index3_name,
              tbl_comment,
              tbl_create_time,
              tbl_update_time,
@@ -97,6 +103,7 @@ from (select tbl_name,
       where dt = (select max(dt)
                   from view_met_detail_outline)) t
 group by tbl_name;
+
 
 -- 视图原子性字段级别
 create or replace view `view_met_data_column`

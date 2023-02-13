@@ -38,9 +38,13 @@
 
     <insert id="syncTableInsert">
 
-        insert into met_data_table(dw_id, tbl_name, tbl_comment, tbl_create_time, tbl_update_time, is_pt, pt_last,
+        insert into met_data_table(dw_id,tbl_level,index1_name,index2_name,index3_name, tbl_name, tbl_comment, tbl_create_time, tbl_update_time, is_pt, pt_last,
                                    tbl_lifecycle, tbl_type, tbl_size, tbl_col_num, all_row_count, row_count)
         select #{dwID} as dw_id,
+               tbl_level,
+               index1_name,
+               index2_name,
+               index3_name,
                tbl_name,
                tbl_comment,
                tbl_create_time,
@@ -62,7 +66,11 @@
 
         update met_data_table t1
             inner join view_met_data_table t2 on t1.tbl_name = t2.tbl_name
-        set t1.tbl_name        =t2.tbl_name,
+        set t1.tbl_level        =t2.tbl_level,
+            t1.index1_name        =t2.index1_name,
+            t1.index2_name        =t2.index2_name,
+            t1.index3_name        =t2.index3_name,
+            t1.tbl_name        =t2.tbl_name,
             t1.tbl_comment     =t2.tbl_comment,
             t1.tbl_create_time =t2.tbl_create_time,
             t1.tbl_update_time =t2.tbl_update_time,

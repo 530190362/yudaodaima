@@ -3,6 +3,7 @@ package com.bigdata.backstage.modules.common.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +34,15 @@ public class ViewMetDataTable implements Serializable {
     private String tblName;
 
     private String tblLevel;
+
+    @ApiModelProperty("表一级明细")
+    private String index1Name;
+
+    @ApiModelProperty("表二级明细")
+    private String index2Name;
+
+    @ApiModelProperty("表三级明细")
+    private String index3Name;
 
     private String tblComment;
 
