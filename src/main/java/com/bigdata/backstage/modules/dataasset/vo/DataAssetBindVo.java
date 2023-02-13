@@ -15,5 +15,8 @@ public class DataAssetBindVo {
     private Long id;
 
     @ApiModelProperty("表名")
+    private String projectName;
+
+    @ApiModelProperty("表名")
     private String tableName;
 }

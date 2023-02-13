@@ -69,7 +69,7 @@ public class DataAssetServiceImpl implements DataAssetService {
             for (MetDataOverview record : records) {
                 DataAssetVo dataAssetVo = new DataAssetVo();
                 BeanUtils.copyProperties(record, dataAssetVo);
-                dataAssetVo.setTblSize(record.getTblSize().divide(BigDecimal.valueOf(1024),2, RoundingMode.UP));
+                dataAssetVo.setTblSize(record.getTblSize().setScale(2, RoundingMode.HALF_UP));
                 MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
                 dataAssetVo.setProjectName(metDwInfo.getDwNameZn());
                 dataAssetVos.add(dataAssetVo);
