@@ -45,8 +45,8 @@ public class DataAssetServiceImpl implements DataAssetService {
         if (dataAssetDto.getLabel()==null) {
             dataOverviewPage = dataTableMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
                     new QueryWrapper<MetDataTable>()
-                            .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
-                            .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
+                            .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "tbl_name", dataAssetDto.getTableName())
+                            .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "tbl_comment", dataAssetDto.getTableComment())
                             .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
                             .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
                             .orderByAsc("create_time"));

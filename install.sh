@@ -18,7 +18,7 @@ MYSQL_HOST=hadoop104
 MYSQL_PORT=30811
 MYSQL_USER=root
 MYSQL_PASSWD=123456
-MYSQL_DB=backstage
+MYSQL_DB=bigdata-backstage
 # 前后端安装包名称
 JAR_NAME=bigdata-backstage-backend-1.0.0.jar
 SQL_NAME=init.sql
