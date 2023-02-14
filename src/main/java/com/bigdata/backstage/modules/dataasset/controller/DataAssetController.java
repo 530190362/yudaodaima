@@ -93,7 +93,7 @@ public class DataAssetController {
         List<String> overviewIdList = metDataOverviewLabelRelationMapper.getLabelList(metOverview.getId());
         List<String> labelIndexList = metDataOverviewLabelRelationMapper.getLabelIndexList(metOverview.getId());
         DataAssetDetailVo dataAssetDetailVo = BeanUtil.copyProperties(metOverview, DataAssetDetailVo.class);
-        dataAssetDetailVo.setTblSize(metOverview.getTblSize().divide(BigDecimal.valueOf(1024),2, RoundingMode.UP));
+        dataAssetDetailVo.setTblSize(metOverview.getTblSize().setScale(2, RoundingMode.UP));
         dataAssetDetailVo.setLabelIndex(labelIndexList);
         dataAssetDetailVo.setLabel(overviewIdList);
         return CommonResult.success(dataAssetDetailVo);
