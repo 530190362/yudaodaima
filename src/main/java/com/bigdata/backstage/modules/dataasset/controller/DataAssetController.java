@@ -7,12 +7,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.common.mapper.MetDataOverviewLabelRelationMapper;
 import com.bigdata.backstage.modules.common.model.MetDataLabel;
-import com.bigdata.backstage.modules.common.model.MetDataOverview;
 import com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
 import com.bigdata.backstage.modules.common.service.MetDataLabelService;
 import com.bigdata.backstage.modules.common.service.MetDataOverviewLabelRelationService;
-import com.bigdata.backstage.modules.common.service.MetDataOverviewService;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.dataasset.dto.BindLabelDto;
 import com.bigdata.backstage.modules.dataasset.dto.BindTblDto;
@@ -46,8 +44,7 @@ public class DataAssetController {
 
     @Autowired
     private DataAssetService dataAssetService;
-    @Autowired
-    private MetDataOverviewService metDataOverviewService;
+
     @Autowired
     private MetDataTableService metDataTableService;
     @Autowired

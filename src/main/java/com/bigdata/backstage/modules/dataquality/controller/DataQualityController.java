@@ -1,15 +1,12 @@
 package com.bigdata.backstage.modules.dataquality.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bigdata.backstage.common.api.CommonResult;
-import com.bigdata.backstage.modules.common.mapper.MetDataOverviewMapper;
 import com.bigdata.backstage.modules.common.mapper.MetQualityRuleTaskRelationMapper;
 import com.bigdata.backstage.modules.common.mapper.MetQualityTaskMapper;
 import com.bigdata.backstage.modules.common.model.*;
-import com.bigdata.backstage.modules.common.service.MetDataOverviewService;
+import com.bigdata.backstage.modules.common.service.MetDataTableService;
 import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.common.service.MetQualityRuleService;
 import com.bigdata.backstage.modules.common.service.MetQualityTaskService;
@@ -59,7 +56,7 @@ public class DataQualityController {
     @Autowired
     private MetQualityTaskService metQualityTaskService;
     @Autowired
-    private MetDataOverviewService metDataOverviewService;
+    private MetDataTableService metDataTableService;
 
     @ApiOperation(value = "质检规则分页查询")
     @PostMapping("/pagelist")
@@ -144,12 +141,12 @@ public class DataQualityController {
         MetDwInfo metDwInfo = metDwInfoService.getById(metQualityTask.getDwId());
         dataQualityTaskVo.setProjectName(metDwInfo.getDwNameZn());
         MetQualityRule qualityRule = metQualityRuleService.getById(metQualityTask.getRuleId());
-        MetDataOverview dataOverview = metDataOverviewService.getById(metQualityTask.getBindTbl());
+        MetDataTable dataTable = metDataTableService.getById(metQualityTask.getBindTbl());
         if (qualityRule != null) {
             dataQualityTaskVo.setRuleName(qualityRule.getRuleName());
         }
-        if (dataOverview != null) {
-            dataQualityTaskVo.setBindTblName(dataOverview.getTableName());
+        if (dataTable != null) {
+            dataQualityTaskVo.setBindTblName(dataTable.getTblName());
         }
         return CommonResult.success(dataQualityTaskVo);
     }

@@ -21,8 +21,7 @@ import java.util.List;
 
 @Service
 public class DataAssetServiceImpl implements DataAssetService {
-    @Autowired
-    private MetDataOverviewMapper dataOverviewMapper;
+
     @Autowired
     private MetDataTableMapper dataTableMapper;
     @Autowired

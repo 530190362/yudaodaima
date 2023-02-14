@@ -2,9 +2,12 @@ package com.bigdata.backstage.modules.common.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -58,6 +61,8 @@ public class MetQualityRule implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty("是否删除 1-是 0-否")
+    @TableLogic
+    @JsonIgnore
     private Boolean isDelete;
 
 
