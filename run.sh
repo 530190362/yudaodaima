@@ -1,8 +1,8 @@
 #!/bin/sh
-AppName=???
+AppName=bigdata-backstage-backend-1.0.0.jar
 
 #日志文件路径及名称（目录按照各自配置）
-LOG_FILE=???
+LOG_FILE=/home/micros/bigdata-backstage/logs/bigdata-backstage-backend.log
 
 # JVM参数
 JVM_OPTS="-Dname=$AppName -Duser.timezone=Asia/Shanghai -Xms1024M -Xmx1024M -XX:PermSize=512M -XX:MaxPermSize=512M"

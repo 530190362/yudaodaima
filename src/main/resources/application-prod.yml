@@ -25,7 +25,7 @@ spring:
 
 logging:
   file:
-    path: /home/micros/service/bigdata-backstage-backend/logs
+    path: /home/micros/bigdata-backstage-backend/logs
   level:
     root: info
     com.bigdata.backstage: debug
