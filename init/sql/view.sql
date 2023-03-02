@@ -4,8 +4,7 @@ as
 select tbl_level
      # 正式，等修改,下面测试使用
 #      ,tbl_name
-     , if(tbl_level = 'ods', if(mod(md5(tbl_name), 99) = 1, concat('ods_bms_', tbl_name), concat('ods_irs_', tbl_name)),
-          tbl_name) as tbl_name
+     , if(tbl_level = 'ods' and  ABS(CONV(SUBSTRING(SHA1(tbl_name), 1, 16), 16, 10)) % 5 < 4  , concat('ods_irs_', tbl_name), concat('ods_bms_', tbl_name)) as tbl_name
      , tbl_comment
      , col_name
      , col_type
@@ -59,7 +58,7 @@ select table_name
      , null_rate
      , spend_time
      , etl_tm
-     , dt
+     , date_format(str_to_date(dt, '%Y%m%d'),'%Y-%m-%d') as dt
 from gfdn_odps_export.dim_gfdn_meta_quality;
 
 
