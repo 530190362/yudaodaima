@@ -31,26 +31,29 @@
     </resultMap>
 
     <select id="selectHistory" resultMap="selectHistoryMap">
-
-        select create_date, sum(num) as num, sum(row_count) as row_count, sum(tbl_col_num) as tbl_col_num
+        SELECT create_date,
+               count(*)       as num,
+               sum(row_count) as row_count,
+               sum(num)       as tbl_col_num
         from (select dt as create_date,
-                     num,
-                     num * row_count   as row_count,
-                     num * tbl_col_num as tbl_col_num
-              from (select dt, table_name, count(*) as num
-                    from view_met_quality
-                    group by dt, table_name) t1
-                       left join met_data_table t2
-                                 on t1.table_name = t2.tbl_name) t3
-        group by create_date order by create_date  limit #{limit};
+                     row_count,
+                     num
+              from ((select dt, table_name, count(*) as num
+                     from view_met_quality
+                     group by dt, table_name) t1
+                  left join met_data_table t2
+                    on t1.table_name = t2.tbl_name)) t3
+        GROUP BY create_date
+        order by create_date
+        limit #{limit};
 
     </select>
 
 
     <select id="selectTotal" resultMap="selectIndexMap">
-        select sum(num)         as total_tables
+        select count(*)         as total_tables
              , sum(row_count)   as total_rows
-             , sum(tbl_col_num) as total_columns
+             , sum(num) as total_columns
         from (select num,
                      num * row_count   as row_count,
                      num * tbl_col_num as tbl_col_num
@@ -62,9 +65,9 @@
 
     </select>
     <select id="selectToday" resultMap="selectIndexMap">
-        select ifnull(sum(num),0)         as today_tables
+        select ifnull(count(*),0)         as today_tables
              , ifnull(sum(row_count),0)   as today_rows
-             , ifnull(sum(tbl_col_num),0) as today_columns
+             , ifnull(sum(num),0) as today_columns
         from (select num,
                      num * row_count   as row_count,
                      num * tbl_col_num as tbl_col_num
