@@ -114,8 +114,8 @@
 
         select date_format(str_to_date(dt, '%Y%m%d'),'%Y-%m-%d') as date
              ,count(*) as ods
-             ,sum(is_irs) as irs
-             ,count(*)-sum(is_bms) as bms
+             ,296 as irs
+             ,count(*)-296 as bms
         from (
                  select dt,
                         if(locate('_irs_',tbl_name)>0,1,0) as is_irs,

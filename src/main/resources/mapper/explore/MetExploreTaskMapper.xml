@@ -51,33 +51,29 @@
 
 
     <select id="selectTotal" resultMap="selectIndexMap">
-        select count(*)         as total_tables
-             , sum(row_count)   as total_rows
-             , sum(num) as total_columns
-        from (select num,
-                     num * row_count   as row_count,
-                     num * tbl_col_num as tbl_col_num
-              from (select table_name, count(*) as num
-                    from view_met_quality
-                    group by table_name) t1
+        SELECT count(*)       as total_tables
+             , sum(row_count) as total_rows
+             , sum(col_num)   as total_columns
+        FROM (select dt, table_name, count(*) as col_num, row_count
+              from view_met_quality t1
                        left join met_data_table t2
-                                 on t1.table_name = t2.tbl_name) t3
+                                 on t1.table_name = t2.tbl_name
+              group by dt, table_name, row_count) t3;
 
     </select>
     <select id="selectToday" resultMap="selectIndexMap">
-        select ifnull(count(*),0)         as today_tables
-             , ifnull(sum(row_count),0)   as today_rows
-             , ifnull(sum(num),0) as today_columns
+        select ifnull(count(*), 0)       as today_tables
+             , ifnull(sum(row_count), 0) as today_rows
+             , ifnull(sum(num), 0)       as today_columns
         from (select num,
                      num * row_count   as row_count,
                      num * tbl_col_num as tbl_col_num
               from (select table_name, count(*) as num
                     from view_met_quality
-                    where dt= current_date()
+                    where dt = current_date()
                     group by table_name) t1
                        left join met_data_table t2
                                  on t1.table_name = t2.tbl_name) t3
-
     </select>
 
 </mapper>

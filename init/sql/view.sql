@@ -4,7 +4,7 @@ as
 select tbl_level
      # 正式，等修改,下面测试使用
 #      ,tbl_name
-     , if(tbl_level = 'ods' and  MD5(tbl_name) % 100 <80  , concat('ods_irs_', tbl_name), concat('ods_bms_', tbl_name)) as tbl_name
+     , if(tbl_level = 'ods' ,if(MD5(tbl_name) % 100<80  , concat('ods_irs_', tbl_name), concat('ods_bms_', tbl_name)), tbl_name) as tbl_name
      , tbl_comment
      , col_name
      , col_type
