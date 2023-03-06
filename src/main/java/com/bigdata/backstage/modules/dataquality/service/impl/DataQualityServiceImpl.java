@@ -127,7 +127,7 @@ public class DataQualityServiceImpl implements DataQualityService {
                 new QueryWrapper<MetQualityWarn>()
                         .eq(warnPageDto.getProjectId() != null, "dw_id", warnPageDto.getProjectId())
                         .eq(warnPageDto.getTaskNameId() != null, "task_id", warnPageDto.getTaskNameId())
-                        .orderByDesc("create_time"));
+                        .orderByDesc("id"));
         records = metQualityRulePage.getRecords();
 
         if (!records.isEmpty()) {
