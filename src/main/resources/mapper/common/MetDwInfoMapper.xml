@@ -4,17 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetDwInfo">
-        <id column="id" property="id" />
-        <result column="dw_name_en" property="dwNameEn" />
-        <result column="dw_name_zn" property="dwNameZn" />
-        <result column="dw_desc" property="dwDesc" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="isDeleted" />
+        <id column="id" property="id"/>
+        <result column="dw_name_en" property="dwNameEn"/>
+        <result column="dw_name_zn" property="dwNameZn"/>
+        <result column="dw_desc" property="dwDesc"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
 
     <select id="queryDataSelectDw" resultType="com.bigdata.backstage.modules.dataasset.vo.DataSelectDwVo">
-        SELECT id,dw_name_en as dwNameEn,dw_name_zn as dwNameZn from met_dw_info where is_deleted=0 GROUP BY id,dw_name_en,dw_name_zn
+        SELECT id, dw_name_en as dwNameEn, dw_name_zn as dwNameZn
+        from met_dw_info
+        where is_deleted = 0
+          and id = #{dwId}
     </select>
 </mapper>

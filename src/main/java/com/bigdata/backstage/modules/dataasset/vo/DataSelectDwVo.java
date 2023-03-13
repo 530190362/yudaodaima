@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "数据资产表名查询list", description = "数据资产表名查询list")
 public class DataSelectDwVo {
 
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("项目英文名")
     private String dwNameEn;

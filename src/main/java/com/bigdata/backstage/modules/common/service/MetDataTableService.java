@@ -30,7 +30,7 @@ public interface MetDataTableService extends IService<MetDataTable> {
     boolean selectTable(String table);
 
     //数据集成-3个指标
-    DataSourceTotalDto selectOdsTable();
+    DataSourceTotalDto selectOdsTable(Integer dwId);
 
     //数据集成-折线图
     List<DataSourceHistoryDto> selectOdsHistory(Integer limit);

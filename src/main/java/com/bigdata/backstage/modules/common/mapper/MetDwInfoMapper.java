@@ -4,7 +4,7 @@ import com.bigdata.backstage.modules.common.model.MetDwInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.dataasset.vo.DataSelectDwVo;
 import org.springframework.stereotype.Repository;
-
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
@@ -18,5 +18,5 @@ import java.util.List;
 @Repository
 public interface MetDwInfoMapper extends BaseMapper<MetDwInfo> {
 
-    List<DataSelectDwVo> queryDataSelectDw();
+    List<DataSelectDwVo> queryDataSelectDw(@Param("dwId") Integer dwId );
 }

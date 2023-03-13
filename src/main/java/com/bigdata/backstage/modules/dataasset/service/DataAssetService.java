@@ -15,7 +15,7 @@ public interface DataAssetService {
 
     List<DataSelectAssetVo> queryDataSelectAsset();
 
-    List<DataSelectDwVo> queryDataSelectDw();
+    List<DataSelectDwVo> queryDataSelectDw(Integer dwId);
 
     /**
      * 查询表字段

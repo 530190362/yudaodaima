@@ -22,43 +22,43 @@ public interface HomePageService {
      * 首页概览-数据统计
      * @return
      */
-    Map<String, Object> getDataOverview();
+    Map<String, Object> getDataOverview(Long dwId);
 
     /**
      * 数据资产（记录数）变化
      * @param days
      * @return
      */
-    List<DataChangeVo> queryDataChangeCount(Integer days);
+    List<DataChangeVo> queryDataChangeCount(Integer days,Integer dwId);
 
     /**
      * 数据资产（占用空间）变化
      * @param days
      * @return
      */
-    List<DataChangeVo> queryDataChangeSize(Integer days);
+    List<DataChangeVo> queryDataChangeSize(Integer days,Integer dwId);
 
     /**
      * 数据榜单-占用空间
      * @return
      */
-    List<DataSizeTop> getDataSizeTop();
+    List<DataSizeTop> getDataSizeTop(Integer dwId);
 
     /**
      * 数据榜单-总记录数
      * @return
      */
-    List<DataCountTop> getDataCountTop();
+    List<DataCountTop> getDataCountTop(Integer dwId);
 
     /**
      * 数据榜单-最近新增
      * @return
      */
-    List<DataCountTop> getDataNewTop();
+    List<DataCountTop> getDataNewTop(Integer dwId);
 
     /**
      * 数据榜单-新增记录数
      * @return
      */
-    List<DataCountTop> getDataNewRowTop();
+    List<DataCountTop> getDataNewRowTop(Integer dwId);
 }

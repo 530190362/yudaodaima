@@ -65,8 +65,3 @@ secure:
       - /source/**
       - /quality/**
       - /common/**
-
-
-# 1 共富大脑 2 青燕归巢 3 e家富
-dw:
-  id: 1

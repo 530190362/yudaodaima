@@ -17,14 +17,14 @@ public interface MetDataColumnMapper extends BaseMapper<MetDataColumn> {
 
 
     //数据写入
-    void syncColumnInsert(@Param("dwID") Integer dwId);
+    void syncColumnInsert(@Param("dwId") Integer dwId);
 
     //数据更新
-    void syncColumnUpdate();
+    void syncColumnUpdate(@Param("dwId") Integer dwId);
 
     //数据删除(逻辑删除)
-    void syncColumnDelete();
+    void syncColumnDelete(@Param("dwId") Integer dwId);
 
     //数据恢复(逻辑恢复)
-    void syncColumnRecover();
+    void syncColumnRecover(@Param("dwId") Integer dwId);
 }

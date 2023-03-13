@@ -38,9 +38,10 @@
 
     <insert id="syncTableInsert">
 
-        insert into met_data_table(dw_id,tbl_level,index1_name,index2_name,index3_name, tbl_name, tbl_comment, tbl_create_time, tbl_update_time, is_pt, pt_last,
+        insert into met_data_table(dw_id, tbl_level, index1_name, index2_name, index3_name, tbl_name, tbl_comment,
+                                   tbl_create_time, tbl_update_time, is_pt, pt_last,
                                    tbl_lifecycle, tbl_type, tbl_size, tbl_col_num, all_row_count, row_count)
-        select #{dwID} as dw_id,
+        select #{dwId} as dw_id,
                tbl_level,
                index1_name,
                index2_name,
@@ -58,7 +59,8 @@
                all_row_count,
                row_count
         from view_met_data_table t2
-        where not exists(select 1 from met_data_table t1 where t1.tbl_name = t2.tbl_name)
+        where t2.dw_Id = #{dwId}
+          and not exists(select 1 from met_data_table t1 where t1.dw_id = #{dwId} and t1.tbl_name = t2.tbl_name)
 
     </insert>
 
@@ -66,10 +68,10 @@
 
         update met_data_table t1
             inner join view_met_data_table t2 on t1.tbl_name = t2.tbl_name
-        set t1.tbl_level        =t2.tbl_level,
-            t1.index1_name        =t2.index1_name,
-            t1.index2_name        =t2.index2_name,
-            t1.index3_name        =t2.index3_name,
+        set t1.tbl_level       =t2.tbl_level,
+            t1.index1_name     =t2.index1_name,
+            t1.index2_name     =t2.index2_name,
+            t1.index3_name     =t2.index3_name,
             t1.tbl_name        =t2.tbl_name,
             t1.tbl_comment     =t2.tbl_comment,
             t1.tbl_create_time =t2.tbl_create_time,
@@ -82,48 +84,53 @@
             t1.tbl_col_num     =t2.tbl_col_num,
             t1.all_row_count   =t2.all_row_count,
             t1.row_count       =t2.row_count
-
+        where t1.dw_Id = #{dwId}
+          and t2.dw_id = #{dwId}
     </update>
 
     <update id="syncTableDelete">
 
         UPDATE met_data_table t1
         SET is_deleted = 1
-        WHERE t1.tbl_name not in (select t2.tbl_name from view_met_data_table t2)
+        WHERE t1.dw_id = #{dwId}
+          and t1.tbl_name not in (select t2.tbl_name from view_met_data_table t2 where t2.dw_Id = #{dwId})
     </update>
 
     <update id="syncColumnRecover">
         UPDATE met_data_table t1
         SET is_deleted = 0
-        WHERE t1.tbl_name in (select t2.tbl_name from view_met_data_table t2)
+        WHERE t1.dw_id = #{dwId}
+          and t1.tbl_name in (select t2.tbl_name from view_met_data_table t2 where t2.dw_Id = #{dwId})
           and t1.is_deleted = 1;
 
     </update>
 
 
     <select id="selectOdsIndex" resultMap="sourceTotalMap">
-        select count(*)                as tables,
-               round(sum(tbl_size)/1024, 2) as size,
-               sum(row_count)          as rows
+        select count(*)                       as tables,
+               round(sum(tbl_size) / 1024, 2) as size,
+               sum(row_count)                 as rows
         from view_met_data_table
-        where tbl_level = 'ods';
+        where dw_Id = #{dwId}
+          and tbl_level = 'ods';
 
     </select>
 
     <select id="selectOdsHistory" resultMap="sourceTotalHistoryMap">
 
-        select date_format(str_to_date(dt, '%Y%m%d'),'%Y-%m-%d') as date
-             ,count(*) as ods
-             ,296 as irs
-             ,count(*)-296 as bms
-        from (
-                 select dt,
-                        if(locate('_irs_',tbl_name)>0,1,0) as is_irs,
-                        if(locate('_bms_',tbl_name)>0,1,0) as is_bms
-                 from view_met_detail_outline
-                 where tbl_level='ods'
-                 group by dt,tbl_name) t1
-        group by dt order by dt  limit #{limit};
+        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
+             , count(*)                                           as ods
+             , 296                                                as irs
+             , count(*) - 296                                     as bms
+        from (select dt,
+                     if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
+                     if(locate('_bms_', tbl_name) > 0, 1, 0) as is_bms
+              from view_met_detail_outline
+              where tbl_level = 'ods'
+              group by dt, tbl_name) t1
+        group by dt
+        order by dt
+        limit #{limit};
     </select>
 
 </mapper>

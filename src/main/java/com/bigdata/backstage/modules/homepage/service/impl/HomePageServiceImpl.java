@@ -29,12 +29,12 @@ public class HomePageServiceImpl implements HomePageService {
     private ViewMetDetailOutlineMapper metDetailOutlineMapper;
 
     @Override
-    public Map<String, Object> getDataOverview() {
-        DataOverviewVo overview = metDetailOutlineMapper.getOverview();
+    public Map<String, Object> getDataOverview(Long dwID) {
+        DataOverviewVo overview = metDetailOutlineMapper.getOverview(dwID);
         Map<String, Object> map = new HashMap<String, Object>();
         if (overview != null) {
             map.put("totalTbl", overview.getTotalTblCount());
-            map.put("totalSize", overview.getTotalTblSize().divide(BigDecimal.valueOf(1024),2, RoundingMode.UP));
+            map.put("totalSize", overview.getTotalTblSize().divide(BigDecimal.valueOf(1024), 2, RoundingMode.UP));
             map.put("colCount", overview.getTotalTblCol());
             map.put("rowCount", overview.getTotalTblRow());
             return map;
@@ -43,44 +43,44 @@ public class HomePageServiceImpl implements HomePageService {
     }
 
     @Override
-    public List<DataChangeVo> queryDataChangeCount(Integer days) {
+    public List<DataChangeVo> queryDataChangeCount(Integer days, Integer dwId) {
         List<DataChangeVo> changeVoist = new ArrayList<>();
-        if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)){
-            changeVoist = metDetailOutlineMapper.getDataChangeNum(DataChangeDaysEnum.SEVEN_DAYS.getValue());
-        }else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
-            changeVoist = metDetailOutlineMapper.getDataChangeNum(DataChangeDaysEnum.FIFTEEN_DAYS.getValue());
+        if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)) {
+            changeVoist = metDetailOutlineMapper.getDataChangeNum(DataChangeDaysEnum.SEVEN_DAYS.getValue(), dwId);
+        } else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
+            changeVoist = metDetailOutlineMapper.getDataChangeNum(DataChangeDaysEnum.FIFTEEN_DAYS.getValue(), dwId);
         }
         return changeVoist;
     }
 
     @Override
-    public List<DataChangeVo> queryDataChangeSize(Integer days) {
+    public List<DataChangeVo> queryDataChangeSize(Integer days, Integer dwId) {
         List<DataChangeVo> changeVoist = new ArrayList<>();
-        if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)){
-            changeVoist = metDetailOutlineMapper.getDataChangeSize(DataChangeDaysEnum.SEVEN_DAYS.getValue());
-        }else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
-            changeVoist = metDetailOutlineMapper.getDataChangeSize(DataChangeDaysEnum.FIFTEEN_DAYS.getValue());
+        if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)) {
+            changeVoist = metDetailOutlineMapper.getDataChangeSize(DataChangeDaysEnum.SEVEN_DAYS.getValue(), dwId);
+        } else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
+            changeVoist = metDetailOutlineMapper.getDataChangeSize(DataChangeDaysEnum.FIFTEEN_DAYS.getValue(), dwId);
         }
         return changeVoist;
     }
 
     @Override
-    public List<DataSizeTop> getDataSizeTop() {
-        return metDetailOutlineMapper.getDataSizeTop();
+    public List<DataSizeTop> getDataSizeTop(Integer dwId) {
+        return metDetailOutlineMapper.getDataSizeTop( dwId);
     }
 
     @Override
-    public List<DataCountTop> getDataCountTop() {
-        return metDetailOutlineMapper.getDataCountTop();
+    public List<DataCountTop> getDataCountTop(Integer dwId) {
+        return metDetailOutlineMapper.getDataCountTop(dwId);
     }
 
     @Override
-    public List<DataCountTop> getDataNewTop() {
-        return metDetailOutlineMapper.getDataNewTop();
+    public List<DataCountTop> getDataNewTop(Integer dwId) {
+        return metDetailOutlineMapper.getDataNewTop(dwId);
     }
 
     @Override
-    public List<DataCountTop> getDataNewRowTop() {
-        return metDetailOutlineMapper.getDataNewRowTop();
+    public List<DataCountTop> getDataNewRowTop(Integer dwId) {
+        return metDetailOutlineMapper.getDataNewRowTop(dwId);
     }
 }

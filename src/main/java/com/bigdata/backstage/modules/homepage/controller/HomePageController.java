@@ -29,56 +29,59 @@ public class HomePageController {
     private HomePageService homePageService;
 
     @ApiOperation(value = "数据资产概览")
-    @RequestMapping(value = "/dataoverview", method = RequestMethod.GET)
+    @GetMapping("dataoverview/{dwId}")
     @ResponseBody
-    public CommonResult<Map<String,Object>> getDataOverview() {
-        Map<String, Object> data = homePageService.getDataOverview();
+    public CommonResult<Map<String, Object>> getDataOverview(@PathVariable Long dwId) {
+        System.out.println(dwId);
+        Map<String, Object> data = homePageService.getDataOverview(dwId);
         return CommonResult.success(data);
     }
 
     @ApiOperation(value = "数据资产变化")
-    @RequestMapping(value = "/datachange", method = RequestMethod.GET)
+    @GetMapping("datachange")
     @ResponseBody
     public CommonResult<List<DataChangeVo>> getDataChange(@RequestParam(value = "days", required = false, defaultValue = "0") Integer days,
-                                                            @RequestParam(value = "type", required = false, defaultValue = "0") Integer type) {
+                                                          @RequestParam(value = "type", required = false, defaultValue = "0") Integer type,
+                                                          @RequestParam(value = "dwId", required = false, defaultValue = "0") Integer dwId
+    ) {
         List<DataChangeVo> dataChangeVo = new ArrayList<>();
-        if (DataChangeTypeEnum.TOTAL_COUNT.getKey().equals(type)){
-            dataChangeVo = homePageService.queryDataChangeCount(days);
-        }else {
-            dataChangeVo = homePageService.queryDataChangeSize(days);
+        if (DataChangeTypeEnum.TOTAL_COUNT.getKey().equals(type)) {
+            dataChangeVo = homePageService.queryDataChangeCount(days,dwId);
+        } else {
+            dataChangeVo = homePageService.queryDataChangeSize(days,dwId);
         }
         return CommonResult.success(dataChangeVo);
     }
 
     @ApiOperation(value = "数据占用空间top10")
-    @RequestMapping(value = "/dataSizeTop", method = RequestMethod.GET)
+    @GetMapping(value = "/dataSizeTop/{dwId}")
     @ResponseBody
-    public CommonResult<List<DataSizeTop>> getDataSizeTop() {
-        List<DataSizeTop> dataSizeTop = homePageService.getDataSizeTop();
+    public CommonResult<List<DataSizeTop>> getDataSizeTop(@PathVariable Integer dwId) {
+        List<DataSizeTop> dataSizeTop = homePageService.getDataSizeTop(dwId);
         return CommonResult.success(dataSizeTop);
     }
 
     @ApiOperation(value = "数据总记录数top10")
-    @RequestMapping(value = "/dataCountTop", method = RequestMethod.GET)
+    @GetMapping(value = "/dataCountTop/{dwId}")
     @ResponseBody
-    public CommonResult<List<DataCountTop>> getDataCountTop() {
-        List<DataCountTop> dataSizeTop = homePageService.getDataCountTop();
+    public CommonResult<List<DataCountTop>> getDataCountTop(@PathVariable Integer dwId) {
+        List<DataCountTop> dataSizeTop = homePageService.getDataCountTop(dwId);
         return CommonResult.success(dataSizeTop);
     }
 
     @ApiOperation(value = "数据最近新增")
-    @RequestMapping(value = "/dataNewTop", method = RequestMethod.GET)
+    @GetMapping(value = "/dataNewTop/{dwId}")
     @ResponseBody
-    public CommonResult<List<DataCountTop>> getDataNewTop() {
-        List<DataCountTop> dataSizeTop = homePageService.getDataNewTop();
+    public CommonResult<List<DataCountTop>> getDataNewTop(@PathVariable Integer dwId) {
+        List<DataCountTop> dataSizeTop = homePageService.getDataNewTop(dwId);
         return CommonResult.success(dataSizeTop);
     }
 
     @ApiOperation(value = "数据新增记录数")
-    @RequestMapping(value = "/dataNewRowTop", method = RequestMethod.GET)
+    @GetMapping(value = "/dataNewRowTop/{dwId}")
     @ResponseBody
-    public CommonResult<List<DataCountTop>> getDataNewRowTop() {
-        List<DataCountTop> dataSizeTop = homePageService.getDataNewRowTop();
+    public CommonResult<List<DataCountTop>> getDataNewRowTop(@PathVariable Integer dwId) {
+        List<DataCountTop> dataSizeTop = homePageService.getDataNewRowTop(dwId);
         return CommonResult.success(dataSizeTop);
     }
 

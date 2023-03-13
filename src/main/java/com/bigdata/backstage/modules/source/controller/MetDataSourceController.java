@@ -51,9 +51,9 @@ public class MetDataSourceController {
 
 
     @ApiOperation(value = "数据集成-3个指标")
-    @GetMapping("/total")
-    public CommonResult odsTotalIndex() {
-        DataSourceTotalDto dataSourceTotalDto = metDataTableService.selectOdsTable();
+    @GetMapping("/total/{dwId}")
+    public CommonResult odsTotalIndex(Integer dwId) {
+        DataSourceTotalDto dataSourceTotalDto = metDataTableService.selectOdsTable(dwId);
         return CommonResult.success(dataSourceTotalDto);
     }
 

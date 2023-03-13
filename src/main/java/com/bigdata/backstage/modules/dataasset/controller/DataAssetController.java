@@ -76,9 +76,9 @@ public class DataAssetController {
     }
 
     @ApiOperation(value = "数据仓名称列表")
-    @GetMapping(value = "/getDataSelectDw")
-    public CommonResult<List<DataSelectDwVo>> queryDataSelectDw() {
-        List<DataSelectDwVo> areaNameList = dataAssetService.queryDataSelectDw();
+    @GetMapping(value = "/getDataSelectDw/{dwId}")
+    public CommonResult<List<DataSelectDwVo>> queryDataSelectDw(@PathVariable Integer dwId) {
+        List<DataSelectDwVo> areaNameList = dataAssetService.queryDataSelectDw(dwId);
         return CommonResult.success(areaNameList);
     }
 

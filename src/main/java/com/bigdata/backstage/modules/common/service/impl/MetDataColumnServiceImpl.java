@@ -3,7 +3,9 @@ package com.bigdata.backstage.modules.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bigdata.backstage.modules.common.mapper.MetDataColumnMapper;
+import com.bigdata.backstage.modules.common.mapper.MetDwInfoMapper;
 import com.bigdata.backstage.modules.common.model.MetDataColumn;
+import com.bigdata.backstage.modules.common.model.MetDwInfo;
 import com.bigdata.backstage.modules.common.service.MetDataColumnService;
 import com.bigdata.backstage.modules.source.dto.DataSourceInfoDto;
 import com.bigdata.backstage.modules.source.dto.DataSourcePageDto;
@@ -25,16 +27,23 @@ import java.util.List;
 public class MetDataColumnServiceImpl extends ServiceImpl<MetDataColumnMapper, MetDataColumn> implements MetDataColumnService {
 
 
-    @Value("${dw.id}")
-    private Integer dwId;
+    @Autowired
+    private MetDwInfoMapper metDwInfoMapper;
+
 
     //同步字段级别
     @Override
     public void syncColumn( ) {
-        baseMapper.syncColumnInsert(dwId);
-        baseMapper.syncColumnUpdate();
-        baseMapper.syncColumnDelete();
-        baseMapper.syncColumnRecover();
+        List<MetDwInfo> metDwInfos = metDwInfoMapper.selectList(null);
+        for (MetDwInfo metDwInfo : metDwInfos) {
+            Integer dwId=metDwInfo.getId();
+            System.out.println(dwId);
+            baseMapper.syncColumnInsert(dwId);
+            baseMapper.syncColumnUpdate(dwId);
+            baseMapper.syncColumnDelete(dwId);
+            baseMapper.syncColumnRecover(dwId);
+        }
+
     }
 
     //获取表信息

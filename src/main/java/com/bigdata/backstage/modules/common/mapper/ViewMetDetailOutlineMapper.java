@@ -25,47 +25,54 @@ public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutl
 
     /**
      * 首页概览-数据统计
+     *
      * @return
      */
-    DataOverviewVo getOverview();
+    DataOverviewVo getOverview(@Param("dwId") Long dwId);
 
     /**
      * 数据资产（记录数）变化
+     *
      * @param days
      * @return
      */
-    List<DataChangeVo> getDataChangeNum(@Param("days") Integer days);
+    List<DataChangeVo> getDataChangeNum(@Param("days") Integer days, @Param("dwId") Integer dwId);
 
     /**
      * 数据资产（占用空间）变化
+     *
      * @param days
      * @return
      */
-    List<DataChangeVo> getDataChangeSize(@Param("days") Integer days);
+    List<DataChangeVo> getDataChangeSize(@Param("days") Integer days, @Param("dwId") Integer dwId);
 
     /**
      * 数据榜单-占用空间
+     *
      * @return
      */
-    List<DataSizeTop> getDataSizeTop();
+    List<DataSizeTop> getDataSizeTop(@Param("dwId") Integer dwId);
 
     /**
      * 数据榜单-总记录数
+     *
      * @return
      */
-    List<DataCountTop> getDataCountTop();
+    List<DataCountTop> getDataCountTop(@Param("dwId") Integer dwId);
 
     /**
      * 数据榜单-最近新增
+     *
      * @return
      */
-    List<DataCountTop> getDataNewTop();
+    List<DataCountTop> getDataNewTop(@Param("dwId") Integer dwId);
 
     /**
      * 数据榜单-新增记录数
+     *
      * @return
      */
-    List<DataCountTop> getDataNewRowTop();
+    List<DataCountTop> getDataNewRowTop(@Param("dwId") Integer dwId);
 
 
     List<DataFiledVo> queryDataField(@Param("tblName") String tblName);

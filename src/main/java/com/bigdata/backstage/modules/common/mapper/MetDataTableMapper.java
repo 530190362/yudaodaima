@@ -22,21 +22,21 @@ public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
 
 
     //数据写入
-    void syncTableInsert(@Param("dwID") Integer dwId);
+    void syncTableInsert(@Param("dwId") Integer dwId);
 
 
     //数据更新
-    void syncTableUpdate();
+    void syncTableUpdate(@Param("dwId") Integer dwId);
 
 
     //数据删除(逻辑删除)
-    void syncTableDelete();
+    void syncTableDelete(@Param("dwId") Integer dwId);
 
     //数据恢复(逻辑恢复)
-    void syncColumnRecover();
+    void syncColumnRecover(@Param("dwId") Integer dwId);
 
     // //数据集成-3个指标
-    DataSourceTotalDto selectOdsIndex();
+    DataSourceTotalDto selectOdsIndex(@Param("dwId") Integer dwId);
 
     List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit);
 }

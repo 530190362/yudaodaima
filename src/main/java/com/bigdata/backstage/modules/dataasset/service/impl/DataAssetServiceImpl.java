@@ -93,8 +93,8 @@ public class DataAssetServiceImpl implements DataAssetService {
     }
 
     @Override
-    public List<DataSelectDwVo> queryDataSelectDw() {
-        return metDwInfoMapper.queryDataSelectDw();
+    public List<DataSelectDwVo> queryDataSelectDw(Integer dwId) {
+        return metDwInfoMapper.queryDataSelectDw(dwId);
     }
 
 

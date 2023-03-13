@@ -33,9 +33,6 @@ import java.util.List;
 @Service
 public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, MetDataTable> implements MetDataTableService {
 
-    @Value("${dw.id}")
-    private Integer dwId;
-
 
     @Autowired
     private MetDwInfoMapper metDwInfoMapper;
@@ -44,10 +41,16 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
     //同步表级别
     @Override
     public void syncTable() {
-        baseMapper.syncTableInsert(dwId);
-        baseMapper.syncTableUpdate();
-        baseMapper.syncTableDelete();
-        baseMapper.syncColumnRecover();
+        List<MetDwInfo> metDwInfos = metDwInfoMapper.selectList(null);
+        for (MetDwInfo metDwInfo : metDwInfos) {
+            Integer dwId = metDwInfo.getId();
+            System.out.println(dwId);
+            baseMapper.syncTableInsert(dwId);
+            baseMapper.syncTableUpdate(dwId);
+            baseMapper.syncTableDelete(dwId);
+            baseMapper.syncColumnRecover(dwId);
+        }
+
     }
 
     //查看表是否存在
@@ -61,8 +64,8 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
 
     //数据集成-3个指标
     @Override
-    public DataSourceTotalDto selectOdsTable() {
-        return baseMapper.selectOdsIndex();
+    public DataSourceTotalDto selectOdsTable(Integer dwId) {
+        return baseMapper.selectOdsIndex(dwId);
     }
 
     //数据集成-折线图
@@ -82,7 +85,7 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
         MPJLambdaWrapper<MetDataTable> joinMrapper = new MPJLambdaWrapper<>();
         joinMrapper.selectAll(MetDataTable.class)
                 .selectAll(MetDataTable.class)
-                .selectAs(MetDwInfo::getDwNameZn,MetDataTable::getDwName)
+                .selectAs(MetDwInfo::getDwNameZn, MetDataTable::getDwName)
                 .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
                 .likeRight("tbl_name", "ods_" + dto.getSourceCode() + "_");
         String name = dto.getTableName();
