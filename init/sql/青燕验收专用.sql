@@ -1,4 +1,11 @@
+update met_norm_dict
+set create_user = 'qygc',
+    update_user = 'qygc';
 
-# met_norm_root 表关于gfdn全部逻辑删除
-update  met_norm_root  set is_deleted = 1
-where create_user = 'gfdn';
+
+
+update met_norm_node
+set create_user = 'qygc',
+    update_user = 'qygc';
+
+
