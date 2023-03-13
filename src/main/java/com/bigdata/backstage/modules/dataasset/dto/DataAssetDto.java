@@ -26,4 +26,8 @@ public class DataAssetDto {
     @ApiModelProperty(value = "表标签")
     private String label;
 
+    @ApiModelProperty(value = "数仓id")
+    private Integer dwId;
+
+
 }

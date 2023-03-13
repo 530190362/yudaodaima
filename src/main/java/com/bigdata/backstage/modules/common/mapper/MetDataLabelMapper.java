@@ -4,6 +4,7 @@ import com.bigdata.backstage.modules.common.model.MetDataLabel;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.dataasset.vo.DataSelectAssetVo;
 import com.bigdata.backstage.modules.dataasset.vo.DataSelectLabelVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 @Repository
 public interface MetDataLabelMapper extends BaseMapper<MetDataLabel> {
 
-    List<DataSelectLabelVo> queryDataSelectLabel();
+    List<DataSelectLabelVo> queryDataSelectLabel(@Param("dwNameEn") String dwNameEn);
 
     List<DataSelectAssetVo> queryDataSelectAsset();
 }

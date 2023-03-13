@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class DataLabelDto {
 
+
+
     @ApiModelProperty(value = "当前页")
     private Integer current;
 
@@ -13,4 +15,7 @@ public class DataLabelDto {
 
     @ApiModelProperty(value = "标签id")
     private Integer labelId;
+
+    @ApiModelProperty(value = "创建用户")
+    private String createUser;
 }

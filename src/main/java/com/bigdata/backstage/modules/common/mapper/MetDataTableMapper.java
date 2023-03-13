@@ -1,6 +1,5 @@
 package com.bigdata.backstage.modules.common.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
 import com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto;
 import com.bigdata.backstage.modules.source.dto.DataSourceTotalDto;

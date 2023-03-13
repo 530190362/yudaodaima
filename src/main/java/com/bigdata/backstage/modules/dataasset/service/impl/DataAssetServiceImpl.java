@@ -41,24 +41,24 @@ public class DataAssetServiceImpl implements DataAssetService {
         List<MetDataTable> records = new ArrayList<>();
         IPage<DataAssetVo> dataAssetVoPage = new Page<>();
         Page<MetDataTable> dataOverviewPage = new Page<>();
-        if (dataAssetDto.getLabel()==null) {
+        if (dataAssetDto.getLabel() == null) {
             dataOverviewPage = dataTableMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
                     new QueryWrapper<MetDataTable>()
                             .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "tbl_name", dataAssetDto.getTableName())
                             .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "tbl_comment", dataAssetDto.getTableComment())
                             .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
-                            .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
+                            .eq("dw_id", dataAssetDto.getDwId())
                             .orderByAsc("create_time"));
             records = dataOverviewPage.getRecords();
-        }else {
+        } else {
             List<String> overviewIdList = metDataOverviewLabelRelationMapper.getOverviewIdList(dataAssetDto.getLabel());
-            if(overviewIdList.size()>0){
+            if (overviewIdList.size() > 0) {
                 dataOverviewPage = dataTableMapper.selectPage(new Page<>(dataAssetDto.getCurrent(), dataAssetDto.getPageSize()),
                         new QueryWrapper<MetDataTable>()
                                 .like(dataAssetDto.getTableName() != null && !"".equals(dataAssetDto.getTableName()), "table_name", dataAssetDto.getTableName())
                                 .like(dataAssetDto.getTableComment() != null && !"".equals(dataAssetDto.getTableComment()), "table_comment", dataAssetDto.getTableComment())
                                 .eq(dataAssetDto.getTblLevel() != null, "tbl_level", dataAssetDto.getTblLevel())
-                                .eq(dataAssetDto.getProjectName() !=null ,"dw_id",dataAssetDto.getProjectName())
+                                .eq(dataAssetDto.getProjectName() != null, "dw_id", dataAssetDto.getProjectName())
                                 .in(overviewIdList != null, "id", overviewIdList).orderByAsc("create_time"));
                 records = dataOverviewPage.getRecords();
             }
@@ -83,8 +83,8 @@ public class DataAssetServiceImpl implements DataAssetService {
     }
 
     @Override
-    public List<DataSelectLabelVo> queryDataSelectLabel() {
-        return dataLabelMapper.queryDataSelectLabel() ;
+    public List<DataSelectLabelVo> queryDataSelectLabel(String dwNameEn) {
+        return dataLabelMapper.queryDataSelectLabel(dwNameEn);
     }
 
     @Override
@@ -106,7 +106,8 @@ public class DataAssetServiceImpl implements DataAssetService {
     @Override
     public IPage<DataLabelVo> labelPageQuery(DataLabelDto dataLabelDto) {
         Page<MetDataLabel> labelPage = dataLabelMapper.selectPage(new Page<>(dataLabelDto.getCurrent(), dataLabelDto.getPageSize()), new QueryWrapper<MetDataLabel>()
-                .eq(dataLabelDto.getLabelId() != null ,"id",dataLabelDto.getLabelId())
+                .eq(dataLabelDto.getLabelId() != null, "id", dataLabelDto.getLabelId())
+                .eq( "create_user", dataLabelDto.getCreateUser())
                 .orderByDesc("update_time"));
         List<MetDataLabel> records = labelPage.getRecords();
         IPage<DataLabelVo> dataLabelVoPage = new Page<>();
@@ -128,8 +129,6 @@ public class DataAssetServiceImpl implements DataAssetService {
         }
         return dataLabelVoPage;
     }
-
-
 
 
 }

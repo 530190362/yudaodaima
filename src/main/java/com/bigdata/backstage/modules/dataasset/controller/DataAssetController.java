@@ -62,9 +62,9 @@ public class DataAssetController {
     }
 
     @ApiOperation(value = "数据标签列表")
-    @GetMapping(value = "/getDataSelectLabel")
-    public CommonResult<List<DataSelectLabelVo>> queryDataSelectLabel() {
-        List<DataSelectLabelVo> dataSelectLabelVos = dataAssetService.queryDataSelectLabel();
+    @GetMapping(value = "/getDataSelectLabel/{dwNameEn}")
+    public CommonResult<List<DataSelectLabelVo>> queryDataSelectLabel(@PathVariable String dwNameEn) {
+        List<DataSelectLabelVo> dataSelectLabelVos = dataAssetService.queryDataSelectLabel(dwNameEn);
         return CommonResult.success(dataSelectLabelVos);
     }
 
@@ -115,9 +115,9 @@ public class DataAssetController {
     public CommonResult update(@RequestBody BindLabelDto bindLabel) {
         int insert = 0;
         List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
-                        .eq(MetDataOverviewLabelRelation::getOverviewId, bindLabel.getOverviewId())
+                .eq(MetDataOverviewLabelRelation::getOverviewId, bindLabel.getOverviewId())
         );
-        if (!CollectionUtils.isEmpty(list)){
+        if (!CollectionUtils.isEmpty(list)) {
             boolean b = metDataOverviewLabelRelationService.removeBatchByIds(list);
         }
         if (null != bindLabel.getLabelIds()) {
@@ -143,14 +143,14 @@ public class DataAssetController {
     @ApiOperation(value = "新增修改")
     @PostMapping(value = "/addOrUpdate")
     public CommonResult addOrUpdate(@RequestBody MetDataLabel metDataLabel) {
-        if (metDataLabel.getId() == null){
+        if (metDataLabel.getId() == null) {
             boolean save = metDataLabelService.save(metDataLabel);
             if (save) {
                 return CommonResult.success("新增成功");
             } else {
                 return CommonResult.failed("新增失败");
             }
-        }else {
+        } else {
             boolean update = metDataLabelService.updateById(metDataLabel);
             if (update) {
                 return CommonResult.success("修改成功");
@@ -178,13 +178,15 @@ public class DataAssetController {
 
     @ApiOperation(value = "根据标签id查询关联表")
     @GetMapping(value = "/getTblListById")
-    public CommonResult<UnionTblVo> queryTblListById(Long labelId) {
+    public CommonResult<UnionTblVo> queryTblListById(Long labelId, String dwNameEn) {
         UnionTblVo unionTblVo = new UnionTblVo();
+
         MetDataLabel metDataLabel = metDataLabelService.getById(labelId);
         Long bindNum = metDataOverviewLabelRelationMapper.selectCount(new QueryWrapper<MetDataOverviewLabelRelation>()
                 .eq("label_id", labelId).eq("is_delete", 0));
+
         List<DataAssetBindVo> labelList = metDataOverviewLabelRelationMapper.getBindTblList(labelId);
-        List<DataAssetBindVo> ableBindTblList = metDataOverviewLabelRelationMapper.getAbleBindTblList(labelId);
+        List<DataAssetBindVo> ableBindTblList = metDataOverviewLabelRelationMapper.getAbleBindTblList(labelId, dwNameEn);
         unionTblVo.setLabelName(metDataLabel.getLabelName());
         unionTblVo.setBindNum(bindNum.intValue());
         unionTblVo.setAbleBindTblList(ableBindTblList);
@@ -197,24 +199,22 @@ public class DataAssetController {
     public CommonResult labelBindTbl(@RequestBody BindTblDto bindTbl) {
         int insert = 0;
         List<MetDataOverviewLabelRelation> list = metDataOverviewLabelRelationService.list(new LambdaQueryWrapper<MetDataOverviewLabelRelation>()
-                .eq(MetDataOverviewLabelRelation::getLabelId,bindTbl.getLabelId())
+                .eq(MetDataOverviewLabelRelation::getLabelId, bindTbl.getLabelId())
         );
-        if (!CollectionUtils.isEmpty(list)){
+        if (!CollectionUtils.isEmpty(list)) {
             boolean b = metDataOverviewLabelRelationService.removeBatchByIds(list);
         }
         if (null != bindTbl.getOverviewIds()) {
             for (Integer tblId : bindTbl.getOverviewIds()) {
-                    MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
-                    mapping.setLabelId(bindTbl.getLabelId());
-                    mapping.setOverviewId(tblId);
-                    insert = metDataOverviewLabelRelationMapper.insert(mapping);
-                }
-            return CommonResult.success("绑定成功");
+                MetDataOverviewLabelRelation mapping = new MetDataOverviewLabelRelation();
+                mapping.setLabelId(bindTbl.getLabelId());
+                mapping.setOverviewId(tblId);
+                insert = metDataOverviewLabelRelationMapper.insert(mapping);
             }
+            return CommonResult.success("绑定成功");
+        }
         return CommonResult.failed("未选择表进行绑定！");
     }
-
-
 
 
 }

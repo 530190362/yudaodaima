@@ -3,6 +3,7 @@ package com.bigdata.backstage.modules.common.mapper;
 import com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public interface MetDataOverviewLabelRelationMapper extends BaseMapper<MetDataOv
 
     List<String> getLabelIndexList(Long overviewId);
 
-    List<DataAssetBindVo> getBindTblList(Long labelId);
+    List<DataAssetBindVo> getBindTblList(@Param("labelId") Long labelId);
 
-    List<DataAssetBindVo> getAbleBindTblList(Long labelId);
+    List<DataAssetBindVo> getAbleBindTblList(@Param("labelId") Long labelId, @Param("dwNameEn") String dwNameEn);
 
 }

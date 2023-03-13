@@ -11,7 +11,7 @@ public interface DataAssetService {
 
     IPage<DataAssetVo> pageQueryList(DataAssetDto dataAssetDto);
 
-    List<DataSelectLabelVo> queryDataSelectLabel();
+    List<DataSelectLabelVo> queryDataSelectLabel(String dwNameEn);
 
     List<DataSelectAssetVo> queryDataSelectAsset();
 

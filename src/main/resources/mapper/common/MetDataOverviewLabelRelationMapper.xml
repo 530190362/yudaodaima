@@ -4,68 +4,66 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetDataOverviewLabelRelation">
-        <id column="id" property="id" />
-        <result column="overview_id" property="overviewId" />
-        <result column="label_id" property="labelId" />
-        <result column="create_user" property="createUser" />
-        <result column="update_user" property="updateUser" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_delete" property="isDelete" />
+        <id column="id" property="id"/>
+        <result column="overview_id" property="overviewId"/>
+        <result column="label_id" property="labelId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_delete" property="isDelete"/>
     </resultMap>
 
     <select id="getOverviewIdList" resultType="java.lang.String">
-        SELECT
-            overview_id
-        FROM
-            met_data_overview_label_relation rel
-        WHERE
-            rel.is_delete = 0
-        and rel.label_id = #{label}
+        SELECT overview_id
+        FROM met_data_overview_label_relation rel
+        WHERE rel.is_delete = 0
+          and rel.label_id = #{label}
     </select>
 
     <select id="getLabelList" resultType="java.lang.String">
         SELECT a.label_name
         FROM met_data_label a
-        LEFT JOIN met_data_overview_label_relation b
-        ON a.id =b.label_id
-        WHERE a.is_delete =0 AND b.is_delete =0
-        AND b.overview_id = #{overviewId}
+                 LEFT JOIN met_data_overview_label_relation b
+                           ON a.id = b.label_id
+        WHERE a.is_delete = 0
+          AND b.is_delete = 0
+          AND b.overview_id = #{overviewId}
     </select>
 
     <select id="getLabelIndexList" resultType="java.lang.String">
         SELECT a.id
         FROM met_data_label a
-        LEFT JOIN met_data_overview_label_relation b
-        ON a.id =b.label_id
-        WHERE a.is_delete =0 AND b.is_delete =0
-        AND b.overview_id = #{overviewId}
+                 LEFT JOIN met_data_overview_label_relation b
+                           ON a.id = b.label_id
+        WHERE a.is_delete = 0
+          AND b.is_delete = 0
+          AND b.overview_id = #{overviewId}
     </select>
 
     <select id="getBindTblList" resultType="com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo">
-        SELECT a.id,c.dw_name_en as projectName,a.tbl_name
+        SELECT a.id, c.dw_name_en as projectName, a.tbl_name
         FROM met_data_table a
-        LEFT JOIN met_data_overview_label_relation b
-        ON a.id =b.overview_id
-        LEFT JOIN met_dw_info c
-        ON a.dw_id = c.id
-        WHERE a.is_deleted =0 AND b.is_delete =0
-        AND b.label_id = #{labelId}
+                 LEFT JOIN met_data_overview_label_relation b
+                           ON a.id = b.overview_id
+                 LEFT JOIN met_dw_info c
+                           ON a.dw_id = c.id
+        WHERE a.is_deleted = 0
+          AND b.is_delete = 0
+          AND b.label_id = #{labelId}
     </select>
 
     <select id="getAbleBindTblList" resultType="com.bigdata.backstage.modules.dataasset.vo.DataAssetBindVo">
-        SELECT a.id,c.dw_name_en as projectName,a.tbl_name
+        SELECT a.id, c.dw_name_en as projectName, a.tbl_name
         FROM met_data_table a
-        LEFT JOIN met_dw_info c
-        ON a.dw_id = c.id
-        WHERE a.id NOT IN (
-            SELECT a.id
-            FROM met_data_table a
-            LEFT JOIN met_data_overview_label_relation b
-                ON a.id = b.overview_id
-            WHERE a.is_deleted = 0
-              AND b.is_delete = 0
-              AND b.label_id = #{labelId}
-        )
+                 LEFT JOIN met_dw_info c
+                           ON a.dw_id = c.id
+        WHERE a.id NOT IN (SELECT a.id
+                           FROM met_data_table a
+                                    LEFT JOIN met_data_overview_label_relation b
+                                              ON a.id = b.overview_id
+                           WHERE a.is_deleted = 0
+                             AND b.is_delete = 0
+                             AND b.label_id = #{labelId}) and c.dw_name_en = #{dwNameEn}
     </select>
 </mapper>
