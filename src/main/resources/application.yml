@@ -5,7 +5,7 @@ spring:
   application:
     name: bigdata
   profiles:
-    active: prod
+    active: dev
   jackson:
     #  格式化返回时间 yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
@@ -54,17 +54,19 @@ secure:
       - /admin/info
       - /admin/logout
       # 测试开放
-#      - /dw/**
-#      - /ass/**
-#      - /norm/**
-#      - /homepage/**
-#      - /dataasset/**
-#      - /res/**
-#      - /task/**
-#      - /explore/**
-#      - /source/**
-#      - /quality/**
-#
+      - /dw/**
+      - /ass/**
+      - /norm/**
+      - /homepage/**
+      - /dataasset/**
+      - /res/**
+      - /task/**
+      - /explore/**
+      - /source/**
+      - /quality/**
+      - /common/**
+
+
 # 1 共富大脑 2 青燕归巢 3 e家富
 dw:
   id: 1

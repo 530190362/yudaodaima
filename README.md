@@ -88,8 +88,11 @@ docker rm  <容器ID>
 docker rmi  <镜像ID>
 docker exec -it <容器ID> /bin/bash
 
+##################################################### docker
+百度...
+
 ##################################################### redis
-export REDIS_PORT=9004
+export REDIS_PORT=6379
 export DOCKER_USERNAME=myredis
 export REDIS_VERSION=6.0.8
 export REDIS_DATA=/data/redis

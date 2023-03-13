@@ -12,14 +12,14 @@ spring:
       matching-strategy: ant_path_matcher
   # mysql 配置
   datasource:
-    url: jdbc:mysql://124.221.163.103:9003/bigdata-backstage?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://hadoop:3306/bigdata-backstage?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
   # redis 配置
   redis:
-    host: 124.221.163.103 # Redis服务器地址
+    host: hadoop # Redis服务器地址
     database: 0 # Redis数据库索引（默认为0）
-    port: 9004 # Redis服务器连接端口
+    port: 6379 # Redis服务器连接端口
     password: 123456 # Redis服务器连接密码（默认为空）
     timeout: 3000 # 连接超时时间（毫秒）
 

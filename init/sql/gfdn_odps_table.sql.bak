@@ -171,6 +171,7 @@ from (select distinct tbl_name
 -- UNHEX(replace(replace(hex(tbl_comment), 'E280AC', ''), 'E280AD', ''))
 -- replace(replace(tbl_comment, CHAR(14844077), ''), char(14844076), '')
 drop function if exists UPDATE_WATERMARKING;
+
 create function UPDATE_WATERMARKING(sourceData varchar(255)) returns varchar(255)
     return UNHEX(replace(replace(hex(sourceData), 'E280AC', ''), 'E280AD', ''));
 

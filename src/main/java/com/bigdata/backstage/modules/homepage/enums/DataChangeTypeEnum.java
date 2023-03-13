@@ -13,11 +13,11 @@ import java.util.Objects;
 @AllArgsConstructor
 public enum DataChangeTypeEnum {
     /**
-     * 0:退款中
+     * 0:数据记录条数
      */
     TOTAL_COUNT(0, "数据记录条数"),
     /**
-     * 1:退款成功
+     * 1:数据占用空间
      */
     TOTAL_SIZE(1, "数据占用空间");
 
