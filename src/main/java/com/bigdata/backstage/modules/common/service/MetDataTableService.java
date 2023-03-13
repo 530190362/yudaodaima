@@ -33,7 +33,7 @@ public interface MetDataTableService extends IService<MetDataTable> {
     DataSourceTotalDto selectOdsTable(Integer dwId);
 
     //数据集成-折线图
-    List<DataSourceHistoryDto> selectOdsHistory(Integer limit);
+    List<DataSourceHistoryDto> selectOdsHistory(Integer limit,Integer dwId);
 
     //数据集成-表单(分页模糊查询)
     IPage<MetDataTable> selectOdsPage(DataSourcePageDto dto);

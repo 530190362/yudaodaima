@@ -70,8 +70,8 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
 
     //数据集成-折线图
     @Override
-    public List<DataSourceHistoryDto> selectOdsHistory(Integer limit) {
-        return baseMapper.selectOdsHistory(limit);
+    public List<DataSourceHistoryDto> selectOdsHistory(Integer limit,Integer dwId) {
+        return baseMapper.selectOdsHistory(limit,dwId);
     }
 
     //数据集成-表单(分页模糊查询)

@@ -37,5 +37,6 @@ public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
     // //数据集成-3个指标
     DataSourceTotalDto selectOdsIndex(@Param("dwId") Integer dwId);
 
-    List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit);
+    List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit,
+                                                @Param("dwId") Integer dwId);
 }
