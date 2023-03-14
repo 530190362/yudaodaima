@@ -4,23 +4,26 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.norm.model.NormDict">
-        <id column="id" property="id" />
-        <result column="name_code" property="nameCode" />
-        <result column="name" property="name" />
-        <result column="parent_id" property="parentId" />
-        <result column="desc" property="desc" />
-        <result column="tree_path" property="treePath" />
-        <result column="sort_value" property="sortValue" />
-        <result column="create_user" property="createUser" />
-        <result column="update_user" property="updateUser" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_deleted" property="isDeleted" />
+        <id column="id" property="id"/>
+        <result column="name_code" property="nameCode"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="desc" property="desc"/>
+        <result column="tree_path" property="treePath"/>
+        <result column="sort_value" property="sortValue"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
     <select id="getRuleList" resultType="java.util.Map">
-        select id,name from met_norm_dict where parent_id = '109' and is_deleted =0
+        select id, name
+        from met_norm_dict
+        where parent_id = '109'
+          and is_deleted = 0
     </select>
 
 </mapper>

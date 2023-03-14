@@ -67,7 +67,7 @@ public class DataQualityController {
 
     @ApiOperation(value = "获取规则类型列表")
     @GetMapping(value = "/getRuleList")
-    public CommonResult<List<Map<String,String>>> getRuleList() {
+    public CommonResult<List<Map<String, String>>> getRuleList() {
         List<Map<String, String>> ruleList = dataQualityService.getRuleList();
         return CommonResult.success(ruleList);
     }
@@ -92,14 +92,14 @@ public class DataQualityController {
     @ApiOperation(value = "规则新增修改")
     @PostMapping(value = "/addOrUpdateRule")
     public CommonResult addOrUpdateRule(@RequestBody MetQualityRule metQualityRule) {
-        if (metQualityRule.getId() == null){
+        if (metQualityRule.getId() == null) {
             boolean save = metQualityRuleService.save(metQualityRule);
             if (save) {
                 return CommonResult.success("新增成功");
             } else {
                 return CommonResult.failed("新增失败");
             }
-        }else {
+        } else {
             boolean update = metQualityRuleService.updateById(metQualityRule);
             if (update) {
                 return CommonResult.success("修改成功");
@@ -153,7 +153,7 @@ public class DataQualityController {
 
     @ApiOperation(value = "获取绑定规则列表")
     @GetMapping(value = "/getBindRuleList")
-    public CommonResult<List<Map<String,String>>> getBindRuleList() {
+    public CommonResult<List<Map<String, String>>> getBindRuleList() {
         List<Map<String, String>> ruleList = dataQualityService.getBindRuleList();
         return CommonResult.success(ruleList);
     }
@@ -161,14 +161,14 @@ public class DataQualityController {
     @ApiOperation(value = "任务新增修改")
     @PostMapping(value = "/addOrUpdateTask")
     public CommonResult addOrUpdateTask(@RequestBody MetQualityTask metQualityTask) {
-        if (metQualityTask.getId() == null){
+        if (metQualityTask.getId() == null) {
             boolean save = metQualityTaskService.save(metQualityTask);
             if (save) {
                 return CommonResult.success("新增成功");
             } else {
                 return CommonResult.failed("新增失败");
             }
-        }else {
+        } else {
             boolean update = metQualityTaskService.updateById(metQualityTask);
             if (update) {
                 return CommonResult.success("修改成功");
@@ -190,7 +190,7 @@ public class DataQualityController {
     }
 
     @ApiOperation(value = "任务上线下线")
-    @PostMapping (value = "/updateTask")
+    @PostMapping(value = "/updateTask")
     public CommonResult updateTask(@RequestBody TaskUpdateDto updateDto) {
         MetQualityTask qualityTask = metQualityTaskService.getById(updateDto.getId());
         qualityTask.setStatus(updateDto.getStatus());
@@ -211,7 +211,7 @@ public class DataQualityController {
 
     @ApiOperation(value = "获取任务名称")
     @GetMapping(value = "/getTaskList")
-    public CommonResult<List<Map<String,String>>> getTaskList() {
+    public CommonResult<List<Map<String, String>>> getTaskList() {
         List<Map<String, String>> ruleList = dataQualityService.getTaskList();
         return CommonResult.success(ruleList);
     }

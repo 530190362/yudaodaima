@@ -51,7 +51,7 @@ public class DataQualityServiceImpl implements DataQualityService {
         IPage<DataQualityRulePageVo> dataQualityRulePageVos = new Page<>();
         Page<MetQualityRule> metQualityRulePage = metQualityRuleMapper.selectPage(new Page<>(rulePageDto.getCurrent(), rulePageDto.getPageSize()),
                 new QueryWrapper<MetQualityRule>()
-                        .eq(rulePageDto.getProjectId() != null, "dw_id", rulePageDto.getProjectId())
+                        .eq("dw_id", rulePageDto.getProjectId())
                         .like(rulePageDto.getRuleName() != null && !"".equals(rulePageDto.getRuleName()), "rule_name", rulePageDto.getRuleName())
                         .eq(rulePageDto.getRuleType() != null, "rule_type", rulePageDto.getRuleType())
                         .orderByDesc("create_time"));
