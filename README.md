@@ -227,6 +227,22 @@ nohup java -jar bigdata-backstage-backend-1.0.0.jar &
 
 
 
+## 6、环境说明
+
+---
+
+````shell
+前端
+XX.XX.XX.40
+/home/micros/bigdata
+
+后端
+XX.XX.XX.38
+/home/micros/bigdata-backstage
+````
+
+
+
 ## #、参考连接
 
 ---
