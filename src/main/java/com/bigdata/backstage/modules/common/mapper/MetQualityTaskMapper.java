@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.common.mapper;
 
 import com.bigdata.backstage.modules.common.model.MetQualityTask;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -17,5 +18,5 @@ import java.util.Map;
 public interface MetQualityTaskMapper extends BaseMapper<MetQualityTask> {
 
 
-    List<Map<String,String>> getTaskList() ;
+    List<Map<String,String>> getTaskList(@Param("dwId") Integer dwId) ;
 }

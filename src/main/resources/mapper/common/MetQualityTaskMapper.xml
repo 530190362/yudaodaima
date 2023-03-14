@@ -4,28 +4,32 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.bigdata.backstage.modules.common.model.MetQualityTask">
-        <id column="id" property="id" />
-        <result column="dw_id" property="dwId" />
-        <result column="task_name" property="taskName" />
-        <result column="task_comment" property="taskComment" />
-        <result column="monitor_num" property="monitorNum" />
-        <result column="warn_num" property="warnNum" />
-        <result column="rule_id" property="ruleId" />
-        <result column="bind_tbl" property="bindTbl" />
-        <result column="bind_col" property="bindCol" />
-        <result column="target_begin" property="targetBegin" />
-        <result column="target_end" property="targetEnd" />
-        <result column="monitor_freq" property="monitorFreq" />
-        <result column="create_user" property="createUser" />
-        <result column="update_user" property="updateUser" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="status" property="status" />
-        <result column="is_delete" property="isDelete" />
+        <id column="id" property="id"/>
+        <result column="dw_id" property="dwId"/>
+        <result column="task_name" property="taskName"/>
+        <result column="task_comment" property="taskComment"/>
+        <result column="monitor_num" property="monitorNum"/>
+        <result column="warn_num" property="warnNum"/>
+        <result column="rule_id" property="ruleId"/>
+        <result column="bind_tbl" property="bindTbl"/>
+        <result column="bind_col" property="bindCol"/>
+        <result column="target_begin" property="targetBegin"/>
+        <result column="target_end" property="targetEnd"/>
+        <result column="monitor_freq" property="monitorFreq"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_delete" property="isDelete"/>
     </resultMap>
 
     <select id="getTaskList" resultType="java.util.Map">
-        select id,task_name from met_quality_task where is_delete =0 group by id,task_name
+        select id, task_name
+        from met_quality_task
+        where is_delete = 0
+        and dw_id = #{dwId}
+        group by id, task_name
     </select>
 
 </mapper>

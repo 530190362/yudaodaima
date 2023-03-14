@@ -211,8 +211,8 @@ public class DataQualityController {
 
     @ApiOperation(value = "获取任务名称")
     @GetMapping(value = "/getTaskList")
-    public CommonResult<List<Map<String, String>>> getTaskList() {
-        List<Map<String, String>> ruleList = dataQualityService.getTaskList();
+    public CommonResult<List<Map<String, String>>> getTaskList(Integer dwId) {
+        List<Map<String, String>> ruleList = dataQualityService.getTaskList(dwId);
         return CommonResult.success(ruleList);
     }
 }

@@ -25,5 +25,5 @@ public interface DataQualityService {
 
     IPage<DataQualityWarnPageVo> getpageWarnlist(WarnPageDto warnPageDto);
 
-    List<Map<String,String>> getTaskList();
+    List<Map<String,String>> getTaskList(Integer dwId);
 }

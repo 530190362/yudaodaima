@@ -62,9 +62,6 @@ public class MetDataSourceController {
     @ApiOperation(value = "数据集成-折线图")
     @GetMapping(value = "/history")
     public CommonResult odsHistoryIndex(Integer limit, Integer dwId) {
-        System.out.println(dwId);
-        System.out.println(limit);
-        System.out.println("---");
         List<DataSourceHistoryDto> resutList = metDataTableService.selectOdsHistory(limit, dwId);
         return CommonResult.success(resutList);
     }

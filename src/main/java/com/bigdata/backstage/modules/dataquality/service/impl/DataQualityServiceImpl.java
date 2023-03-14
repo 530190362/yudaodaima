@@ -151,7 +151,7 @@ public class DataQualityServiceImpl implements DataQualityService {
     }
 
     @Override
-    public List<Map<String, String>> getTaskList() {
-        return metQualityTaskMapper.getTaskList();
+    public List<Map<String, String>> getTaskList(Integer dwId) {
+        return metQualityTaskMapper.getTaskList(dwId);
     }
 }
