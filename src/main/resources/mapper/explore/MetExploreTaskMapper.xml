@@ -40,6 +40,7 @@
                      num
               from ((select dt, table_name, count(*) as num
                      from view_met_quality
+                     WHERE dw_id = #{dwId}
                      group by dt, table_name) t1
                   left join met_data_table t2
                     on t1.table_name = t2.tbl_name)) t3
@@ -51,13 +52,14 @@
 
 
     <select id="selectTotal" resultMap="selectIndexMap">
-        SELECT count(*)       as total_tables
-             , sum(row_count) as total_rows
-             , sum(col_num)   as total_columns
+        SELECT ifnull(count(*), 0)       as total_tables
+             , ifnull(sum(row_count), 0) as total_rows
+             , ifnull(sum(col_num), 0)   as total_columns
         FROM (select dt, table_name, count(*) as col_num, row_count
               from view_met_quality t1
                        left join met_data_table t2
                                  on t1.table_name = t2.tbl_name
+              WHERE t1.dw_id = #{dwId}
               group by dt, table_name, row_count) t3;
 
     </select>
@@ -71,6 +73,7 @@
               from (select table_name, count(*) as num
                     from view_met_quality
                     where dt = current_date()
+                      and dw_id = #{dwId}
                     group by table_name) t1
                        left join met_data_table t2
                                  on t1.table_name = t2.tbl_name) t3

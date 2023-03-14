@@ -21,8 +21,8 @@ public interface MetExploreTaskService extends IService<MetExploreTask> {
     void add(MetExploreTask metExploreTask);
 
     //探查概览(指标)
-    MetExploreViewIndexDto getViewTotal();
+    MetExploreViewIndexDto getViewTotal(Integer dwId);
 
     //探查概览(折线图)
-    List<MetExploreViewHistoryDto> getViewHistory(Integer limit);
+    List<MetExploreViewHistoryDto> getViewHistory(Integer limit,Integer dwId);
 }

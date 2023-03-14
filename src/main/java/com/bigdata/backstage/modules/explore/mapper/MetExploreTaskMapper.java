@@ -20,9 +20,9 @@ import java.util.Map;
 public interface MetExploreTaskMapper extends BaseMapper<MetExploreTask> {
 
 
-    List<MetExploreViewHistoryDto> selectHistory(@Param("limit") Integer limit);
+    List<MetExploreViewHistoryDto> selectHistory(@Param("limit") Integer limit,@Param("dwId") Integer dwId);
 
-    MetExploreViewIndexDto selectTotal();
+    MetExploreViewIndexDto selectTotal(@Param("dwId") Integer dwId);
 
-    MetExploreViewIndexDto selectToday();
+    MetExploreViewIndexDto selectToday(@Param("dwId") Integer dwId);
 }

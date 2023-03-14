@@ -41,9 +41,9 @@ public class MetExploreTaskServiceImpl extends ServiceImpl<MetExploreTaskMapper,
 
     //探查概览(指标)
     @Override
-    public MetExploreViewIndexDto getViewTotal() {
-        MetExploreViewIndexDto totalResult = baseMapper.selectTotal();
-        MetExploreViewIndexDto todayResult = baseMapper.selectToday();
+    public MetExploreViewIndexDto getViewTotal(Integer dwId) {
+        MetExploreViewIndexDto totalResult = baseMapper.selectTotal(dwId);
+        MetExploreViewIndexDto todayResult = baseMapper.selectToday(dwId);
 
         MetExploreViewIndexDto metExploreViewIndexDto = new MetExploreViewIndexDto();
         metExploreViewIndexDto.setTotalRows(totalResult.getTotalRows());
@@ -57,8 +57,8 @@ public class MetExploreTaskServiceImpl extends ServiceImpl<MetExploreTaskMapper,
 
     //探查概览(折线图)
     @Override
-    public List<MetExploreViewHistoryDto> getViewHistory(Integer limit) {
-        List<MetExploreViewHistoryDto>  result = baseMapper.selectHistory(limit);
+    public List<MetExploreViewHistoryDto> getViewHistory(Integer limit,Integer dwId) {
+        List<MetExploreViewHistoryDto>  result = baseMapper.selectHistory(limit,dwId);
         return result;
     }
 }

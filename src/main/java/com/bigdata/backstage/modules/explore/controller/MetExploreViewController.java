@@ -23,15 +23,20 @@ public class MetExploreViewController {
 
     @ApiOperation(value = "探查概览(指标)")
     @GetMapping("/total")
-    public CommonResult total() {
-        MetExploreViewIndexDto metExploreViewIndexDto = metExploreTaskService.getViewTotal();
+    public CommonResult total(Integer dwId) {
+        System.out.println(dwId);
+        System.out.println("-----");
+        MetExploreViewIndexDto metExploreViewIndexDto = metExploreTaskService.getViewTotal(dwId);
         return CommonResult.success(metExploreViewIndexDto);
     }
 
     @ApiOperation(value = "探查概览(折线图)")
-    @GetMapping("/history/{limit}")
-    public CommonResult history(@PathVariable Integer limit) {
-        List<MetExploreViewHistoryDto> resultList = metExploreTaskService.getViewHistory(limit);
+    @GetMapping("/history")
+    public CommonResult history(Integer limit, Integer dwId) {
+        System.out.println(limit);
+        System.out.println(dwId);
+        System.out.println("---");
+        List<MetExploreViewHistoryDto> resultList = metExploreTaskService.getViewHistory(limit, dwId);
         return CommonResult.success(resultList);
     }
 
