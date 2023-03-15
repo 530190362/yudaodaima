@@ -31,7 +31,7 @@ public class HomePageController {
     @ApiOperation(value = "数据资产概览")
     @GetMapping("dataoverview/{dwId}")
     @ResponseBody
-    public CommonResult<Map<String, Object>> getDataOverview(@PathVariable Long dwId) {
+    public CommonResult<Map<String, Object>> getDataOverview(@PathVariable Integer dwId) {
         System.out.println(dwId);
         Map<String, Object> data = homePageService.getDataOverview(dwId);
         return CommonResult.success(data);

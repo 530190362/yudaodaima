@@ -98,8 +98,8 @@ public class DataAssetController {
 
     @ApiOperation(value = "字段信息查询")
     @GetMapping(value = "/getDataField")
-    public CommonResult<List<DataFiledVo>> queryDataField(String tblName) {
-        List<DataFiledVo> dataFiledVos = dataAssetService.queryDataField(tblName);
+    public CommonResult<List<DataFiledVo>> queryDataField(String tblName,Integer dwId) {
+        List<DataFiledVo> dataFiledVos = dataAssetService.queryDataField(tblName,dwId);
         return CommonResult.success(dataFiledVos);
     }
 

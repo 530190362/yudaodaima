@@ -22,7 +22,7 @@ public interface HomePageService {
      * 首页概览-数据统计
      * @return
      */
-    Map<String, Object> getDataOverview(Long dwId);
+    Map<String, Object> getDataOverview(Integer dwId);
 
     /**
      * 数据资产（记录数）变化

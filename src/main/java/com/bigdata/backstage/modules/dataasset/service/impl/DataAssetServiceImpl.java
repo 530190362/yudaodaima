@@ -99,8 +99,8 @@ public class DataAssetServiceImpl implements DataAssetService {
 
 
     @Override
-    public List<DataFiledVo> queryDataField(String tblName) {
-        return metDetailOutlineMapper.queryDataField(tblName);
+    public List<DataFiledVo> queryDataField(String tblName,Integer dwId) {
+        return metDetailOutlineMapper.queryDataField(tblName,dwId);
     }
 
     @Override

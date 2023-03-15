@@ -106,18 +106,25 @@
     </update>
 
 
-    <select id="selectOdsIndex" resultMap="sourceTotalMap">
+    <select id="selectOdsIndexGfdn" resultMap="sourceTotalMap">
         select count(*)                       as tables,
                round(sum(tbl_size) / 1024, 2) as size,
                sum(row_count)                 as rows
-        from view_met_data_table
-        where dw_Id = #{dwId}
+        from view_dim_gfdn_meta_detail_outline
+        where dt=( select max(dt) from view_dim_gfdn_meta_detail_outline  )
           and tbl_level = 'ods';
+    </select>
 
+    <select id="selectOdsIndexQygc" resultMap="sourceTotalMap">
+        select count(*)                       as tables,
+               round(sum(tbl_size) / 1024, 2) as size,
+               sum(row_count)                 as rows
+        from view_dim_qygc_meta_detail_outline
+        where dt=( select max(dt) from view_dim_qygc_meta_detail_outline  )
+          and tbl_level = 'ods';
     </select>
 
     <select id="selectOdsHistory" resultMap="sourceTotalHistoryMap">
-
         select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
              , count(*)                                           as ods
              , sum(is_irs)                                        as irs
@@ -128,6 +135,38 @@
               from view_met_detail_outline
               where tbl_level = 'ods'
                 and dw_id = #{dwId}
+              group by dt, tbl_name) t1
+        group by dt
+        order by dt
+        limit #{limit};
+    </select>
+
+    <select id="selectOdsHistoryGfdn" resultMap="sourceTotalHistoryMap">
+        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
+             , count(*)                                           as ods
+             , sum(is_irs)                                        as irs
+             , sum(is_bms)                                        as bms
+        from (select dt,
+                     if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
+                     if(locate('_bms_', tbl_name) > 0, 1, 0) as is_bms
+              from view_dim_gfdn_meta_detail_outline
+              where tbl_level = 'ods'
+              group by dt, tbl_name) t1
+        group by dt
+        order by dt
+        limit #{limit};
+    </select>
+
+    <select id="selectOdsHistoryQygc" resultMap="sourceTotalHistoryMap">
+        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
+             , count(*)                                           as ods
+             , sum(is_irs)                                        as irs
+             , sum(is_bms)                                        as bms
+        from (select dt,
+                     if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
+                     if(locate('_bms_', tbl_name) > 0, 1, 0) as is_bms
+              from view_dim_qygc_meta_detail_outline
+              where tbl_level = 'ods'
               group by dt, tbl_name) t1
         group by dt
         order by dt

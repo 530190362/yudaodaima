@@ -202,3 +202,61 @@ select dw_id,
        is_only_value
 from met_explore_report;
 
+
+
+-- ------------------------------------------------------
+create or replace view `view_dim_gfdn_meta_detail_outline`
+as
+select
+      tbl_level
+     , tbl_name
+     , tbl_comment
+     , col_name
+     , col_type
+     , col_comment
+     , tbl_col_num
+     , all_row_count
+     , row_count
+     , index1_name
+     , index2_name
+     , index3_name
+     , is_pt
+     , pt_last
+     , tbl_create_time
+     , tbl_update_time
+     , tbl_lifecycle
+     , tbl_type
+     , tbl_size
+     , etl_tm
+     , dt
+from gfdn_odps_export.dim_gfdn_meta_detail_outline;
+
+
+create or replace view `view_dim_qygc_meta_detail_outline`
+as
+select
+    tbl_level
+     , tbl_name
+     , tbl_comment
+     , col_name
+     , col_type
+     , col_comment
+     , tbl_col_num
+     , all_row_count
+     , row_count
+     , index1_name
+     , index2_name
+     , index3_name
+     , is_pt
+     , pt_last
+     , tbl_create_time
+     , tbl_update_time
+     , tbl_lifecycle
+     , tbl_type
+     , tbl_size
+     , etl_tm
+     , dt
+from gfdn_odps_export.dim_qygc_meta_detail_outline;
+
+
+

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bigdata.backstage.common.exception.Asserts;
 import com.bigdata.backstage.modules.common.mapper.MetDataTableMapper;
 import com.bigdata.backstage.modules.common.mapper.MetDwInfoMapper;
 import com.bigdata.backstage.modules.common.model.MetDataTable;
@@ -65,13 +66,29 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
     //数据集成-3个指标
     @Override
     public DataSourceTotalDto selectOdsTable(Integer dwId) {
-        return baseMapper.selectOdsIndex(dwId);
+        DataSourceTotalDto dataSourceTotalDto = null;
+        if (dwId == 1) {
+            dataSourceTotalDto = baseMapper.selectOdsIndexGfdn();
+        } else if (dwId == 2) {
+            dataSourceTotalDto = baseMapper.selectOdsIndexQygc();
+        } else {
+            Asserts.fail("数仓id错误");
+        }
+        return dataSourceTotalDto;
     }
 
     //数据集成-折线图
     @Override
-    public List<DataSourceHistoryDto> selectOdsHistory(Integer limit,Integer dwId) {
-        return baseMapper.selectOdsHistory(limit,dwId);
+    public List<DataSourceHistoryDto> selectOdsHistory(Integer limit, Integer dwId) {
+        List<DataSourceHistoryDto> dataSourceHistoryDtos = null;
+        if (dwId == 1) {
+            dataSourceHistoryDtos = baseMapper.selectOdsHistoryGfdn(limit);
+        } else if (dwId == 2) {
+            dataSourceHistoryDtos = baseMapper.selectOdsHistoryQygc(limit);
+        } else {
+            Asserts.fail("数仓id错误");
+        }
+        return dataSourceHistoryDtos;
     }
 
     //数据集成-表单(分页模糊查询)

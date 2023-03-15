@@ -22,7 +22,7 @@ public interface DataAssetService {
      * @param tblName
      * @return
      */
-    List<DataFiledVo> queryDataField(String tblName);
+    List<DataFiledVo> queryDataField(String tblName,Integer dwId);
 
     IPage<DataLabelVo> labelPageQuery(DataLabelDto dataLabelDto);
 

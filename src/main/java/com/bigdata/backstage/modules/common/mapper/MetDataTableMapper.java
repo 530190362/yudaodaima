@@ -19,7 +19,6 @@ import java.util.List;
 public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
 
 
-
     //数据写入
     void syncTableInsert(@Param("dwId") Integer dwId);
 
@@ -35,8 +34,17 @@ public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
     void syncColumnRecover(@Param("dwId") Integer dwId);
 
     // //数据集成-3个指标
-    DataSourceTotalDto selectOdsIndex(@Param("dwId") Integer dwId);
+    DataSourceTotalDto selectOdsIndexGfdn();
+
+    DataSourceTotalDto selectOdsIndexQygc();
+
 
     List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit,
                                                 @Param("dwId") Integer dwId);
+
+    List<DataSourceHistoryDto> selectOdsHistoryGfdn(@Param("limit") Integer limit
+    );
+
+    List<DataSourceHistoryDto> selectOdsHistoryQygc(@Param("limit") Integer limit
+    );
 }
