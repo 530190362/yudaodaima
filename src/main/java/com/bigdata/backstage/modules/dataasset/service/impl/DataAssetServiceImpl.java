@@ -63,14 +63,16 @@ public class DataAssetServiceImpl implements DataAssetService {
                 records = dataOverviewPage.getRecords();
             }
         }
+        MetDwInfo metDwInfo = metDwInfoService.getById(dataAssetDto.getDwId());
+        String dwNameZn = metDwInfo.getDwNameZn();
+
         if (!records.isEmpty()) {
             ArrayList<DataAssetVo> dataAssetVos = new ArrayList<>();
             for (MetDataTable record : records) {
                 DataAssetVo dataAssetVo = new DataAssetVo();
                 BeanUtils.copyProperties(record, dataAssetVo);
                 dataAssetVo.setTblSize(record.getTblSize().setScale(2, RoundingMode.HALF_UP));
-                MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
-                dataAssetVo.setProjectName(metDwInfo.getDwNameZn());
+                dataAssetVo.setProjectName(dwNameZn);
                 dataAssetVos.add(dataAssetVo);
             }
             dataAssetVoPage.setRecords(dataAssetVos);

@@ -110,18 +110,22 @@
         select count(*)                       as tables,
                round(sum(tbl_size) / 1024, 2) as size,
                sum(row_count)                 as rows
-        from view_dim_gfdn_meta_detail_outline
-        where dt=( select max(dt) from view_dim_gfdn_meta_detail_outline  )
-          and tbl_level = 'ods';
+        from (SELECT tbl_name, tbl_size, row_count
+              from view_dim_gfdn_meta_detail_outline
+              where dt = (select max(dt) from view_dim_gfdn_meta_detail_outline)
+                and tbl_level = 'ods'
+              GROUP BY tbl_name, tbl_size, row_count) t
     </select>
 
     <select id="selectOdsIndexQygc" resultMap="sourceTotalMap">
         select count(*)                       as tables,
                round(sum(tbl_size) / 1024, 2) as size,
                sum(row_count)                 as rows
-        from view_dim_qygc_meta_detail_outline
-        where dt=( select max(dt) from view_dim_qygc_meta_detail_outline  )
-          and tbl_level = 'ods';
+        from (SELECT tbl_name, tbl_size, row_count
+              from view_dim_qygc_meta_detail_outline
+              where dt = (select max(dt) from view_dim_qygc_meta_detail_outline)
+                and tbl_level = 'ods'
+              GROUP BY tbl_name, tbl_size, row_count) t
     </select>
 
     <select id="selectOdsHistory" resultMap="sourceTotalHistoryMap">
