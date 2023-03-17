@@ -46,9 +46,11 @@ public class NormRoot implements Serializable {
     private String nameShortEn;
 
     @ApiModelProperty("创建人")
+    @JsonIgnore
     private String createUser;
 
     @ApiModelProperty("更新人")
+    @JsonIgnore
     private String updateUser;
 
     @ApiModelProperty("创建时间")

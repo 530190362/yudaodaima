@@ -50,9 +50,11 @@ public class NormDict implements Serializable {
     private Integer sortValue;
 
     @ApiModelProperty("创建人")
+    @JsonIgnore
     private String createUser;
 
     @ApiModelProperty("更新人")
+    @JsonIgnore
     private String updateUser;
 
     @ApiModelProperty("状态（1正常 0停用）")

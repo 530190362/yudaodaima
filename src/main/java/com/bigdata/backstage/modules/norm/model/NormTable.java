@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -50,9 +52,11 @@ public class NormTable implements Serializable {
     private String exampleNameEn;
 
     @ApiModelProperty("创建人")
+    @JsonIgnore
     private String createUser;
 
     @ApiModelProperty("更新人")
+    @JsonIgnore
     private String updateUser;
 
     @ApiModelProperty("创建时间")

@@ -44,9 +44,11 @@ public class NormNode implements Serializable {
     private String nodeDesc;
 
     @ApiModelProperty("创建人")
+    @JsonIgnore
     private String createUser;
 
     @ApiModelProperty("更新人")
+    @JsonIgnore
     private String updateUser;
 
     @ApiModelProperty("创建时间")
