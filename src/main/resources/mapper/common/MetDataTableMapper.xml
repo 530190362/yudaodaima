@@ -152,7 +152,7 @@
              , sum(is_bms)                                        as bms
         from (select dt,
                      if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
-                     if(locate('_bms_', tbl_name) > 0, 1, 0) as is_bms
+                     if(locate('_bms_', tbl_name) > 0 or locate('_mysql_', tbl_name) > 0, 1, 0) as is_bms
               from view_dim_gfdn_meta_detail_outline
               where tbl_level = 'ods'
               group by dt, tbl_name) t1
@@ -168,7 +168,7 @@
              , sum(is_bms)                                        as bms
         from (select dt,
                      if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
-                     if(locate('_bms_', tbl_name) > 0, 1, 0) as is_bms
+                     if(locate('_bms_', tbl_name) > 0 or locate('_mysql_', tbl_name) > 0, 1, 0) as is_bms
               from view_dim_qygc_meta_detail_outline
               where tbl_level = 'ods'
               group by dt, tbl_name) t1
