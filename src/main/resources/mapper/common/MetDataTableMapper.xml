@@ -134,15 +134,15 @@
              , sum(is_irs)                                        as irs
              , sum(is_bms)                                        as bms
         from (select dt,
-                     if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
-                     if(locate('_bms_', tbl_name) > 0, 1, 0) as is_bms
-              from view_met_detail_outline
-              where tbl_level = 'ods'
-                and dw_id = #{dwId}
-              group by dt, tbl_name) t1
+            if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
+            if(locate('_bms_', tbl_name) > 0 or locate('_mysql_', tbl_name) > 0, 1, 0) as is_bms
+            from view_met_detail_outline
+            where tbl_level = 'ods'
+            and dw_id = #{dwId}
+            group by dt, tbl_name) t1
         group by dt
         order by dt
-        limit #{limit};
+            limit #{limit};
     </select>
 
     <select id="selectOdsHistoryGfdn" resultMap="sourceTotalHistoryMap">
