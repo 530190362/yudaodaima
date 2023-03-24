@@ -137,6 +137,8 @@ public class DataQualityServiceImpl implements DataQualityService {
                 BeanUtils.copyProperties(record, warnPageVo);
                 MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
                 warnPageVo.setProjectName(metDwInfo.getDwNameZn());
+                MetQualityTask qualityTask = metQualityTaskMapper.selectById(record.getTaskId());
+                warnPageVo.setTaskName(qualityTask.getTaskName());
                 NormDict normDict = normDictService.getById(record.getRuleType());
                 warnPageVo.setRuleTypeName(normDict.getName());
                 dataQualityWarnPage.add(warnPageVo);
