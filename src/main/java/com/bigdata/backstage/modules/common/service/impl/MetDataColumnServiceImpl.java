@@ -40,7 +40,7 @@ public class MetDataColumnServiceImpl extends ServiceImpl<MetDataColumnMapper, M
             System.out.println(dwId);
             baseMapper.syncColumnInsert(dwId);
             baseMapper.syncColumnUpdate(dwId);
-            baseMapper.syncColumnDelete(dwId);
+//            baseMapper.syncColumnDelete(dwId);
             baseMapper.syncColumnRecover(dwId);
         }
 

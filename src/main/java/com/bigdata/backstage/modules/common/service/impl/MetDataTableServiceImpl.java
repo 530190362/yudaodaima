@@ -48,8 +48,7 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
             System.out.println(dwId);
             baseMapper.syncTableInsert(dwId);
             baseMapper.syncTableUpdate(dwId);
-            baseMapper.syncTableDelete(dwId);
-            baseMapper.syncColumnRecover(dwId);
+//            baseMapper.syncTableDelete(dwId);
         }
 
     }

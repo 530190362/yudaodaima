@@ -1,3 +1,12 @@
+create or replace view `view_max_dt` as
+select max(dt) as dt
+from (select dt, count(*)
+      from (select dt, dw_id
+            from view_met_detail_outline
+            group by dt, dw_id) t1
+      group by dt
+      having count(*) = 2) t2;
+
 -- 元数据宽表
 create or replace view `view_met_detail_outline`
 as
@@ -154,8 +163,8 @@ from (select dw_id,
              all_row_count,
              row_count
       from view_met_detail_outline
-      where dt = (select max(dt)
-                  from view_met_detail_outline)) t
+      where dt = (select dt
+                  from view_max_dt)) t
 group by dw_id, tbl_name;
 
 
@@ -165,8 +174,8 @@ as
 select dw_id, tbl_name, col_name, col_type, col_comment
 from (select dw_id, tbl_name, col_name, col_type, col_comment
       from view_met_detail_outline
-      where dt = (select max(dt)
-                  from view_met_detail_outline)) t
+      where dt = (select dt
+                  from view_max_dt)) t
 group by dw_id, tbl_name, col_name, col_type, col_comment;
 
 
@@ -207,8 +216,7 @@ from met_explore_report;
 -- ------------------------------------------------------
 create or replace view `view_dim_gfdn_meta_detail_outline`
 as
-select
-      tbl_level
+select tbl_level
      , tbl_name
      , tbl_comment
      , col_name
@@ -234,8 +242,7 @@ from gfdn_odps_export.dim_gfdn_meta_detail_outline;
 
 create or replace view `view_dim_qygc_meta_detail_outline`
 as
-select
-    tbl_level
+select tbl_level
      , tbl_name
      , tbl_comment
      , col_name
