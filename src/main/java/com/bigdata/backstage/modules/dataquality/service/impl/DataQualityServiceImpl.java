@@ -138,9 +138,13 @@ public class DataQualityServiceImpl implements DataQualityService {
                 MetDwInfo metDwInfo = metDwInfoService.getById(record.getDwId());
                 warnPageVo.setProjectName(metDwInfo.getDwNameZn());
                 MetQualityTask qualityTask = metQualityTaskMapper.selectById(record.getTaskId());
-                warnPageVo.setTaskName(qualityTask.getTaskName());
+                if (qualityTask!=null){
+                    warnPageVo.setTaskName(qualityTask.getTaskName());
+                }
                 NormDict normDict = normDictService.getById(record.getRuleType());
-                warnPageVo.setRuleTypeName(normDict.getName());
+                if (normDict!=null){
+                    warnPageVo.setRuleTypeName(normDict.getName());
+                }
                 dataQualityWarnPage.add(warnPageVo);
             }
             dataQualityRulePageVos.setRecords(dataQualityWarnPage);
