@@ -99,11 +99,44 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
         Page<MetDataTable> pageParam = new Page<>(pageNum, pageSize);
         //多表联查及其分页
         MPJLambdaWrapper<MetDataTable> joinMrapper = new MPJLambdaWrapper<>();
-        joinMrapper.selectAll(MetDataTable.class)
-                .selectAll(MetDataTable.class)
-                .selectAs(MetDwInfo::getDwNameZn, MetDataTable::getDwName)
-                .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
-                .likeRight("tbl_name", "ods_" + dto.getSourceCode() + "_");
+        String sourceCode = dto.getSourceCode();
+        if (sourceCode.equals("bms")) {
+            joinMrapper.selectAll(MetDataTable.class)
+                    .selectAll(MetDataTable.class)
+                    .selectAs(MetDwInfo::getDwNameZn, MetDataTable::getDwName)
+                    .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
+                    .likeRight("tbl_name", "ods_mysql_")
+                    .or()
+                    .likeRight("tbl_name", "ods_farmer_")
+                    .or()
+                    .likeRight("tbl_name", "ods_mz_" )
+                    .or()
+                    .likeRight("tbl_name", "ods_hp_")
+                    .or()
+                    .likeRight("tbl_name", "ods_xx_")
+                    .or()
+                    .likeRight("tbl_name", "ods_global_")
+                    .or()
+                    .likeRight("tbl_name", "ods_hh_");
+        } else if (sourceCode.equals("ofl")) {
+            joinMrapper.selectAll(MetDataTable.class)
+                    .selectAll(MetDataTable.class)
+                    .selectAs(MetDwInfo::getDwNameZn, MetDataTable::getDwName)
+                    .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
+                    .likeRight("tbl_name", "ods_off_");
+        } else if (sourceCode.equals("pr")) {
+            joinMrapper.selectAll(MetDataTable.class)
+                    .selectAll(MetDataTable.class)
+                    .selectAs(MetDwInfo::getDwNameZn, MetDataTable::getDwName)
+                    .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
+                    .likeRight("tbl_name", "ods_pr_");
+        } else {
+            joinMrapper.selectAll(MetDataTable.class)
+                    .selectAll(MetDataTable.class)
+                    .selectAs(MetDwInfo::getDwNameZn, MetDataTable::getDwName)
+                    .leftJoin(MetDwInfo.class, MetDwInfo::getId, MetDataTable::getDwId)
+                    .likeRight("tbl_name", "ods_irs_");
+        }
         String name = dto.getTableName();
         if (!StrUtil.isEmpty(name)) {
             joinMrapper.like("tbl_name", name);
