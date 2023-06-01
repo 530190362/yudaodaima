@@ -30,9 +30,5 @@ logging:
     root: info
     com.bigdata.backstage: debug
 
-# 集群信息
-cluster:
-  hadoop: http://124.221.162.229:9870/
-  neo4j: http://124.221.163.103:9006/browser/
-  docker: http://124.221.163.103:9000/
+
 

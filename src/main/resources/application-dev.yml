@@ -12,15 +12,15 @@ spring:
       matching-strategy: ant_path_matcher
   # mysql 配置
   datasource:
-    url: jdbc:mysql://hadoop:3306/bigdata-backstage?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://120.55.75.238:13316/bigdata-backstage?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
-    password: 123456
+    password: Test806@mysqlYitong
   # redis 配置
   redis:
-    host: hadoop # Redis服务器地址
+    host: 120.55.75.238 # Redis服务器地址
     database: 0 # Redis数据库索引（默认为0）
-    port: 6379 # Redis服务器连接端口
-    password: 123456 # Redis服务器连接密码（默认为空）
+    port: 16379 # Redis服务器连接端口
+    password: tzgfdn # Redis服务器连接密码（默认为空）
     timeout: 3000 # 连接超时时间（毫秒）
 
 logging:
@@ -29,10 +29,4 @@ logging:
   level:
     root: info
     com.bigdata.backstage: debug
-
-# 集群信息
-cluster:
-  hadoop: http://124.221.162.229:9870/
-  neo4j: http://124.221.163.103:9006/browser/
-  docker: http://124.221.163.103:9000/
 
