@@ -35,18 +35,17 @@
                count(*)       as num,
                sum(row_count) as row_count,
                sum(num)       as tbl_col_num
-        from (select dt as create_date,
-                     row_count,
-                     num
-              from ((select dt, table_name, count(*) as num
-                     from view_met_quality
-                     WHERE dw_id = #{dwId}
-                     group by dt, table_name) t1
-                  left join met_data_table t2
+        from (select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as create_date,
+                                 row_count,
+                                 num
+                                 from ((select dt, table_name, count(*) as num
+                                        from ${tableName}
+                                        group by dt, table_name) t1
+                    left join met_data_table t2
                     on t1.table_name = t2.tbl_name)) t3
-        GROUP BY create_date
-        order by create_date
-        limit #{limit};
+              GROUP BY create_date
+              order by create_date
+              limit #{limit};
 
     </select>
 
@@ -56,10 +55,9 @@
              , ifnull(sum(row_count), 0) as total_rows
              , ifnull(sum(col_num), 0)   as total_columns
         FROM (select dt, table_name, count(*) as col_num, row_count
-              from view_met_quality t1
+              from ${tableName} t1
                        left join met_data_table t2
                                  on t1.table_name = t2.tbl_name
-              WHERE t1.dw_id = #{dwId}
               group by dt, table_name, row_count) t3;
 
     </select>
@@ -71,9 +69,8 @@
                      num * row_count   as row_count,
                      num * tbl_col_num as tbl_col_num
               from (select table_name, count(*) as num
-                    from view_met_quality
+                    from ${tableName}
                     where dt = current_date()
-                      and dw_id = #{dwId}
                     group by table_name) t1
                        left join met_data_table t2
                                  on t1.table_name = t2.tbl_name) t3

@@ -1,4 +1,4 @@
-package com.bigdata.backstage.modules.explore.controller;
+package com.bigdata.backstage.modules.baseMapper.controller;
 
 import com.bigdata.backstage.common.api.CommonResult;
 import com.bigdata.backstage.modules.explore.dto.MetExploreViewHistoryDto;

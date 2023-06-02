@@ -1,7 +1,9 @@
 package com.bigdata.backstage.modules.explore.service.impl;
 
 import com.bigdata.backstage.common.exception.Asserts;
+import com.bigdata.backstage.modules.common.model.MetDwTableMapInfo;
 import com.bigdata.backstage.modules.common.service.MetDataTableService;
+import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.explore.dto.MetExploreViewHistoryDto;
 import com.bigdata.backstage.modules.explore.dto.MetExploreViewIndexDto;
 import com.bigdata.backstage.modules.explore.model.MetExploreTask;
@@ -28,6 +30,18 @@ public class MetExploreTaskServiceImpl extends ServiceImpl<MetExploreTaskMapper,
     @Autowired
     private MetDataTableService metDataTableService;
 
+
+    @Autowired
+    private MetDwInfoService metDwInfoService;
+
+
+    // 获取数仓的映射名
+    public String getTableNameMetaQuality(Integer dwId) {
+        MetDwTableMapInfo dwMapInfo = metDwInfoService.getDwMapInfo(dwId);
+        // 获取需要查询的表名
+        return dwMapInfo.getMapMetaQuality();
+    }
+
     //添加数据勘探
     @Override
     public void add(MetExploreTask metExploreTask) {
@@ -39,11 +53,13 @@ public class MetExploreTaskServiceImpl extends ServiceImpl<MetExploreTaskMapper,
         }
     }
 
+
     //探查概览(指标)
     @Override
     public MetExploreViewIndexDto getViewTotal(Integer dwId) {
-        MetExploreViewIndexDto totalResult = baseMapper.selectTotal(dwId);
-        MetExploreViewIndexDto todayResult = baseMapper.selectToday(dwId);
+        String tableName = getTableNameMetaQuality(dwId);
+        MetExploreViewIndexDto totalResult = baseMapper.selectTotal(tableName);
+        MetExploreViewIndexDto todayResult = baseMapper.selectToday(tableName);
 
         MetExploreViewIndexDto metExploreViewIndexDto = new MetExploreViewIndexDto();
         metExploreViewIndexDto.setTotalRows(totalResult.getTotalRows());
@@ -57,8 +73,8 @@ public class MetExploreTaskServiceImpl extends ServiceImpl<MetExploreTaskMapper,
 
     //探查概览(折线图)
     @Override
-    public List<MetExploreViewHistoryDto> getViewHistory(Integer limit,Integer dwId) {
-        List<MetExploreViewHistoryDto>  result = baseMapper.selectHistory(limit,dwId);
-        return result;
+    public List<MetExploreViewHistoryDto> getViewHistory(Integer limit, Integer dwId) {
+        String tableName = getTableNameMetaQuality(dwId);
+        return baseMapper.selectHistory(limit, tableName);
     }
 }
