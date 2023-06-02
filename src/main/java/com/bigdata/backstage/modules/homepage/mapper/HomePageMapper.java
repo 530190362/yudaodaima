@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2023-02-06
  */
 @Repository
-public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutline> {
+public interface HomePageMapper extends BaseMapper {
 
     /**
      * 首页概览-数据统计
@@ -37,7 +37,7 @@ public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutl
      * @param days
      * @return
      */
-    List<DataChangeVo> getDataChangeNum(@Param("days") Integer days, @Param("tableName") String tableName);
+    List<DataChangeVo> getDataChangeCount(@Param("days") Integer days, @Param("tableName") String tableName);
 
     /**
      * 数据资产（占用空间）变化
@@ -48,17 +48,13 @@ public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutl
     List<DataChangeVo> getDataChangeSize(@Param("days") Integer days, @Param("tableName") String tableName);
 
 
-
     /**
      * 数据榜单-占用空间
      *
      * @return
      */
-    List<DataSizeTop> getDataSizeTop(@Param("dwId") Integer dwId);
+    List<DataSizeTop> getDataSizeTop(@Param("tableName") String tableName);
 
-    List<DataSizeTop> getDataSizeTopGfdn();
-
-    List<DataSizeTop> getDataSizeTopQygc();
 
     /**
      * 数据榜单-总记录数
@@ -67,33 +63,25 @@ public interface ViewMetDetailOutlineMapper extends BaseMapper<ViewMetDetailOutl
      */
     List<DataCountTop> getDataCountTop(@Param("tableName") String tableName);
 
-    List<DataCountTop> getDataCountTopGfdn();
-
-    List<DataCountTop> getDataCountTopQygc();
 
     /**
      * 数据榜单-最近新增
      *
      * @return
      */
-    List<DataCountTop> getDataNewTop(@Param("dwId") Integer dwId);
-    List<DataCountTop> getDataNewTopGfdn();
-    List<DataCountTop> getDataNewTopQygc();
+    List<DataCountTop> getDataNewTop(@Param("tableName") String tableName);
+
 
     /**
      * 数据榜单-新增记录数
      *
      * @return
      */
-    List<DataCountTop> getDataNewRowTop(@Param("dwId") Integer dwId);
+    List<DataCountTop> getDataNewRowTop(@Param("tableName") String tableName);
 
-    List<DataCountTop> getDataNewRowTopGfdn();
-
-    List<DataCountTop> getDataNewRowTopQygc();
 
     List<DataFiledVo> queryDataField(@Param("tblName") String tblName,
                                      @Param("dwId") Integer dwId);
-
 
 
 }

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigdata.backstage.modules.common.mapper.HomePageMapper">
+
+    <!-- 通用查询映射结果 -->
+
+    <!--数据概览-->
+    <select id="getOverview" resultType="com.bigdata.backstage.modules.homepage.vo.DataOverviewVo">
+        SELECT COUNT(tbl_name)                as totalTbl,
+               ROUND(SUM(tbl_size) / 1024, 2) as totalSize,
+               SUM(tbl_col_num)               as colCount,
+               SUM(all_row_count)             as rowCount
+        FROM (SELECT tbl_name,
+                     tbl_size,
+                     tbl_col_num,
+                     all_row_count
+              FROM ${tableName}
+              WHERE dt = (SELECT max(dt) as dt FROM ${tableName})
+              GROUP BY tbl_name,
+                       tbl_size,
+                       tbl_col_num,
+                       all_row_count) t1
+    </select>
+
+
+    <!--数据变化记录数-->
+    <select id="getDataChangeCount" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
+        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as `date`,
+               round(sum(num), 2)                                 as dataNum
+        from (select dt,
+                     all_row_count as num
+              from ${tableName}
+              group by dt,
+                       tbl_name,
+                       all_row_count) t
+        group by dt
+        order by dt asc
+        limit #{days}
+    </select>
+
+
+    <!--数据变化占用空间-->
+    <select id="getDataChangeSize" resultType="com.bigdata.backstage.modules.homepage.vo.DataChangeVo">
+        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as `date`,
+               round(sum(num) / 1024, 2)                          as dataNum
+        from (select dt,
+                     tbl_size as num
+              from ${tableName}
+              group by dt,
+                       tbl_name,
+                       tbl_size) t
+        group by dt
+        order by dt asc
+        limit #{days}
+    </select>
+
+
+    <!--数据榜单空间占用-->
+    <select id="getDataSizeTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataSizeTop">
+        SELECT tbl_name                  as tblName,
+               round(tbl_size / 1024, 2) as tblSize,
+               tbl_comment               as tblComment
+        FROM ${tableName}
+        WHERE dt = (SELECT max(dt) FROM ${tableName})
+        GROUP BY tbl_name,
+                 tbl_comment,
+                 tbl_size
+        ORDER BY CAST(tbl_size AS DECIMAL) DESC
+        LIMIT 10
+    </select>
+
+
+    <!--数据榜单记录数-->
+    <select id="getDataCountTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
+        SELECT tbl_name             as tblName,
+               round(all_row_count) as tblCount,
+               tbl_comment          as tblComment
+        FROM ${tableName}
+        WHERE dt = (SELECT max(dt) FROM ${tableName})
+        GROUP BY tbl_name,
+                 tbl_comment,
+                 all_row_count
+        ORDER BY CAST(all_row_count AS DECIMAL) DESC
+        LIMIT 10
+    </select>
+
+
+    <!--数据榜单最近新增-->
+    <select id="getDataNewTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
+        SELECT tbl_name        as tblName,
+               tbl_create_time as createTime,
+               tbl_comment     as tblComment
+        FROM ${tableName}
+        WHERE dt = (SELECT max(dt) FROM ${tableName})
+        GROUP BY tbl_name,
+                 tbl_comment,
+                 tbl_col_num,
+                 tbl_create_time
+        ORDER BY tbl_create_time DESC
+        LIMIT 10
+    </select>
+
+
+    <!--数据榜单新增记录数-->
+    <select id="getDataNewRowTop" resultType="com.bigdata.backstage.modules.homepage.vo.DataCountTop">
+        select a.tblName                 as tblName,
+               a.tblComment              as tblComment,
+               (a.tblCount - b.tblCount) as tblCount
+        from (SELECT tbl_name             as tblName,
+                     round(all_row_count) as tblCount,
+                     tbl_comment          as tblComment
+              FROM ${tableName}
+              WHERE dt = (select max(dt) from ${tableName})
+              GROUP BY tbl_name,
+                       tbl_comment,
+                       all_row_count) a
+                 LEFT JOIN
+             (SELECT tbl_name             as tblName,
+                     round(all_row_count) as tblCount,
+                     tbl_comment          as tblComment
+              FROM ${tableName}
+              WHERE dt = (SELECT dt
+                          FROM ${tableName}
+                          GROUP BY dt
+                          ORDER BY dt DESC
+                          limit 1,1)
+              GROUP BY tbl_name,
+                       tbl_comment,
+                       all_row_count) b
+             on
+                 a.tblName = b.tblName
+        order by a.tblCount - b.tblCount desc
+        limit 10
+    </select>
+
+
+    <!--根据表名查询字段-->
+    <select id="queryDataField" resultType="com.bigdata.backstage.modules.dataasset.vo.DataFiledVo">
+        SELECT col_name    as colName,
+               col_type    as colType,
+               col_comment as colComment
+        FROM met_data_column
+        WHERE tbl_name = #{tblName}
+          and dw_id = #{dwId}
+        group by col_name,
+                 col_type,
+                 col_comment
+    </select>
+
+
+</mapper>

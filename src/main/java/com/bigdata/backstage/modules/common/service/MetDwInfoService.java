@@ -2,6 +2,7 @@ package com.bigdata.backstage.modules.common.service;
 
 import com.bigdata.backstage.modules.common.model.MetDwInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bigdata.backstage.modules.common.model.MetDwTableMapInfo;
 
 /**
  * <p>
@@ -13,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface MetDwInfoService extends IService<MetDwInfo> {
 
+    MetDwInfo getDwInfo(String dwNameEn);
+
+    MetDwTableMapInfo getDwMapInfo(int dwId);
 }

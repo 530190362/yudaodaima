@@ -56,5 +56,4 @@ public class MetDataOverviewLabelRelation implements Serializable {
     @JsonIgnore
     private Integer isDelete;
 
-
 }

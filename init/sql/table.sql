@@ -2,7 +2,7 @@ drop table if exists met_dw_table_map_info;
 CREATE TABLE `met_dw_table_map_info`
 (
     `id`                             int unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-    `dw_name`                        varchar(50) NOT NULL COMMENT '数仓名称',
+    `dw_id`                        int NOT NULL COMMENT '数仓ID PK:met_dw_info:id',
     `map_meta_detail_outline`        varchar(50) NOT NULL COMMENT '映射元数据明细表表名',
     `map_meta_blood_relation_detail` varchar(50) NOT NULL COMMENT '映射元数据血缘表表名',
     `map_meta_quality`               varchar(50) NOT NULL COMMENT '映射元数据质量表表名',

@@ -29,4 +29,3 @@ logging:
   level:
     root: info
     com.bigdata.backstage: debug
-

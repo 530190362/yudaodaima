@@ -5,6 +5,7 @@ import com.bigdata.backstage.modules.homepage.enums.DataChangeTypeEnum;
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
 import com.bigdata.backstage.modules.homepage.service.HomePageService;
 import com.bigdata.backstage.modules.homepage.vo.DataCountTop;
+import com.bigdata.backstage.modules.homepage.vo.DataOverviewVo;
 import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,8 @@ public class HomePageController {
     @ApiOperation(value = "数据资产概览")
     @GetMapping("dataoverview/{dwId}")
     @ResponseBody
-    public CommonResult<Map<String, Object>> getDataOverview(@PathVariable Integer dwId) {
-        System.out.println(dwId);
-        Map<String, Object> data = homePageService.getDataOverview(dwId);
+    public CommonResult getDataOverview(@PathVariable Integer dwId) {
+        DataOverviewVo data = homePageService.getDataOverview(dwId);
         return CommonResult.success(data);
     }
 
@@ -46,9 +46,9 @@ public class HomePageController {
     ) {
         List<DataChangeVo> dataChangeVo = new ArrayList<>();
         if (DataChangeTypeEnum.TOTAL_COUNT.getKey().equals(type)) {
-            dataChangeVo = homePageService.queryDataChangeCount(days,dwId);
+            dataChangeVo = homePageService.getDataChangeCount(days,dwId);
         } else {
-            dataChangeVo = homePageService.queryDataChangeSize(days,dwId);
+            dataChangeVo = homePageService.getDataChangeSize(days,dwId);
         }
         return CommonResult.success(dataChangeVo);
     }

@@ -58,6 +58,4 @@ public class MetDataColumn implements Serializable {
     @TableLogic
     @JsonIgnore
     private Boolean isDeleted;
-
-
 }

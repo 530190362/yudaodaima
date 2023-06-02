@@ -4,43 +4,42 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
- * <p>
- * 数仓主表
- * </p>
- *
- * @author macro
- * @since 2023-02-08
+ * @author zhj666
+ * @description: MetDwTableMapInfo ORM
+ * @date 2023/6/1 10:53
  */
 @Getter
 @Setter
-@TableName("met_dw_info")
-@ApiModel(value = "MetDwInfo对象", description = "数仓主表")
-public class MetDwInfo implements Serializable {
-
+@TableName("met_dw_table_map_info")
+@ApiModel(value = "MetDwTableMapInfo对象", description = "数仓表映射表")
+public class MetDwTableMapInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("自增主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("数仓名称(英文)")
-    private String dwNameEn;
+    @ApiModelProperty("数仓ID")
+    private String dwId;
 
-    @ApiModelProperty("数仓名称(中文)")
-    private String dwNameZn;
+    @ApiModelProperty("映射元数据明细表表名")
+    private String mapMetaDetailOutline;
 
-    @ApiModelProperty("数仓描述")
-    private String dwDesc;
+    @ApiModelProperty("映射元数据血缘表表名")
+    private String mapMetaBloodRelationDetail;
+
+    @ApiModelProperty("映射元数据质量表表名")
+    private String mapMetaQuality;
 
     @ApiModelProperty("创建时间")
     private Date createTime;
@@ -52,5 +51,4 @@ public class MetDwInfo implements Serializable {
     @TableLogic
     @JsonIgnore
     private Boolean isDeleted;
-
 }

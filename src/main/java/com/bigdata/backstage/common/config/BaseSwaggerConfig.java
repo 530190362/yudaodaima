@@ -57,21 +57,6 @@ public abstract class BaseSwaggerConfig {
         return docket;
     }
 
-    @Bean
-    public Docket restApi2() {
-        SwaggerProperties swaggerProperties = swaggerProperties();
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("团队资产模块(临时)")
-                .apiInfo(apiInfo(swaggerProperties))
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.ass"))
-                .paths(PathSelectors.any())
-                .build();
-        if (swaggerProperties.isEnableSecurity()) {
-            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
-        }
-        return docket;
-    }
 
     @Bean
     public Docket restApi3() {
@@ -112,23 +97,6 @@ public abstract class BaseSwaggerConfig {
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.homepage"))
-                .paths(PathSelectors.any())
-                .build();
-        if (swaggerProperties.isEnableSecurity()) {
-            docket.securitySchemes(securitySchemes()).securityContexts(securityContexts());
-        }
-        return docket;
-    }
-
-
-    @Bean
-    public Docket restApi6() {
-        SwaggerProperties swaggerProperties = swaggerProperties();
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .groupName("数仓运维平台模块-数据资产")
-                .apiInfo(apiInfo(swaggerProperties))
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.bigdata.backstage.modules.dataasset"))
                 .paths(PathSelectors.any())
                 .build();
         if (swaggerProperties.isEnableSecurity()) {

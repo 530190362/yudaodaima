@@ -3,6 +3,7 @@ package com.bigdata.backstage.modules.homepage.service;
 
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
 import com.bigdata.backstage.modules.homepage.vo.DataCountTop;
+import com.bigdata.backstage.modules.homepage.vo.DataOverviewVo;
 import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 
 import java.util.List;
@@ -22,21 +23,21 @@ public interface HomePageService {
      * 首页概览-数据统计
      * @return
      */
-    Map<String, Object> getDataOverview(Integer dwId);
+    DataOverviewVo getDataOverview(Integer dwId);
 
     /**
      * 数据资产（记录数）变化
      * @param days
      * @return
      */
-    List<DataChangeVo> queryDataChangeCount(Integer days,Integer dwId);
+    List<DataChangeVo> getDataChangeCount(Integer days, Integer dwId);
 
     /**
      * 数据资产（占用空间）变化
      * @param days
      * @return
      */
-    List<DataChangeVo> queryDataChangeSize(Integer days,Integer dwId);
+    List<DataChangeVo> getDataChangeSize(Integer days, Integer dwId);
 
     /**
      * 数据榜单-占用空间

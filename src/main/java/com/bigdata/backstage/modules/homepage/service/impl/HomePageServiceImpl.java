@@ -1,7 +1,10 @@
 package com.bigdata.backstage.modules.homepage.service.impl;
 
 import com.bigdata.backstage.common.exception.Asserts;
+import com.bigdata.backstage.modules.common.mapper.HomePageMapper;
 import com.bigdata.backstage.modules.common.mapper.ViewMetDetailOutlineMapper;
+import com.bigdata.backstage.modules.common.model.MetDwTableMapInfo;
+import com.bigdata.backstage.modules.common.service.MetDwInfoService;
 import com.bigdata.backstage.modules.homepage.enums.DataChangeDaysEnum;
 import com.bigdata.backstage.modules.homepage.service.HomePageService;
 import com.bigdata.backstage.modules.homepage.vo.DataChangeVo;
@@ -11,9 +14,7 @@ import com.bigdata.backstage.modules.homepage.vo.DataSizeTop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
+import java.util.List;
 
 /**
  * <p>
@@ -26,122 +27,83 @@ import java.util.*;
 @Service
 public class HomePageServiceImpl implements HomePageService {
 
+
     @Autowired
-    private ViewMetDetailOutlineMapper metDetailOutlineMapper;
+    private HomePageMapper homePageMapper;
+    @Autowired
+    private MetDwInfoService metDwInfoService;
+
+
+    // 获取数仓的映射名
+    public String getTableNameMetaDetailOutline(Integer dwId) {
+        MetDwTableMapInfo dwMapInfo = metDwInfoService.getDwMapInfo(dwId);
+        // 获取需要查询的表名
+        return dwMapInfo.getMapMetaDetailOutline();
+    }
+
 
     @Override
-    public Map<String, Object> getDataOverview(Integer dwId) {
-        DataOverviewVo overview = null;
-        if (dwId == 1) {
-            overview = metDetailOutlineMapper.getOverviewGfdn();
-        } else if (dwId == 2) {
-            overview = metDetailOutlineMapper.getOverviewQygc();
-        } else {
-            Asserts.fail("数仓id错误");
-        }
+    public DataOverviewVo getDataOverview(Integer dwId) {
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getOverview(tableName);
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        if (overview != null) {
-            map.put("totalTbl", overview.getTotalTblCount());
-            map.put("totalSize", overview.getTotalTblSize().divide(BigDecimal.valueOf(1024), 2, RoundingMode.UP));
-            map.put("colCount", overview.getTotalTblCol());
-            map.put("rowCount", overview.getTotalTblRow());
-            return map;
-        }
-        return null;
     }
 
     @Override
-    public List<DataChangeVo> queryDataChangeCount(Integer days, Integer dwId) {
-        List<DataChangeVo> changeVoist = new ArrayList<>();
+    public List<DataChangeVo> getDataChangeCount(Integer days, Integer dwId) {
+
         Integer resultDays = null;
         if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)) {
             resultDays = DataChangeDaysEnum.SEVEN_DAYS.getValue();
         } else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
             resultDays = DataChangeDaysEnum.FIFTEEN_DAYS.getValue();
         }
-        if (dwId == 1) {
-            changeVoist = metDetailOutlineMapper.getDataChangeNumGfdn(resultDays);
-        } else if (dwId == 2) {
-            changeVoist = metDetailOutlineMapper.getDataChangeNumQygc(resultDays);
-        } else {
-            Asserts.fail("数仓id错误");
-        }
-        return changeVoist;
+
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getDataChangeCount(resultDays, tableName);
+
     }
 
     @Override
-    public List<DataChangeVo> queryDataChangeSize(Integer days, Integer dwId) {
-        List<DataChangeVo> changeVoist = new ArrayList<>();
+    public List<DataChangeVo> getDataChangeSize(Integer days, Integer dwId) {
         Integer resultDays = null;
         if (DataChangeDaysEnum.SEVEN_DAYS.getKey().equals(days)) {
             resultDays = DataChangeDaysEnum.SEVEN_DAYS.getValue();
         } else if (DataChangeDaysEnum.FIFTEEN_DAYS.getKey().equals(days)) {
             resultDays = DataChangeDaysEnum.FIFTEEN_DAYS.getValue();
         }
-        if (dwId == 1) {
-            changeVoist = metDetailOutlineMapper.getDataChangeSizeGfdn(resultDays);
-        } else if (dwId == 2) {
-            changeVoist = metDetailOutlineMapper.getDataChangeSizeQygc(resultDays);
-        } else {
-            Asserts.fail("数仓id错误");
-        }
 
-        return changeVoist;
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getDataChangeSize(resultDays, tableName);
+
+
     }
 
     @Override
     public List<DataSizeTop> getDataSizeTop(Integer dwId) {
-        List<DataSizeTop> dataSizeTop = null;
-        if (dwId == 1) {
-            dataSizeTop = metDetailOutlineMapper.getDataSizeTopGfdn();
-        } else if (dwId == 2) {
-            dataSizeTop = metDetailOutlineMapper.getDataSizeTopQygc();
-        } else {
-            Asserts.fail("数仓id错误");
-        }
-        return dataSizeTop;
-
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getDataSizeTop(tableName);
     }
+
 
     @Override
     public List<DataCountTop> getDataCountTop(Integer dwId) {
-        List<DataCountTop> dataCountTop = null;
-        if (dwId == 1) {
-            dataCountTop = metDetailOutlineMapper.getDataCountTopGfdn();
-        } else if (dwId == 2) {
-            dataCountTop = metDetailOutlineMapper.getDataCountTopQygc();
-        } else {
-            Asserts.fail("数仓id错误");
-        }
-        return dataCountTop;
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getDataCountTop(tableName);
+
 
     }
 
     @Override
     public List<DataCountTop> getDataNewTop(Integer dwId) {
-        List<DataCountTop> dataNewTop = null;
-        if (dwId == 1) {
-            dataNewTop = metDetailOutlineMapper.getDataNewTopGfdn();
-        } else if (dwId == 2) {
-            dataNewTop = metDetailOutlineMapper.getDataNewTopQygc();
-        } else {
-            Asserts.fail("数仓id错误");
-        }
-        return dataNewTop;
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getDataNewTop(tableName);
     }
 
     @Override
     public List<DataCountTop> getDataNewRowTop(Integer dwId) {
+        String tableName = getTableNameMetaDetailOutline(dwId);
+        return homePageMapper.getDataNewRowTop(tableName);
 
-        List<DataCountTop> dataNewRowTop = null;
-        if (dwId == 1) {
-            dataNewRowTop = metDetailOutlineMapper.getDataNewRowTopGfdn();
-        } else if (dwId == 2) {
-            dataNewRowTop = metDetailOutlineMapper.getDataNewRowTopQygc();
-        } else {
-            Asserts.fail("数仓id错误");
-        }
-        return dataNewRowTop;
     }
 }
