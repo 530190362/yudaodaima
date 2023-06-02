@@ -55,12 +55,13 @@ public class MetDataTableServiceImpl extends ServiceImpl<MetDataTableMapper, Met
         List<MetDwInfo> metDwInfos = metDwInfoMapper.selectList(null);
         for (MetDwInfo metDwInfo : metDwInfos) {
             Integer dwId = metDwInfo.getId();
-            System.out.println(dwId);
-            baseMapper.syncTableInsert(dwId);
-            baseMapper.syncTableUpdate(dwId);
-//            baseMapper.syncTableDelete(dwId);
+            String tableName = getTableNameMetaDetailOutline(dwId);
+            System.out.println("同步表 : " + tableName);
+            baseMapper.syncTableInsert(dwId, tableName);
+            baseMapper.syncTableUpdate(dwId, tableName);
+//            baseMapper.syncTableDelete(dwId, tableName);
+//            baseMapper.syncTableRecover(dwId, tableName);
         }
-
     }
 
     //查看表是否存在

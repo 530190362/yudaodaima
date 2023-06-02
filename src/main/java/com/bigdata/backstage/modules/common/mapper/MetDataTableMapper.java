@@ -20,18 +20,16 @@ public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
 
 
     //数据写入
-    void syncTableInsert(@Param("dwId") Integer dwId);
-
+    void syncTableInsert(@Param("dwId") Integer dwId,@Param("tableName") String tableName);
 
     //数据更新
-    void syncTableUpdate(@Param("dwId") Integer dwId);
-
+    void syncTableUpdate(@Param("dwId") Integer dwId,@Param("tableName") String tableName);
 
     //数据删除(逻辑删除)
-    void syncTableDelete(@Param("dwId") Integer dwId);
+    void syncTableDelete(@Param("dwId") Integer dwId,@Param("tableName") String tableName);
 
     //数据恢复(逻辑恢复)
-    void syncColumnRecover(@Param("dwId") Integer dwId);
+    void syncTableRecover(@Param("dwId") Integer dwId,@Param("tableName") String tableName);
 
 
     DataSourceTotalDto selectOdsIndex(@Param("tableName") String tableName);
@@ -39,9 +37,6 @@ public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
 
     List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit,
                                                 @Param("tableName") String tableName);
-
-
-
 
 
 }

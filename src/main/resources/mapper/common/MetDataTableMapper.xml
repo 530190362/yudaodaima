@@ -31,7 +31,7 @@
 
     <resultMap id="sourceTotalHistoryMap" type="com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto">
         <id column="date" property="date"/>
-        <id column="ods" property="ods"/>
+        <result column="ods" property="ods"/>
         <result column="irs" property="irs"/>
         <result column="bms" property="bms"/>
     </resultMap>
@@ -58,16 +58,56 @@
                tbl_col_num,
                all_row_count,
                row_count
-        from view_met_data_table t2
-        where t2.dw_Id = #{dwId}
-          and not exists(select 1 from met_data_table t1 where t1.dw_id = #{dwId} and t1.tbl_name = t2.tbl_name)
+        from (select tbl_level,
+                     index1_name,
+                     index2_name,
+                     index3_name,
+                     tbl_name,
+                     tbl_comment,
+                     tbl_create_time,
+                     tbl_update_time,
+                     is_pt,
+                     pt_last,
+                     tbl_lifecycle,
+                     tbl_type,
+                     tbl_size,
+                     tbl_col_num,
+                     all_row_count,
+                     row_count
+              from ${tableName}
+              where dt = (select max(dt) from ${tableName})
+              group by tbl_level, index1_name, index2_name, index3_name, tbl_name, tbl_comment, tbl_create_time,
+                       tbl_update_time, is_pt, pt_last, tbl_lifecycle, tbl_type, tbl_size, tbl_col_num, all_row_count,
+                       row_count) t2
+        where not exists(select 1 from met_data_table t1 where t1.dw_id = #{dwId} and t1.tbl_name = t2.tbl_name)
 
     </insert>
 
     <update id="syncTableUpdate">
-
         update met_data_table t1
-            inner join view_met_data_table t2 on t1.tbl_name = t2.tbl_name
+            inner join (select tbl_level,
+                               index1_name,
+                               index2_name,
+                               index3_name,
+                               tbl_name,
+                               tbl_comment,
+                               tbl_create_time,
+                               tbl_update_time,
+                               is_pt,
+                               pt_last,
+                               tbl_lifecycle,
+                               tbl_type,
+                               tbl_size,
+                               tbl_col_num,
+                               all_row_count,
+                               row_count
+                        from ${tableName}
+                        where dt = (select max(dt) from ${tableName})
+                        group by tbl_level, index1_name, index2_name, index3_name, tbl_name, tbl_comment,
+                                 tbl_create_time,
+                                 tbl_update_time, is_pt, pt_last, tbl_lifecycle, tbl_type, tbl_size, tbl_col_num,
+                                 all_row_count,
+                                 row_count) t2 on t1.tbl_name = t2.tbl_name
         set t1.tbl_level       =t2.tbl_level,
             t1.index1_name     =t2.index1_name,
             t1.index2_name     =t2.index2_name,
@@ -85,23 +125,26 @@
             t1.all_row_count   =t2.all_row_count,
             t1.row_count       =t2.row_count
         where t1.dw_Id = #{dwId}
-          and t2.dw_id = #{dwId}
     </update>
 
     <update id="syncTableDelete">
-
         UPDATE met_data_table t1
         SET is_deleted = 1
         WHERE t1.dw_id = #{dwId}
-          and t1.tbl_name not in (select t2.tbl_name from view_met_data_table t2 where t2.dw_Id = #{dwId})
+          and t1.tbl_name not in (select tbl_name
+                                  from ${tableName}
+                                  WHERE dt = (select max(dt) from ${tableName})
+                                  GROUP BY tbl_name)
     </update>
 
-    <update id="syncColumnRecover">
+    <update id="syncTableRecover">
         UPDATE met_data_table t1
         SET is_deleted = 0
         WHERE t1.dw_id = #{dwId}
-          and t1.tbl_name in (select t2.tbl_name from view_met_data_table t2 where t2.dw_Id = #{dwId})
-          and t1.is_deleted = 1;
+          and t1.tbl_name in (select tbl_name
+                              from ${tableName}
+                              WHERE dt = (select max(dt) from ${tableName})
+                              GROUP BY tbl_name)
 
     </update>
 
@@ -118,10 +161,10 @@
     </select>
 
     <select id="selectOdsHistory" resultType="com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto">
-        SELECT DATE_FORMAT(STR_TO_DATE(dt, '%Y%m%d'), '%Y-%m-%d') AS date,
-               COUNT(*)                                           AS ods,
-               SUM(IF(tbl_name REGEXP '_irs_', 1, 0))             AS irs,
-               SUM(IF(tbl_name REGEXP '_bms_|_mysql_|_pr_|_ofl_|_farmer_|_global_|_hh_|hp_|_mz_|_xx_', 1, 0))  AS bms
+        SELECT DATE_FORMAT(STR_TO_DATE(dt, '%Y%m%d'), '%Y-%m-%d')                                             AS date,
+               COUNT(*)                                                                                       AS ods,
+               SUM(IF(tbl_name REGEXP '_irs_', 1, 0))                                                         AS irs,
+               SUM(IF(tbl_name REGEXP '_bms_|_mysql_|_pr_|_ofl_|_farmer_|_global_|_hh_|hp_|_mz_|_xx_', 1, 0)) AS bms
         FROM (SELECT dt, tbl_name
               FROM ${tableName}
               WHERE tbl_level = 'ods'
