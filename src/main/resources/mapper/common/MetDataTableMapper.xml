@@ -106,75 +106,30 @@
     </update>
 
 
-    <select id="selectOdsIndexGfdn" resultMap="sourceTotalMap">
+    <select id="selectOdsIndex" resultMap="sourceTotalMap">
         select count(*)                       as tables,
                round(sum(tbl_size) / 1024, 2) as size,
-               sum(row_count)                 as rows
+               sum(row_count)                 as `rows`
         from (SELECT tbl_name, tbl_size, row_count
-              from view_dim_gfdn_meta_detail_outline
-              where dt = (select max(dt) from view_dim_gfdn_meta_detail_outline)
+              from ${tableName}
+              where dt = (select max(dt) from ${tableName})
                 and tbl_level = 'ods'
               GROUP BY tbl_name, tbl_size, row_count) t
     </select>
 
-    <select id="selectOdsIndexQygc" resultMap="sourceTotalMap">
-        select count(*)                       as tables,
-               round(sum(tbl_size) / 1024, 2) as size,
-               sum(row_count)                 as rows
-        from (SELECT tbl_name, tbl_size, row_count
-              from view_dim_qygc_meta_detail_outline
-              where dt = (select max(dt) from view_dim_qygc_meta_detail_outline)
-                and tbl_level = 'ods'
-              GROUP BY tbl_name, tbl_size, row_count) t
-    </select>
+    <select id="selectOdsHistory" resultType="com.bigdata.backstage.modules.source.dto.DataSourceHistoryDto">
+        SELECT DATE_FORMAT(STR_TO_DATE(dt, '%Y%m%d'), '%Y-%m-%d') AS date,
+               COUNT(*)                                           AS ods,
+               SUM(IF(tbl_name REGEXP '_irs_', 1, 0))             AS irs,
+               SUM(IF(tbl_name REGEXP '_bms_|_mysql_|_pr_|_ofl_|_farmer_|_global_|_hh_|hp_|_mz_|_xx_', 1, 0))  AS bms
+        FROM (SELECT dt, tbl_name
+              FROM ${tableName}
+              WHERE tbl_level = 'ods'
+              GROUP BY dt, tbl_name) t1
+        GROUP BY dt
+        ORDER BY dt
+        LIMIT #{limit};
 
-    <select id="selectOdsHistory" resultMap="sourceTotalHistoryMap">
-        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
-             , count(*)                                           as ods
-             , sum(is_irs)                                        as irs
-             , sum(is_bms)                                        as bms
-        from (select dt,
-            if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
-            if(locate('_bms_', tbl_name) > 0 or locate('_mysql_', tbl_name) > 0, 1, 0) as is_bms
-            from view_met_detail_outline
-            where tbl_level = 'ods'
-            and dw_id = #{dwId}
-            group by dt, tbl_name) t1
-        group by dt
-        order by dt
-            limit #{limit};
-    </select>
-
-    <select id="selectOdsHistoryGfdn" resultMap="sourceTotalHistoryMap">
-        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
-             , count(*)                                           as ods
-             , sum(is_irs)                                        as irs
-             , sum(is_bms)                                        as bms
-        from (select dt,
-                     if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
-                     if(locate('ods_farmer_', tbl_name) > 0 or locate('_mysql_', tbl_name) > 0 or locate('ods_global_', tbl_name) > 0 or locate('ods_hh_', tbl_name) > 0 or locate('ods_hp_', tbl_name) > 0 or locate('ods_mz_', tbl_name) > 0 or locate('ods_xx_', tbl_name) > 0, 1, 0) as is_bms
-              from view_dim_gfdn_meta_detail_outline
-              where tbl_level = 'ods'
-              group by dt, tbl_name) t1
-        group by dt
-        order by dt
-        limit #{limit};
-    </select>
-
-    <select id="selectOdsHistoryQygc" resultMap="sourceTotalHistoryMap">
-        select date_format(str_to_date(dt, '%Y%m%d'), '%Y-%m-%d') as date
-             , count(*)                                           as ods
-             , sum(is_irs)                                        as irs
-             , sum(is_bms)                                        as bms
-        from (select dt,
-                     if(locate('_irs_', tbl_name) > 0, 1, 0) as is_irs,
-                     if(locate('_bms_', tbl_name) > 0 or locate('_mysql_', tbl_name) > 0, 1, 0) as is_bms
-              from view_dim_qygc_meta_detail_outline
-              where tbl_level = 'ods'
-              group by dt, tbl_name) t1
-        group by dt
-        order by dt
-        limit #{limit};
     </select>
 
 </mapper>

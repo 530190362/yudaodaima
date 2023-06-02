@@ -33,18 +33,15 @@ public interface MetDataTableMapper extends MPJBaseMapper<MetDataTable> {
     //数据恢复(逻辑恢复)
     void syncColumnRecover(@Param("dwId") Integer dwId);
 
-    // //数据集成-3个指标
-    DataSourceTotalDto selectOdsIndexGfdn();
 
-    DataSourceTotalDto selectOdsIndexQygc();
+    DataSourceTotalDto selectOdsIndex(@Param("tableName") String tableName);
 
 
     List<DataSourceHistoryDto> selectOdsHistory(@Param("limit") Integer limit,
-                                                @Param("dwId") Integer dwId);
+                                                @Param("tableName") String tableName);
 
-    List<DataSourceHistoryDto> selectOdsHistoryGfdn(@Param("limit") Integer limit
-    );
 
-    List<DataSourceHistoryDto> selectOdsHistoryQygc(@Param("limit") Integer limit
-    );
+
+
+
 }

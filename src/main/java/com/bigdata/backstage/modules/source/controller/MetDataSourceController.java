@@ -54,7 +54,6 @@ public class MetDataSourceController {
     @GetMapping("/total/{dwId}")
     public CommonResult odsTotalIndex(@PathVariable Integer dwId) {
         DataSourceTotalDto dataSourceTotalDto = metDataTableService.selectOdsTable(dwId);
-        System.out.println(dataSourceTotalDto);
         return CommonResult.success(dataSourceTotalDto);
     }
 

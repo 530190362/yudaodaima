@@ -28,5 +28,5 @@ public class DataOverviewVo {
     /**
      * 数据总记录数
      */
-    private Integer rowCount;
+    private Long rowCount;
 }
